@@ -43,14 +43,14 @@ export default function MainLayout({
           <div className="relative flex flex-col border border-dashed">
             <Navbar />
 
-            <div className="flex">
-              <div className="w-[15%] h-[90vh] bg-red-500 "></div>
+            <div className="flex overflow-hidden">
+              <div className="w-[15%] h-[90vh] bg-default-300/50 rounded-lg "></div>
               <ScrollShadow
                 // hideScrollBar
                 offset={0}
                 // ScrollShadowVisibility="none"
                 isEnabled={false}
-                className="ml-auto w-[85%] h-screen overflow-scroll"
+                className="ml-auto w-[85%] h-screen "
               >
                 {children}
                 <div className="h-[500vh] w-full bg-purple-500"></div>
