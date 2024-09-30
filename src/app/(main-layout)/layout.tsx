@@ -1,12 +1,12 @@
-import "@/src/styles/globals.css";
-import clsx from "clsx";
-import { Metadata, Viewport } from "next";
-
+import SideMenu from "@/src/components/Shared/CommonSideMenu/SideMenu";
 import Footer from "@/src/components/Shared/Footer/Footer";
 import { Navbar } from "@/src/components/Shared/navbar";
 import { fontSans } from "@/src/config/fonts";
 import { siteConfig } from "@/src/config/site";
+import "@/src/styles/globals.css";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
+import clsx from "clsx";
+import { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: {
@@ -40,21 +40,19 @@ export default function MainLayout({
         )}
       >
         <>
-          <div className="relative flex flex-col border border-dashed">
+          <div className="relative flex flex-col ">
             <Navbar />
 
             <div className="flex overflow-hidden">
-              <div className="w-[15%] h-[90vh] bg-default-300/50 rounded-lg "></div>
+              <SideMenu />
               <ScrollShadow
-                // hideScrollBar
+                hideScrollBar
                 offset={0}
                 // ScrollShadowVisibility="none"
                 isEnabled={false}
                 className="ml-auto w-[85%] h-screen "
               >
                 {children}
-                <div className="h-[500vh] w-full bg-purple-500"></div>
-                {/* <Content /> */}
               </ScrollShadow>
             </div>
           </div>

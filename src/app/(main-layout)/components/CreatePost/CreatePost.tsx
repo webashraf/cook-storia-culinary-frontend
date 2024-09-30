@@ -9,7 +9,7 @@ const CreatePost = () => {
   const [value, setValue] = useState("");
 
   return (
-    <div className="max-w-[90%] mx-auto rounded-lg mb-10 bg-default-100 p-5 flex gap-5 justify-center items-center">
+    <div className="max-w-[90%]  mx-auto rounded-lg mb-10 bg-default-100 p-5 flex gap-5 justify-center items-center">
       <Avatar
         isBordered
         radius="sm"
