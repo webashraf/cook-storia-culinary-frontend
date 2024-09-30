@@ -4,9 +4,9 @@ import { Metadata, Viewport } from "next";
 
 import Footer from "@/src/components/Shared/Footer/Footer";
 import { Navbar } from "@/src/components/Shared/navbar";
-import Container from "@/src/components/UI/Container";
 import { fontSans } from "@/src/config/fonts";
 import { siteConfig } from "@/src/config/site";
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
 
 export const metadata: Metadata = {
   title: {
@@ -40,11 +40,23 @@ export default function MainLayout({
         )}
       >
         <>
-          <div className="relative flex flex-col h-screen border border-dashed">
+          <div className="relative flex flex-col border border-dashed">
             <Navbar />
 
-              <>{children}</>
-          
+            <div className="flex">
+              <div className="w-[15%] h-[90vh] bg-red-500 "></div>
+              <ScrollShadow
+                // hideScrollBar
+                offset={0}
+                // ScrollShadowVisibility="none"
+                isEnabled={false}
+                className="ml-auto w-[85%] h-screen overflow-scroll"
+              >
+                {children}
+                <div className="h-[500vh] w-full bg-purple-500"></div>
+                {/* <Content /> */}
+              </ScrollShadow>
+            </div>
           </div>
           <Footer />
         </>

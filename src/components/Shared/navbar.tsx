@@ -74,7 +74,7 @@ export const Navbar = () => {
         className="sm:hidde flex basis-1/5 sm:basis-full"
         justify="end"
       >
-        <NavbarItem className="sm:hidde " >{searchInput}</NavbarItem>
+        <NavbarItem className="sm:hidde ">{searchInput}</NavbarItem>
         <NavbarItem className="sm:hidde flex gap-2">
           <Link
             isExternal
@@ -82,10 +82,10 @@ export const Navbar = () => {
             href={siteConfig.links.twitter}
           ></Link>
           <CSBadge>
-            <AiFillMessage className="text-gray-500" size={16} />
+            <AiFillMessage className="text-default-600" size={16} />
           </CSBadge>
           <CSBadge>
-            <RiNotification3Fill className="text-gray-500" size={16} />
+            <RiNotification3Fill className="text-default-600" size={16} />
           </CSBadge>
 
           <ThemeSwitch />
