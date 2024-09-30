@@ -1,3 +1,4 @@
+import { recipes } from "@/src/constent/recipe.fakeData";
 import PostCard from "./components/PostCard/PostCard";
 import Stories from "./components/Stories/Stories";
 import UserCard from "./components/UserCard/UserCard";
@@ -7,12 +8,11 @@ export default function Home() {
     <section className=" flex ">
       <div className="w-[70%] mx-auto">
         <Stories />
-        <div>
-          <PostCard />
+        <div className="gri grid-cols-2 gap-5 space-y-5">
+          {recipes.map((recipe) => (
+            <PostCard key={recipe.title} recipe={recipe} />
+          ))}
         </div>
-        {/* <CreatePost /> */}
-
-        {/* <Hero /> */}
       </div>
       <div className="w-[20%] ml-auto h-[120vh] bg-default-300/50 space-y-2 px-2 pt-5 mt-5 rounded-lg">
         <UserCard />

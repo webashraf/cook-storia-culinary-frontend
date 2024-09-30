@@ -9,6 +9,7 @@
 		"lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
 	},
 	"dependencies": {
+		"@heroicons/react": "^2.1.5",
 		"@nextui-org/avatar": "^2.0.33",
 		"@nextui-org/badge": "^2.0.32",
 		"@nextui-org/button": "2.0.38",
@@ -22,7 +23,9 @@
 		"@nextui-org/link": "2.0.35",
 		"@nextui-org/listbox": "2.1.27",
 		"@nextui-org/navbar": "^2.0.37",
+		"@nextui-org/radio": "^2.1.5",
 		"@nextui-org/scroll-shadow": "^2.1.20",
+		"@nextui-org/slider": "^2.2.17",
 		"@nextui-org/snippet": "2.0.43",
 		"@nextui-org/switch": "2.0.34",
 		"@nextui-org/system": "2.2.6",
