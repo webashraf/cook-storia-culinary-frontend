@@ -50,14 +50,12 @@ const page = () => {
               <h3 className="text-xl underline ">Filtering</h3>
 
               <div>
+                <h4 className="capitalize">Filter by cooking time</h4>
                 <Slider
-                  label="Select a budget"
-                  formatOptions={{ style: "currency", currency: "USD" }}
-                  step={10}
-                  maxValue={1000}
-                  minValue={0}
-                  value={value}
-                  onChange={setValue}
+                  label="Donuts to buy"
+                  size="md"
+                  maxValue={300}
+                  getValue={(time) => `${time} minutes`}
                   className="max-w-md"
                 />
               </div>

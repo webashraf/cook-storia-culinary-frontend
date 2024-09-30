@@ -7,6 +7,7 @@ import "@/src/styles/globals.css";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import clsx from "clsx";
 import { Metadata, Viewport } from "next";
+import UserCard from "./components/UserCard/UserCard";
 
 export const metadata: Metadata = {
   title: {
@@ -54,6 +55,12 @@ export default function MainLayout({
               >
                 {children}
               </ScrollShadow>
+
+              <div className="w-[20%] ml-auto h-[90vh] bg-default-300/50 space-y-2 px-2 pt-5 mt-5 rounded-lg">
+                <UserCard />
+                <UserCard />
+                <UserCard />
+              </div>
             </div>
           </div>
           <Footer />
