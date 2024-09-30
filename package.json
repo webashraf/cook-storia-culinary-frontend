@@ -9,8 +9,11 @@
 		"lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
 	},
 	"dependencies": {
+		"@nextui-org/avatar": "^2.0.33",
+		"@nextui-org/badge": "^2.0.32",
 		"@nextui-org/button": "2.0.38",
 		"@nextui-org/code": "2.0.33",
+		"@nextui-org/dropdown": "^2.1.31",
 		"@nextui-org/input": "2.2.5",
 		"@nextui-org/kbd": "2.0.34",
 		"@nextui-org/link": "2.0.35",
@@ -20,16 +23,19 @@
 		"@nextui-org/switch": "2.0.34",
 		"@nextui-org/system": "2.2.6",
 		"@nextui-org/theme": "2.2.11",
+		"@nextui-org/user": "^2.0.34",
 		"@react-aria/ssr": "3.9.4",
 		"@react-aria/visually-hidden": "3.8.12",
 		"clsx": "2.1.1",
 		"framer-motion": "~11.1.1",
 		"gsap": "^3.12.5",
 		"intl-messageformat": "^10.5.0",
+		"lucide": "^0.446.0",
 		"next": "14.2.4",
 		"next-themes": "^0.2.1",
 		"react": "18.3.1",
-		"react-dom": "18.3.1"
+		"react-dom": "18.3.1",
+		"react-icons": "^5.3.0"
 	},
 	"devDependencies": {
 		"@types/node": "20.5.7",
