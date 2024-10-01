@@ -1,5 +1,3 @@
-// src/app/contact/page.js
-
 "use client";
 
 import { Button } from "@nextui-org/button";
@@ -26,68 +24,70 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[90vh] p-6  text-gray-900 w-full">
-      <div className="max-w-6xl w-full bg-white shadow-lg rounded-lg p-10 border border-gray-300 flex flex-col md:flex-row">
+    <div className="flex flex-col items-center justify-center min-h-[90vh] p-6 text-white w-full ">
+      <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Contact Information Section */}
-        <div className="md:w-1/2 md:pr-8">
-          <h2 className="text-2xl font-semibold text-indigo-600">
+        <div className="bg-gradient-to-br from-black to-gray-900 shadow-2xl rounded-lg p-8 md:p-10 border border-gray-700">
+          <h2 className="text-2xl lg:text-3xl font-semibold text-white mb-4">
             Customer Support
           </h2>
-          <p className="text-gray-700 mt-4">
+          <p className="text-gray-400 mb-6 text-sm lg:text-base">
             For immediate assistance, you can reach us through any of the
             following channels:
           </p>
-          <p className="text-gray-700">
-            📧 Email:{" "}
-            <a
-              href="mailto:support@example.com"
-              className="text-indigo-500 hover:underline"
-            >
-              support@example.com
-            </a>
-          </p>
-          <p className="text-gray-700">
-            📞 Phone:{" "}
-            <a
-              href="tel:+11234567890"
-              className="text-indigo-500 hover:underline"
-            >
-              +1 (123) 456-7890
-            </a>
-          </p>
-          <p className="text-gray-700">
-            🌐 Live Chat:{" "}
-            <a href="/chat" className="text-indigo-500 hover:underline">
-              Start a Live Chat
-            </a>
-          </p>
-          <p className="text-gray-700 mt-4">
-            💬 Business Hours: Monday to Friday, 9 AM - 5 PM (UTC)
-          </p>
-          <div className="mt-6">
-            <h3 className="text-xl font-semibold">Follow Us:</h3>
-            <div className="flex justify-start mt-2 space-x-4">
+          <div className="space-y-4 text-sm lg:text-base">
+            <p className="text-gray-400">
+              📧 Email:{" "}
+              <a
+                href="mailto:support@example.com"
+                className="text-white hover:underline"
+              >
+                support@example.com
+              </a>
+            </p>
+            <p className="text-gray-400">
+              📞 Phone:{" "}
+              <a href="tel:+11234567890" className="text-white hover:underline">
+                +1 (123) 456-7890
+              </a>
+            </p>
+            <p className="text-gray-400">
+              🌐 Live Chat:{" "}
+              <a href="/chat" className="text-white hover:underline">
+                Start a Live Chat
+              </a>
+            </p>
+            <p className="text-gray-400">
+              💬 Business Hours: Monday to Friday, 9 AM - 5 PM (UTC)
+            </p>
+          </div>
+
+          <div className="mt-10">
+            <h3 className="text-xl lg:text-2xl font-semibold text-white mb-4">
+              Follow Us:
+            </h3>
+            <div className="flex space-x-4">
               <a
                 href="https://www.facebook.com"
-                className="text-indigo-600 hover:text-indigo-800"
+                className="text-gray-400 hover:text-white"
               >
                 Facebook
               </a>
               <a
                 href="https://www.twitter.com"
-                className="text-indigo-600 hover:text-indigo-800"
+                className="text-gray-400 hover:text-white"
               >
                 Twitter
               </a>
               <a
                 href="https://www.instagram.com"
-                className="text-indigo-600 hover:text-indigo-800"
+                className="text-gray-400 hover:text-white"
               >
                 Instagram
               </a>
               <a
                 href="https://www.linkedin.com"
-                className="text-indigo-600 hover:text-indigo-800"
+                className="text-gray-400 hover:text-white"
               >
                 LinkedIn
               </a>
@@ -96,22 +96,40 @@ const ContactUs = () => {
         </div>
 
         {/* Contact Form Section */}
-        <div className="md:w-1/2 md:pl-8 mt-6 md:mt-0">
-          <h1 className="text-4xl font-bold text-center mb-6 text-indigo-600">
+        <div className="bg-gradient-to-br from-black to-gray-900 shadow-2xl rounded-lg p-8 md:p-10 border border-gray-700">
+          <h1 className="text-3xl lg:text-4xl font-bold text-center mb-6 text-white">
             Contact Us
           </h1>
-          <p className="text-lg text-center mb-8 text-gray-700">
-            Have questions? We’re here to help! Fill out the form below and our
+          <p className="text-lg text-center mb-8 text-gray-400">
+            Have questions? We’re here to help! Fill out the form below, and our
             support team will get back to you shortly.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-3">
-              <Input type="name" label="Name" />
-              <Input type="email" label="Email" />
-              <Textarea label="Description" />
-              <Button fullWidth variant="faded">
-                Send
+              <Input
+                type="text"
+                name="name"
+                label="Name"
+                onChange={handleChange}
+              />
+              <Input
+                type="email"
+                name="email"
+                label="Email"
+                onChange={handleChange}
+              />
+              <Textarea
+                name="message"
+                label="Message"
+                onChange={handleChange}
+              />
+              <Button
+                fullWidth
+                variant="faded"
+                className="bg-white text-black hover:bg-gray-200"
+              >
+                Send Message
               </Button>
             </div>
           </form>

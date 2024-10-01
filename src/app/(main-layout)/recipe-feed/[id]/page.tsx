@@ -1,4 +1,5 @@
 import { Image } from "@nextui-org/image";
+import { User } from "@nextui-org/user";
 
 const page = ({ params }: { params: { id: string } }) => {
   console.log("params", params);
@@ -22,6 +23,14 @@ const page = ({ params }: { params: { id: string } }) => {
 
         {/* Content Section */}
         <div className="p-8 space-y-6">
+          <User
+            name="Junior Garcia"
+            description={<p className="text-default-500">Date: 10-5-2024</p>}
+            avatarProps={{
+              src: "https://avatars.githubusercontent.com/u/30373425?v=4",
+            }}
+          />
+
           {/* Short Description */}
           <p className="text-default-800 text-lg leading-relaxed tracking-wide">
             A creamy and delicious Italian pasta dish made with tender chicken,
