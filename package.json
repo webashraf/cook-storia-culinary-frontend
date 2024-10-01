@@ -37,12 +37,16 @@
 		"framer-motion": "~11.1.1",
 		"gsap": "^3.12.5",
 		"intl-messageformat": "^10.5.0",
+		"jwt-decode": "^4.0.0",
 		"lucide": "^0.446.0",
+		"nexios-http": "^1.1.21",
 		"next": "14.2.4",
 		"next-themes": "^0.2.1",
 		"react": "18.3.1",
 		"react-dom": "18.3.1",
-		"react-icons": "^5.3.0"
+		"react-hook-form": "^7.53.0",
+		"react-icons": "^5.3.0",
+		"sonner": "^1.5.0"
 	},
 	"devDependencies": {
 		"@types/node": "20.5.7",

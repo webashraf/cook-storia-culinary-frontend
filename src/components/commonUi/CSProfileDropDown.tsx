@@ -1,3 +1,4 @@
+import { logoutUser } from "@/src/services/AuthService";
 import { Avatar } from "@nextui-org/avatar";
 import {
   Dropdown,
@@ -30,7 +31,7 @@ export default function CSProfileDropDown() {
           <DropdownItem key="configurations">Configurations</DropdownItem>
           <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
           <DropdownItem key="logout" color="danger">
-            Log Out
+            <p onClick={() => logoutUser()}>Log Out</p>
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
