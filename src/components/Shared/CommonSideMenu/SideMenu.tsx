@@ -39,15 +39,15 @@ const SideMenu = () => {
     <div className="w-[15%] hidden lg:block h-[90vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10">
       <div>
         <User
-          name="Junior Garcia"
-          description={
-            <Link href="https://twitter.com/jrgarciadev" size="sm" isExternal>
-              @jrgarciadev
-            </Link>
-          }
           avatarProps={{
             src: "https://avatars.githubusercontent.com/u/30373425?v=4",
           }}
+          description={
+            <Link isExternal href="https://twitter.com/jrgarciadev" size="sm">
+              @jrgarciadev
+            </Link>
+          }
+          name="Junior Garcia"
         />
         <div className="mt-10 flex flex-col gap-2">
           {pages.map((page) => (

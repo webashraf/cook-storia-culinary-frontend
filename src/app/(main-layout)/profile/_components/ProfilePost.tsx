@@ -1,6 +1,7 @@
 // src/components/ProfilePosts.js
+import PostCard from "../../_components/PostCard/PostCard";
+
 import { recipes } from "@/src/constent/recipe.fakeData";
-import PostCard from "../../components/PostCard/PostCard";
 
 const ProfilePosts = () => {
   return (
@@ -15,4 +16,3 @@ const ProfilePosts = () => {
 };
 
 export default ProfilePosts;
-

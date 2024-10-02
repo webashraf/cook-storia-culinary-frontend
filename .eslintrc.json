@@ -1,11 +1,4 @@
 {
-  "prettier/prettier": [
-    "error",
-    {
-      "singleQuote": true,
-      "parser": "flow"
-    }
-  ],
   "$schema": "https://json.schemastore.org/eslintrc.json",
   "env": {
     "browser": false,
@@ -15,8 +8,8 @@
   "extends": [
     "plugin:react/recommended",
     "plugin:prettier/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:jsx-a11y/recommended"
+    "plugin:react-hooks/recommended"
+    // "plugin:jsx-a11y/recommended"
   ],
   "plugins": [
     "react",

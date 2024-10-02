@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+
 import { getCurrentUser } from "./services/AuthService";
 
 const AuthRoutes = ["/login", "/register"];
+
 type Role = keyof typeof roleBasedRoutes;
 const roleBasedRoutes = {
   USER: [/^\/user/],
@@ -18,7 +20,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     } else {
       return NextResponse.redirect(
-        new URL(`/login?redirect=${pathname}`, request.url)
+        new URL(`/login?redirect=${pathname}`, request.url),
       );
     }
   }

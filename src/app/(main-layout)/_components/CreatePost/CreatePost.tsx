@@ -19,22 +19,22 @@ const CreatePost = () => {
       <div className="w-full flex flex-col gap-2 ">
         <div>
           <Textarea
+            placeholder="Share Your Recipe"
+            size="sm"
+            value={value}
+            onValueChange={setValue}
             variant="underlined"
             // label="Description"
             labelPlacement="outside"
-            placeholder="Share Your Recipe"
-            value={value}
-            size="sm"
-            onValueChange={setValue}
           />
         </div>
       </div>
       <Input
         key="warning"
-        type="file"
+        className="max-w-[100px]"
         color="warning"
         size="sm"
-        className="max-w-[100px]"
+        type="file"
       />
       <Button>Post</Button>
     </div>

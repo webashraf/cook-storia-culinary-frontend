@@ -16,7 +16,6 @@ export default function Stories() {
           </CardHeader>
           <Image
             removeWrapper
-            
             alt="Card background"
             className="z-0 w-full h-full object-cover"
             src="https://nextui.org/images/card-example-4.jpeg"

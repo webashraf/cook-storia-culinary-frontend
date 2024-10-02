@@ -10,8 +10,8 @@ const NotFound = () => {
           Oops! The page you are looking for does not exist.
         </p>
         <Link
-          href="/"
           className="inline-block bg-white text-black px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300"
+          href="/"
         >
           Go back to Home
         </Link>

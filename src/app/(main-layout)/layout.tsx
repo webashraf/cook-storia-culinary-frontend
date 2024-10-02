@@ -3,11 +3,13 @@ import Footer from "@/src/components/Shared/Footer/Footer";
 import { Navbar } from "@/src/components/Shared/navbar";
 import { fontSans } from "@/src/config/fonts";
 import { siteConfig } from "@/src/config/site";
+
 import "@/src/styles/globals.css";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import clsx from "clsx";
 import { Metadata, Viewport } from "next";
-import UserCard from "./components/UserCard/UserCard";
+
+import UserCard from "./_components/UserCard/UserCard";
 
 export const metadata: Metadata = {
   title: {
@@ -37,7 +39,7 @@ export default function MainLayout({
       <div
         className={clsx(
           "min-h-screen bg-background font-sans antialiased ",
-          fontSans.variable
+          fontSans.variable,
         )}
       >
         <>
@@ -48,10 +50,10 @@ export default function MainLayout({
               <SideMenu />
               <ScrollShadow
                 hideScrollBar
+                className="lg:ml-auto lg:w-[85%] h-screen "
                 offset={0}
                 // ScrollShadowVisibility="none"
                 isEnabled={false}
-                className="lg:ml-auto lg:w-[85%] h-screen "
               >
                 {children}
               </ScrollShadow>

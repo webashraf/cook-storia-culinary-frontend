@@ -1,16 +1,18 @@
 "use client";
 
-import { SearchIcon } from "@/src/components/icons";
-import CommonHero from "@/src/components/Shared/CommonHero/CommonHero";
-import { recipes } from "@/src/constent/recipe.fakeData";
 import { Input } from "@nextui-org/input";
 import { Radio, RadioGroup } from "@nextui-org/radio";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import { Slider } from "@nextui-org/slider";
 import { useState } from "react";
-import PostCard from "../components/PostCard/PostCard";
 
-const page = () => {
+import PostCard from "../_components/PostCard/PostCard";
+
+import CommonHero from "@/src/components/Shared/CommonHero/CommonHero";
+import { SearchIcon } from "@/src/components/icons";
+import { recipes } from "@/src/constent/recipe.fakeData";
+
+const RecipeFeed = () => {
   const [selected, setSelected] = useState("london");
   const [value, setValue] = useState<any>([100, 300]);
 
@@ -24,8 +26,8 @@ const page = () => {
             <div className="w-52">
               <Input
                 isClearable
-                radius="lg"
                 placeholder="Type to search..."
+                radius="lg"
                 startContent={
                   <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
                 }
@@ -35,10 +37,10 @@ const page = () => {
           <div className="flex gap-5">
             <ScrollShadow
               hideScrollBar
+              className="ml-auto w-[85%] h-screen "
               offset={0}
               // ScrollShadowVisibility="none"
               isEnabled={false}
-              className="ml-auto w-[85%] h-screen "
             >
               <div className="grid grid-cols-1 gap-5 ">
                 {recipes.map((recipe) => (
@@ -52,11 +54,11 @@ const page = () => {
               <div>
                 <h4 className="capitalize">Filter by cooking time</h4>
                 <Slider
-                  label="Donuts to buy"
-                  size="md"
-                  maxValue={300}
-                  getValue={(time) => `${time} minutes`}
                   className="max-w-md"
+                  getValue={(time) => `${time} minutes`}
+                  label="Donuts to buy"
+                  maxValue={300}
+                  size="md"
                 />
               </div>
               <div>
@@ -87,4 +89,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default RecipeFeed;

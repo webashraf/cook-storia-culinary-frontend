@@ -1,7 +1,5 @@
 "use client";
 
-import { getCurrentUser } from "@/src/services/AuthService";
-import { fetchComments } from "@/src/services/RecipeService";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
@@ -16,7 +14,10 @@ import {
 import { User } from "@nextui-org/user";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { LuPencil } from "react-icons/lu";
+import { LuLink, LuPencil } from "react-icons/lu";
+
+import { getCurrentUser } from "@/src/services/AuthService";
+import { fetchComments } from "@/src/services/RecipeService";
 
 export default function PostModal({ postId }: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,14 +33,16 @@ export default function PostModal({ postId }: any) {
     | any
   >({});
 
-  console.log(commentsData);
+  //console.log(commentsData);
   useEffect(() => {
     const fetchAndSetComments = async () => {
       setLoading(true);
       try {
         const logedInUser = await getCurrentUser();
+
         setCurrentUser(logedInUser);
         const fetchedComments = await fetchComments(postId);
+
         setCommentsData(fetchedComments);
       } catch (err) {
         console.error("Error fetching comments:", err);
@@ -67,11 +70,18 @@ export default function PostModal({ postId }: any) {
   return (
     <>
       <div className="flex flex-wrap gap-3">
-        <Button href="#" onPress={() => handleOpen(size)} variant="faded">
-          View Comments
-        </Button>
+        <Link
+          className="lowercase text-[12px] hover:underline mb-2"
+          href="#"
+          onPress={() => handleOpen(size)}
+        >
+          View all comments{" "}
+          <span>
+            <LuLink />
+          </span>
+        </Link>
       </div>
-      <Modal size="xl" isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} size="xl" onClose={onClose}>
         <ModalContent>
           {(onClose) => (
             <>
@@ -84,27 +94,27 @@ export default function PostModal({ postId }: any) {
                     {comment.comments ? (
                       <div className="flex flex-col items-start gap-2 mb-3">
                         <User
-                          name="Junior Garcia"
-                          description={
-                            <Link
-                              href="https://twitter.com/jrgarciadev"
-                              size="sm"
-                              isExternal
-                            >
-                              {moment(comment.createdAt).format(
-                                "MMM YYYY, h:mm:ss a"
-                              )}
-                            </Link>
-                          }
                           avatarProps={{
                             src: "https://avatars.githubusercontent.com/u/30373425?v=4",
                           }}
+                          description={
+                            <Link
+                              isExternal
+                              href="https://twitter.com/jrgarciadev"
+                              size="sm"
+                            >
+                              {moment(comment.createdAt).format(
+                                "MMM YYYY, h:mm:ss a",
+                              )}
+                            </Link>
+                          }
+                          name="Junior Garcia"
                         />
                         <div className="flex items-center gap-4">
                           <Input
-                            type="text"
                             defaultValue={comment?.comments}
                             disabled={!editableComments[comment?._id]} // Disable input if not editable
+                            type="text"
                           />
                           <button
                             className={`flex items-center gap-1 ${currentUser.email !== comment?.userId?.email && "hidden"}`}

@@ -1,12 +1,14 @@
-import { IOpinions } from "@/src/app/(main-layout)/components/PostCard/PostComments";
-import { nexiosInstance } from "@/src/config/axios.instance";
 import { revalidateTag } from "next/cache";
+
+import { IOpinions } from "@/src/app/(main-layout)/_components/PostCard/PostComments";
+import { nexiosInstance } from "@/src/config/axios.instance";
 
 export const fetchComments = async (postId: string) => {
   try {
     const data = await nexiosInstance.get(`/user-opinion/${postId}`, {
       next: { tags: ["comments"] },
     });
+
     return data.data;
   } catch (err) {
     throw new Error(`Error fetching comments`);
@@ -14,21 +16,22 @@ export const fetchComments = async (postId: string) => {
 };
 
 export const handleLike = async (postId: string, userId: string) => {
-  console.log(postId, userId);
+  //console.log(postId, userId);
 
   const opinions: IOpinions = {
     postId,
     userId,
     upVote: 1,
   };
+
   try {
     const { data }: any = await nexiosInstance.post(
       "/user-opinion/create",
-      opinions
+      opinions,
     );
 
     if (data?.success) {
-      console.log("Like response:", data);
+      //console.log("Like response:", data);
       revalidateTag("comments");
     }
     // revalidateTag("recipeComments");
@@ -44,13 +47,15 @@ export const handleDislike = async (postId: string, userId: string) => {
     userId,
     downVote: 1,
   };
+
   try {
     const { data }: any = await nexiosInstance.post(
       "/user-opinion/create",
-      opinions
+      opinions,
     );
+
     if (data?.success) {
-      console.log("dislike response:", data);
+      //console.log("dislike response:", data);
       revalidateTag("comments");
     }
     // setCommentsData(await fetchComments(postId)); // Refetch comments after disliking

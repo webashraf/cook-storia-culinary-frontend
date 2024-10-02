@@ -2,19 +2,20 @@ import { Image } from "@nextui-org/image";
 import { User } from "@nextui-org/user";
 
 const page = ({ params }: { params: { id: string } }) => {
-  console.log("params", params);
+  //console.log("params", params);
+
   return (
     <div className="bg-gradient-to-b min-h-screen p-6 text-default-900 w-full">
       <div className="max-w-4xl mx-auto bg-default-100 rounded-xl shadow-2xl overflow-hidden">
         {/* Image Section */}
         <div className="relative">
           <Image
-            src="https://img.freepik.com/free-photo/view-delicious-food-chinese-new-year-reunion-dinner_23-2151040712.jpg?t=st=1727720720~exp=1727724320~hmac=a8873c7d972ca68df3d3482eaa4c53d709c660cbfabf349c35a2737a4e34a80e&w=1380"
-            alt="Chicken Alfredo"
             isBlurred
             isZoomed
-            width={"100%"}
+            alt="Chicken Alfredo"
             className="w-full h-96 object-cover rounded-t-xl"
+            src="https://img.freepik.com/free-photo/view-delicious-food-chinese-new-year-reunion-dinner_23-2151040712.jpg?t=st=1727720720~exp=1727724320~hmac=a8873c7d972ca68df3d3482eaa4c53d709c660cbfabf349c35a2737a4e34a80e&w=1380"
+            width={"100%"}
           />
           <h1 className="absolute bottom-0 left-0 bg-black bg-opacity-60 text-white text-4xl font-extrabold p-6 z-20 backdrop-blur-lg">
             Chicken Alfredo
@@ -24,11 +25,11 @@ const page = ({ params }: { params: { id: string } }) => {
         {/* Content Section */}
         <div className="p-8 space-y-6">
           <User
-            name="Junior Garcia"
-            description={<p className="text-default-500">Date: 10-5-2024</p>}
             avatarProps={{
               src: "https://avatars.githubusercontent.com/u/30373425?v=4",
             }}
+            description={<p className="text-default-500">Date: 10-5-2024</p>}
+            name="Junior Garcia"
           />
 
           {/* Short Description */}

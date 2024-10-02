@@ -1,8 +1,9 @@
 "use server";
 
-import { nexiosInstance } from "@/src/config/axios.instance";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
+
+import { nexiosInstance } from "@/src/config/axios.instance";
 
 export const loginUser = async (userInfo: {
   email: string;
@@ -11,13 +12,14 @@ export const loginUser = async (userInfo: {
   try {
     const { data }: any = await nexiosInstance.post(
       "/auth/login-user",
-      userInfo
+      userInfo,
     );
 
     if (data.success) {
       cookies().set("accessToken", data?.data?.accessToken);
       cookies().set("refreshToken", data?.data?.refreshToken);
     }
+
     return data;
   } catch (error: any) {
     throw new Error(error);
@@ -37,5 +39,6 @@ export const getCurrentUser = async () => {
   if (!!accessToken) {
     decodedToken = await jwtDecode(accessToken);
   }
+
   return decodedToken;
 };

@@ -14,12 +14,13 @@ const ContactUs = () => {
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
+
     setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log("Form data submitted:", formData);
+    //console.log("Form data submitted:", formData);
     // Add form submission logic here (e.g., API call)
   };
 
@@ -39,21 +40,21 @@ const ContactUs = () => {
             <p className="text-gray-400">
               📧 Email:{" "}
               <a
-                href="mailto:support@example.com"
                 className="text-white hover:underline"
+                href="mailto:support@example.com"
               >
                 support@example.com
               </a>
             </p>
             <p className="text-gray-400">
               📞 Phone:{" "}
-              <a href="tel:+11234567890" className="text-white hover:underline">
+              <a className="text-white hover:underline" href="tel:+11234567890">
                 +1 (123) 456-7890
               </a>
             </p>
             <p className="text-gray-400">
               🌐 Live Chat:{" "}
-              <a href="/chat" className="text-white hover:underline">
+              <a className="text-white hover:underline" href="/chat">
                 Start a Live Chat
               </a>
             </p>
@@ -68,26 +69,26 @@ const ContactUs = () => {
             </h3>
             <div className="flex space-x-4">
               <a
-                href="https://www.facebook.com"
                 className="text-gray-400 hover:text-white"
+                href="https://www.facebook.com"
               >
                 Facebook
               </a>
               <a
-                href="https://www.twitter.com"
                 className="text-gray-400 hover:text-white"
+                href="https://www.twitter.com"
               >
                 Twitter
               </a>
               <a
-                href="https://www.instagram.com"
                 className="text-gray-400 hover:text-white"
+                href="https://www.instagram.com"
               >
                 Instagram
               </a>
               <a
-                href="https://www.linkedin.com"
                 className="text-gray-400 hover:text-white"
+                href="https://www.linkedin.com"
               >
                 LinkedIn
               </a>
@@ -105,29 +106,29 @@ const ContactUs = () => {
             support team will get back to you shortly.
           </p>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-3">
               <Input
-                type="text"
-                name="name"
                 label="Name"
+                name="name"
+                type="text"
                 onChange={handleChange}
               />
               <Input
-                type="email"
-                name="email"
                 label="Email"
+                name="email"
+                type="email"
                 onChange={handleChange}
               />
               <Textarea
-                name="message"
                 label="Message"
+                name="message"
                 onChange={handleChange}
               />
               <Button
                 fullWidth
-                variant="faded"
                 className="bg-white text-black hover:bg-gray-200"
+                variant="faded"
               >
                 Send Message
               </Button>

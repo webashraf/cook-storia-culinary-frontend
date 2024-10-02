@@ -12,7 +12,7 @@ const AboutUs = () => {
           cooking. Our platform is designed to bring together cooking
           enthusiasts from around the world, creating a space where food lovers
           can share their favorite recipes, discover new dishes, and elevate
-          their culinary skills. Whether you're a home cook or a professional
+          their culinary skills. Whether youre a home cook or a professional
           chef, Cookstoria Culinary is where your passion for food comes alive.
         </p>
 
@@ -82,7 +82,7 @@ const AboutUs = () => {
             Cookstoria Culinary is driven by a dedicated team of food
             enthusiasts, professional chefs, and tech innovators. Our team
             shares a common passion for food, creativity, and community,
-            striving to provide the best experience for our users. We're
+            striving to provide the best experience for our users. Were
             committed to making Cookstoria Culinary a go-to platform for all
             your culinary needs, constantly innovating and bringing new features
             to help you cook with confidence.

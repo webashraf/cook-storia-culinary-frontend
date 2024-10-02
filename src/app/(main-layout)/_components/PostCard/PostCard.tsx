@@ -3,10 +3,11 @@ import { Chip } from "@nextui-org/chip";
 import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
 import { User } from "@nextui-org/user";
+
 import PostComments from "./PostComments";
 
 const PostCard = ({ recipe }: any) => {
-  // console.log(recipe?.user);
+  // //console.log(recipe?.user);
 
   const handleLikeComments = () => {};
 
@@ -14,15 +15,15 @@ const PostCard = ({ recipe }: any) => {
     <>
       <div className="min-h-[400px] w-[400px]  mx-aut border border-default-300 p-5 rounded-md w-ful">
         <User
-          name={recipe?.user?.username}
-          description={
-            <Link href={`mailto:${recipe?.user?.email}`} size="sm" isExternal>
-              {recipe?.user?.email}
-            </Link>
-          }
           avatarProps={{
             src: recipe?.user?.profilePicture,
           }}
+          description={
+            <Link isExternal href={`mailto:${recipe?.user?.email}`} size="sm">
+              {recipe?.user?.email}
+            </Link>
+          }
+          name={recipe?.user?.username}
         />
         <div className="flex gap- flex-col">
           <div className="space-y-3 ">
@@ -34,13 +35,13 @@ const PostCard = ({ recipe }: any) => {
               <p className="text-[12px]">{recipe.shortDescription}</p>
             </div>
             <div className="space-x-2">
-              <Chip size="sm" color="warning" variant="bordered">
+              <Chip color="warning" size="sm" variant="bordered">
                 <p className="">Preparation {recipe.preparationTime}m</p>
               </Chip>
-              <Chip size="sm" color="warning" variant="bordered">
+              <Chip color="warning" size="sm" variant="bordered">
                 <p className="">Cooking {recipe.cookingTime}m</p>
               </Chip>
-              <Chip size="sm" color="warning" variant="bordered">
+              <Chip color="warning" size="sm" variant="bordered">
                 <p className="">Servings {recipe.servings}</p>
               </Chip>
             </div>
@@ -64,20 +65,20 @@ const PostCard = ({ recipe }: any) => {
               </p>
             </div>
 
-            <div className="flex items-center w-full justify-between mt-10 gap-5"></div>
+            <div className="flex items-center w-full justify-between mt-10 gap-5" />
           </div>
           <div className=" mt-5  space-y-3">
             <Image
-              width="100%"
+              alt="NextUI hero Image with delay"
+              className="w-full "
               height={250}
               isZoomed={true}
-              className="w-full "
-              alt="NextUI hero Image with delay"
               src="https://img.freepik.com/free-photo/side-view-pilaf-with-stewed-beef-meat-plate_141793-5057.jpg?t=st=1727686995~exp=1727690595~hmac=7df2c251d1c8d6a1e8986d1a088368ad053160feddf09b896449de00e02b7baf&w=1380"
+              width="100%"
             />
           </div>
           <PostComments postId={recipe._id} userId={recipe?.user?._id} />
-          <Button variant="faded" size="sm">
+          <Button size="sm" variant="faded">
             View Full Recipe
           </Button>
         </div>

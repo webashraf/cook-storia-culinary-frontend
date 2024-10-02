@@ -11,16 +11,16 @@ const CSBadge = ({
 }) => {
   return (
     <Badge
-      content={`${content}+`}
-      size="sm"
-      shape="circle"
       className="size-5 text-xs"
       color="danger"
+      content={`${content}+`}
+      shape="circle"
+      size="sm"
     >
       <Button
-        radius="full"
         isIconOnly
         aria-label="more than 99 notifications"
+        radius="full"
         variant="light"
       >
         {children}

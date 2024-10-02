@@ -1,4 +1,3 @@
-import { logoutUser } from "@/src/services/AuthService";
 import { Avatar } from "@nextui-org/avatar";
 import {
   Dropdown,
@@ -6,6 +5,8 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
+
+import { logoutUser } from "@/src/services/AuthService";
 
 export default function CSProfileDropDown() {
   return (

@@ -13,14 +13,15 @@ import {
 import NextLink from "next/link";
 import { AiFillMessage } from "react-icons/ai";
 import { RiNotification3Fill } from "react-icons/ri";
-
-import { GithubIcon, Logo, SearchIcon } from "@/src/components/icons";
-import { siteConfig } from "@/src/config/site";
 import { Input } from "@nextui-org/input";
 import { Kbd } from "@nextui-org/kbd";
+
 import CSBadge from "../commonUi/CSBadge";
 import CSProfileDropDown from "../commonUi/CSProfileDropDown";
 import { ThemeSwitch } from "../theme-switch";
+
+import { siteConfig } from "@/src/config/site";
+import { GithubIcon, Logo, SearchIcon } from "@/src/components/icons";
 export const Navbar = () => {
   const searchInput = (
     <Input
@@ -80,7 +81,7 @@ export const Navbar = () => {
             isExternal
             aria-label="Twitter"
             href={siteConfig.links.twitter}
-          ></Link>
+          />
           <CSBadge>
             <AiFillMessage className="text-default-600" size={16} />
           </CSBadge>
