@@ -3,7 +3,7 @@ import { NexiosOptions } from "nexios-http/types/interfaces";
 // https://cook-storia-culinary-backend-project.vercel.app/api/v1
 // `http://localhost:5000/api/v1`
 const defaultConfig: NexiosOptions = {
-  baseURL: `http://localhost:5000/api/v1`,
+  baseURL: `https://cook-storia-culinary-backend-project.vercel.app/api/v1`,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
