@@ -11,7 +11,7 @@ export default async function Home() {
   console.log(recipes.length);
   return (
     <section className="flex">
-      <div className="w-[70%] mx-auto">
+      <div className="lg:w-[70%] mx-auto">
         <Stories />
         <div className="gri grid-cols-2 gap-5 space-y-5">
           {recipes?.map((recipe: any) => (

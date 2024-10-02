@@ -51,12 +51,12 @@ export default function MainLayout({
                 offset={0}
                 // ScrollShadowVisibility="none"
                 isEnabled={false}
-                className="ml-auto w-[85%] h-screen "
+                className="lg:ml-auto lg:w-[85%] h-screen "
               >
                 {children}
               </ScrollShadow>
 
-              <div className="w-[20%] ml-auto h-[90vh] bg-default-300/50 space-y-2 px-2 pt-5 mt-5 rounded-lg">
+              <div className="w-[20%] hidden lg:block ml-auto h-[90vh] bg-default-300/50 space-y-2 px-2 pt-5 mt-5 rounded-lg">
                 <UserCard />
                 <UserCard />
                 <UserCard />

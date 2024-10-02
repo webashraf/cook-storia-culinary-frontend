@@ -36,7 +36,7 @@ const SideMenu = () => {
   const pathname = usePathname();
 
   return (
-    <div className="w-[15%] h-[90vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10">
+    <div className="w-[15%] hidden lg:block h-[90vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10">
       <div>
         <User
           name="Junior Garcia"
