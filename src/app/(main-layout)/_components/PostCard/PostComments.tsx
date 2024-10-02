@@ -38,7 +38,6 @@ const PostComments = ({ postId, userId }: IProps) => {
   const [currentUser, setCurrentUser] = useState<any>(null);
 
 
-  console.log({ currentUser });
   useEffect(() => {
     const fetchAndSetComments = async () => {
       setLoading(true);
@@ -113,7 +112,6 @@ const PostComments = ({ postId, userId }: IProps) => {
         );
 
         reset();
-        console.log(data);
         setCommentsData(await fetchComments(postId)); // Refetch comments
         if (!data.success) {
           toast.error("Failed to comment");

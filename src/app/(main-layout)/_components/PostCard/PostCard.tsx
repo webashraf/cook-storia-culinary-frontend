@@ -2,13 +2,9 @@ import { Chip } from "@nextui-org/chip";
 import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
 import { User } from "@nextui-org/user";
-
 import PostComments from "./PostComments";
-import { revalidateTag } from "next/cache";
 
 const PostCard = ({ recipe }: any) => {
-  revalidateTag("comments");
-
   return (
     <>
       <div className="min-h-[400px] min:w-[300px]  mx-aut border border-default-300 p-5 rounded-md w-ful">

@@ -1,3 +1,5 @@
+"use server";
+
 import { revalidateTag } from "next/cache";
 
 import { IOpinions } from "@/src/app/(main-layout)/_components/PostCard/PostComments";
@@ -27,7 +29,7 @@ export const handleLike = async (postId: string, userId: string) => {
   try {
     const { data }: any = await nexiosInstance.post(
       "/user-opinion/create",
-      opinions,
+      opinions
     );
 
     if (data?.success) {
@@ -51,7 +53,7 @@ export const handleDislike = async (postId: string, userId: string) => {
   try {
     const { data }: any = await nexiosInstance.post(
       "/user-opinion/create",
-      opinions,
+      opinions
     );
 
     if (data?.success) {

@@ -12,9 +12,7 @@ export default async function Home() {
   if (data && typeof data === "object" && "data" in data) {
     recipes = data.data;
   }
-  //console.log(recipes.length);
 
-  console.log("recipes", recipes);
 
   return (
     <section className="flex">

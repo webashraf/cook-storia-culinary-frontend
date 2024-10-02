@@ -9,6 +9,7 @@ import {
 } from "@nextui-org/modal";
 import { User } from "@nextui-org/user";
 import moment from "moment";
+import { revalidatePath } from "next/cache";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { LuPencil } from "react-icons/lu";
@@ -22,7 +23,6 @@ import { fetchComments } from "@/src/services/RecipeService";
 export default function PostModal({ postId, userId }: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [commentsData, setCommentsData] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [editState, setEditState] = useState<{ [key: string]: boolean }>({});
 
@@ -30,7 +30,6 @@ export default function PostModal({ postId, userId }: any) {
 
   useEffect(() => {
     const fetchAndSetComments = async () => {
-      setLoading(true);
       try {
         const loggedInUser = await getCurrentUser();
 
@@ -39,9 +38,7 @@ export default function PostModal({ postId, userId }: any) {
 
         setCommentsData(fetchedComments);
       } catch (err) {
-        console.error("Error fetching comments:", err);
-      } finally {
-        setLoading(false);
+        console.log("Error fetching comments:", err);
       }
     };
 
@@ -56,9 +53,17 @@ export default function PostModal({ postId, userId }: any) {
     };
 
     try {
-      await nexiosInstance.post("/user-opinion/create", opinions);
-      // Refetch comments after saving
-      await refetchComments();
+      const { data }: any = await nexiosInstance.post(
+        "/user-opinion/create",
+        opinions
+      );
+
+
+      if (data.success) {
+        revalidatePath("/", "page");
+      }
+
+      // await refetchComments();
       reset();
       setEditState((prev) => ({ ...prev, [commentId]: false }));
     } catch (err) {
@@ -67,15 +72,13 @@ export default function PostModal({ postId, userId }: any) {
   };
 
   const refetchComments = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const updatedComments = await fetchComments(postId);
 
       setCommentsData(updatedComments);
     } catch (err) {
       console.error("Error fetching updated comments:", err);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -96,7 +99,6 @@ export default function PostModal({ postId, userId }: any) {
       <Modal isOpen={isOpen} size="md" onClose={onClose}>
         <ModalContent>
           <ModalBody className="p-5">
-            {loading && <p>Loading comments...</p>}
             {commentsData?.data?.map((comment: any) => (
               <div key={comment?._id}>
                 {comment.comments && (

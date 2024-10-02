@@ -20,8 +20,6 @@ const ContactUs = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    //console.log("Form data submitted:", formData);
-    // Add form submission logic here (e.g., API call)
   };
 
   return (
