@@ -9,7 +9,6 @@ import {
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
 import NextLink from "next/link";
-import { useEffect, useState } from "react";
 import { AiFillMessage } from "react-icons/ai";
 import { LuChefHat } from "react-icons/lu";
 import { RiNotification3Fill } from "react-icons/ri";
@@ -19,10 +18,7 @@ import CSProfileDropDown from "../commonUi/CSProfileDropDown";
 import { ThemeSwitch } from "../theme-switch";
 
 import { SearchIcon } from "@/src/components/icons";
-import { getCurrentUser } from "@/src/services/AuthService";
 export const Navbar = () => {
-
-
   const searchInput = (
     <Input
       aria-label="Search"
@@ -45,8 +41,15 @@ export const Navbar = () => {
   );
 
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+    <NextUINavbar
+      className="flex justify-between "
+      maxWidth="2xl"
+      position="sticky"
+    >
+      <NavbarContent
+        className="basis-1/5 sm:basis-full p-0  w-[50%]"
+        justify="start"
+      >
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <LuChefHat size={22} />
@@ -56,10 +59,10 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent
-        className="sm:hidde flex basis-1/5 sm:basis-full"
+        className="sm:hidde fle basis-1/5 sm:basis-full  w-[50%]"
         justify="end"
       >
-        <NavbarItem className="sm:hidde ">{searchInput}</NavbarItem>
+        <NavbarItem className="hidden lg:block">{searchInput}</NavbarItem>
         <NavbarItem className="sm:hidde flex gap-2">
           <CSBadge>
             <AiFillMessage className="text-default-600" size={16} />

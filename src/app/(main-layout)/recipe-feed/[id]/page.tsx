@@ -2,8 +2,6 @@ import { Image } from "@nextui-org/image";
 import { User } from "@nextui-org/user";
 
 const page = ({ params }: { params: { id: string } }) => {
-  //console.log("params", params);
-
   return (
     <div className="bg-gradient-to-b min-h-screen p-6 text-default-900 w-full">
       <div className="max-w-4xl mx-auto bg-default-100 rounded-xl shadow-2xl overflow-hidden">
@@ -39,7 +37,7 @@ const page = ({ params }: { params: { id: string } }) => {
           </p>
 
           {/* Nutrition Facts */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid lg:grid-cols-2 gap-6">
             <div className="bg-default-200/50 p-4 rounded-lg shadow-xl">
               <h2 className="text-2xl font-semibold text-default-800">
                 Nutrition Facts
@@ -95,7 +93,7 @@ const page = ({ params }: { params: { id: string } }) => {
           </div>
 
           {/* Cooking and Prep Info */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid lg:grid-cols-2 gap-6">
             <div className="bg-default-200/50 p-4 rounded-lg shadow-xl">
               <h2 className="text-2xl font-semibold text-default-800">
                 Preparation Time

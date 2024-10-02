@@ -4,8 +4,8 @@ import { Image } from "@nextui-org/image";
 export default function Stories() {
   return (
     <>
-      <div className="flex gap-5 mb-10 ">
-        <Card className=" w-[300px] h-[300px]">
+      <div className="flex lg:flex-nowrap flex-wrap gap-5 mb-10 mt-5 ">
+        <Card className=" lg:w-[300px] w-[47%] h-[300px]">
           <CardHeader className="absolute z-10 top-1 flex-col !items-start">
             <p className="text-tiny text-white/60 uppercase font-bold">
               What to watch
@@ -21,7 +21,7 @@ export default function Stories() {
             src="https://nextui.org/images/card-example-4.jpeg"
           />
         </Card>
-        <Card className=" w-[300px] h-[300px]">
+        <Card className=" lg:w-[300px] w-[47%] h-[300px]">
           <CardHeader className="absolute z-10 top-1 flex-col !items-start">
             <p className="text-tiny text-white/60 uppercase font-bold">
               Plant a tree
@@ -37,7 +37,7 @@ export default function Stories() {
             src="https://nextui.org/images/card-example-3.jpeg"
           />
         </Card>
-        <Card className=" w-[300px] h-[300px]">
+        <Card className=" lg:w-[300px] w-[47%] hidden lg:block h-[300px]">
           <CardHeader className="absolute z-10 top-1 flex-col !items-start">
             <p className="text-tiny text-white/60 uppercase font-bold">
               Supercharged
@@ -53,7 +53,7 @@ export default function Stories() {
             src="https://nextui.org/images/card-example-2.jpeg"
           />
         </Card>
-        <Card className=" w-[300px] h-[300px]">
+        <Card className=" lg:w-[300px] w-[47%] hidden lg:block h-[300px]">
           <CardHeader className="absolute z-10 top-1 flex-col !items-start">
             <p className="text-tiny text-white/60 uppercase font-bold">
               Supercharged

@@ -2,7 +2,7 @@
 
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
-import { revalidateTag } from "next/cache";
+import { Link } from "@nextui-org/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
@@ -36,7 +36,6 @@ const PostComments = ({ postId, userId }: IProps) => {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const [currentUser, setCurrentUser] = useState<any>(null);
-
 
   useEffect(() => {
     const fetchAndSetComments = async () => {
@@ -144,7 +143,7 @@ const PostComments = ({ postId, userId }: IProps) => {
 
   return (
     <div>
-      <p className="text-[12px]">
+      <p className="text-[12px] mt-1">
         Average Rating: {calculateAverageRating()} ⭐
       </p>
       <form
@@ -201,7 +200,9 @@ const PostComments = ({ postId, userId }: IProps) => {
           </Button>
         </div>
         <Button fullWidth size="sm" variant="faded">
-          View Full Recipe
+          <Link className="text-white/70" href={`/recipe-feed/${postId}`}>
+            View Full Recipe
+          </Link>
         </Button>
       </div>
     </div>

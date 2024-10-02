@@ -18,7 +18,7 @@ const RecipeFeed = () => {
 
   return (
     <>
-      <div className="mx-10">
+      <div className="lg:mx-10 mx-5">
         <CommonHero title="recipe feed" />
 
         <div>
@@ -34,10 +34,10 @@ const RecipeFeed = () => {
               />
             </div>
           </div>
-          <div className="flex gap-5">
+          <div className="flex lg:flex-row flex-col-reverse gap-5">
             <ScrollShadow
               hideScrollBar
-              className="ml-auto w-[85%] h-screen "
+              className="ml-auto lg:w-[85%] w-full h-screen "
               offset={0}
               // ScrollShadowVisibility="none"
               isEnabled={false}
@@ -48,7 +48,9 @@ const RecipeFeed = () => {
                 ))}
               </div>
             </ScrollShadow>
-            <div className="h-[70vh] bg-default-400/30 w-[30%] rounded-md p-5 space-y-5">
+
+            {/* Filter */}
+            <div className="lg:h-[70vh] bg-default-400/30 lg:w-[30%] rounded-md p-5 space-y-5">
               <h3 className="text-xl underline ">Filtering</h3>
 
               <div>

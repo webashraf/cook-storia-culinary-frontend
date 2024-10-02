@@ -39,18 +39,18 @@ export default function MainLayout({
       <div
         className={clsx(
           "min-h-screen bg-background font-sans antialiased ",
-          fontSans.variable,
+          fontSans.variable
         )}
       >
         <>
           <div className="relative flex flex-col ">
             <Navbar />
 
-            <div className="flex overflow-hidden">
+            <div className="flex overflow-hidden lg:mx-5">
               <SideMenu />
               <ScrollShadow
                 hideScrollBar
-                className="lg:ml-auto lg:w-[85%] h-screen "
+                className="lg:ml-auto lg:w-[85%] w-full h-screen "
                 offset={0}
                 // ScrollShadowVisibility="none"
                 isEnabled={false}
