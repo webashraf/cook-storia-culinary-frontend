@@ -1,4 +1,3 @@
-import { Button } from "@nextui-org/button";
 import { Chip } from "@nextui-org/chip";
 import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
@@ -7,20 +6,16 @@ import { User } from "@nextui-org/user";
 import PostComments from "./PostComments";
 
 const PostCard = ({ recipe }: any) => {
-  // //console.log(recipe?.user);
-
-  const handleLikeComments = () => {};
-
   return (
     <>
-      <div className="min-h-[400px] w-[400px]  mx-aut border border-default-300 p-5 rounded-md w-ful">
+      <div className="min-h-[400px] min:w-[300px]  mx-aut border border-default-300 p-5 rounded-md w-ful">
         <User
           avatarProps={{
             src: recipe?.user?.profilePicture,
           }}
           description={
             <Link isExternal href={`mailto:${recipe?.user?.email}`} size="sm">
-              {recipe?.user?.email}
+              {recipe?.user?._id}
             </Link>
           }
           name={recipe?.user?.username}
@@ -45,24 +40,26 @@ const PostCard = ({ recipe }: any) => {
                 <p className="">Servings {recipe.servings}</p>
               </Chip>
             </div>
-            <div className="text-[12px] flex">
-              <p className="text-[12px]">#Nutrition Facts:</p>
+            <div className="text-[12px] ">
+              <p className="text-[13px]">#Nutrition Facts:</p>
 
-              <p className="ml-2 text-[12px] flex justify-start items-center">
-                <span className="">calories-</span>{" "}
-                {recipe.nutritionFacts.calories}
-              </p>
-              <p className="ml-2 text-[12px] flex justify-start items-center">
-                <span className="">carbohydrates-</span>{" "}
-                {recipe.nutritionFacts.carbohydrates}
-              </p>
-              <p className="ml-2 text-[12px] flex justify-start items-center">
-                <span className="">fat-</span> {recipe.nutritionFacts.fat}
-              </p>
-              <p className="ml-2 text-[12px] flex justify-start items-center">
-                <span className="">protein-</span>{" "}
-                {recipe.nutritionFacts.protein}
-              </p>
+              <div className="flex ">
+                <p className=" text-[12px] flex justify-start items-center">
+                  <span className="">calories-</span>{" "}
+                  {recipe.nutritionFacts.calories}
+                </p>
+                <p className="ml-2 text-[12px] flex justify-start items-center">
+                  <span className="">carbohydrates-</span>{" "}
+                  {recipe.nutritionFacts.carbohydrates}
+                </p>
+                <p className="ml-2 text-[12px] flex justify-start items-center">
+                  <span className="">fat-</span> {recipe.nutritionFacts.fat}
+                </p>
+                <p className="ml-2 text-[12px] flex justify-start items-center">
+                  <span className="">protein-</span>{" "}
+                  {recipe.nutritionFacts.protein}
+                </p>
+              </div>
             </div>
 
             <div className="flex items-center w-full justify-between mt-10 gap-5" />
@@ -78,9 +75,6 @@ const PostCard = ({ recipe }: any) => {
             />
           </div>
           <PostComments postId={recipe._id} userId={recipe?.user?._id} />
-          <Button size="sm" variant="faded">
-            View Full Recipe
-          </Button>
         </div>
       </div>
     </>

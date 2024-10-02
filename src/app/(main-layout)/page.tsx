@@ -4,7 +4,9 @@ import Stories from "./_components/Stories/Stories";
 import { nexiosInstance } from "@/src/config/axios.instance";
 
 export default async function Home() {
-  const { data } = await nexiosInstance.get("/recipe");
+  const { data } = await nexiosInstance.get("/recipe", {
+    cache: "no-store",
+  });
   let recipes: any = [];
 
   if (data && typeof data === "object" && "data" in data) {
@@ -12,11 +14,13 @@ export default async function Home() {
   }
   //console.log(recipes.length);
 
+  console.log("recipes", recipes);
+
   return (
     <section className="flex">
-      <div className="w-[80%] mx-auto">
+      <div className="w-[90%] mx-auto">
         <Stories />
-        <div className="grid grid-cols-2 gap-5 space-y-">
+        <div className="flex gap-5 items-center justify-center">
           {recipes?.map((recipe: any) => (
             <PostCard key={recipe.title} recipe={recipe} />
           ))}
