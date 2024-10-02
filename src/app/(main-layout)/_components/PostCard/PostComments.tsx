@@ -2,6 +2,7 @@
 
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
+import { revalidateTag } from "next/cache";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
@@ -35,6 +36,7 @@ const PostComments = ({ postId, userId }: IProps) => {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const [currentUser, setCurrentUser] = useState<any>(null);
+
 
   console.log({ currentUser });
   useEffect(() => {
@@ -163,7 +165,7 @@ const PostComments = ({ postId, userId }: IProps) => {
           <IoPaperPlaneOutline size={20} />
         </Button>
       </form>
-      <PostModal postId={postId} userId={userId} />
+      <PostModal postId={postId} userId={currentUser?.id} />
       <div />
       <div className="flex items-center gap-3 w-full">
         <div className="flex justify-between bg-default-40 gap-2 py-2 rounded-xl w-[100px]">

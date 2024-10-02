@@ -56,17 +56,26 @@ export default function PostModal({ postId, userId }: any) {
     };
 
     try {
-      const res = await nexiosInstance.post("/user-opinion/create", opinions);
-
-      console.log(res);
+      await nexiosInstance.post("/user-opinion/create", opinions);
       // Refetch comments after saving
-      const updatedComments = await fetchComments(postId);
-
-      setCommentsData(updatedComments);
+      await refetchComments();
       reset();
       setEditState((prev) => ({ ...prev, [commentId]: false }));
     } catch (err) {
       console.error("Error saving the comment:", err);
+    }
+  };
+
+  const refetchComments = async () => {
+    setLoading(true);
+    try {
+      const updatedComments = await fetchComments(postId);
+
+      setCommentsData(updatedComments);
+    } catch (err) {
+      console.error("Error fetching updated comments:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,13 +96,14 @@ export default function PostModal({ postId, userId }: any) {
       <Modal isOpen={isOpen} size="md" onClose={onClose}>
         <ModalContent>
           <ModalBody className="p-5">
+            {loading && <p>Loading comments...</p>}
             {commentsData?.data?.map((comment: any) => (
               <div key={comment?._id}>
                 {comment.comments && (
                   <div className="flex flex-col items-start gap-2 border-b py-2 border-slate-400/40">
                     <User
                       avatarProps={{
-                        src: "https://avatars.githubusercontent.com/u/30373425?v=4",
+                        src: comment?.userId?.profilePicture,
                       }}
                       description={
                         <Link
@@ -106,17 +116,18 @@ export default function PostModal({ postId, userId }: any) {
                           )}
                         </Link>
                       }
-                      name="Junior Garcia"
+                      name={comment?.userId?.username}
                     />
-                    <div className="flex items-center gap-4 w-full ">
+                    <div className="flex items-center gap-4 w-full bg-whi">
                       {comment?.userId?.email !== currentUser?.email ? (
-                        <div>
+                        <div className="bg-default-300/50 p-2 rounded-lg min-w-[70%] block">
                           <p className="text-sm">{comment.comments}</p>
                         </div>
                       ) : (
                         ""
                       )}
                       <form
+                        className="w-full"
                         onSubmit={handleSubmit((data) =>
                           onSubmit(data, comment._id)
                         )}
@@ -124,7 +135,7 @@ export default function PostModal({ postId, userId }: any) {
                         {comment?.userId?.email === currentUser?.email && (
                           <div className="w-full flex items-center gap-2">
                             <Input
-                              className="w-[80%]"
+                              className="w-[70%]"
                               defaultValue={comment.comments}
                               type="text"
                               {...register("comments")}
