@@ -3,10 +3,92 @@
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { Card, CardFooter, CardHeader } from "@nextui-org/card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
-export default function UserCard() {
-  const [isFollowed, setIsFollowed] = useState(false);
+import { nexiosInstance } from "@/src/config/axios.instance";
+
+export default function UserCard({ user, logedInUser }: any) {
+  const [followOfUser, setFollowOfUser] = useState<any[]>([]);
+  const [isFollowedUser, setIsFollowedUser] = useState(false);
+
+  useEffect(() => {
+    const fetchFollowers = async () => {
+      try {
+        const { data }: any = await nexiosInstance.get(
+          `/social/follow/${user._id}`,
+          {
+            cache: "no-store",
+          }
+        );
+
+        if (data.success) {
+          setFollowOfUser(data.data.followers || []);
+        }
+      } catch (error) {
+        console.error("Error fetching followers:", error);
+      }
+    };
+
+    fetchFollowers();
+  }, [user._id]);
+
+  const isFollowed = followOfUser.some(
+    (follow: any) => follow?._id === logedInUser?.id
+  ); // Check if user is followed
+
+  const followUser = async (userId: string) => {
+    try {
+      const followOptions = {
+        userId,
+        followers: logedInUser?.id,
+      };
+      const { data }: any = await nexiosInstance.post(
+        "/social/follow",
+        followOptions
+      );
+
+      setIsFollowedUser(true);
+      if (data?.success) {
+        toast.success("Followed");
+        setFollowOfUser((prev) => {
+          const newFollowers = data.data || [];
+
+          return Array.isArray(newFollowers)
+            ? newFollowers
+            : [...prev, logedInUser]; // Update state
+        });
+      }
+    } catch (error) {
+      setIsFollowedUser(false);
+      toast.error("Failed to follow user");
+      console.error("Error following user:", error);
+    }
+  };
+
+  const unfollowUser = async (userId: string) => {
+    try {
+      const followOptions = {
+        followedUserId: logedInUser?.id,
+      };
+      const { data }: any = await nexiosInstance.post(
+        `/social/unfollow/${userId}`,
+        followOptions
+      );
+
+      setIsFollowedUser(false);
+      if (data.success) {
+        toast.success("Successfully unfollow");
+        setFollowOfUser((prev) =>
+          prev.filter((fUser: any) => fUser.userId !== logedInUser?.id)
+        ); // Update local state
+      }
+    } catch (error) {
+      setIsFollowedUser(true);
+      toast.error("Failed to unfollow user");
+      console.error("Error unfollowing user:", error);
+    }
+  };
 
   return (
     <Card className="max-w-[340px]">
@@ -16,41 +98,48 @@ export default function UserCard() {
             isBordered
             radius="full"
             size="md"
-            src="https://nextui.org/avatars/avatar-1.png"
+            src={user?.profilePicture}
           />
           <div className="flex flex-col gap-1 items-start justify-center">
             <h4 className="text-small font-semibold leading-none text-default-600">
-              Zoey Lang
+              {user?.username}
             </h4>
-            <h5 className="text-small tracking-tight text-default-400">
-              @zoeylang
-            </h5>
           </div>
         </div>
-        <Button
-          className={
-            isFollowed
-              ? "bg-transparent text-foreground border-default-200"
-              : ""
-          }
-          color="primary"
-          radius="full"
-          size="sm"
-          variant={isFollowed ? "bordered" : "solid"}
-          onPress={() => setIsFollowed(!isFollowed)}
-        >
-          {isFollowed ? "Unfollow" : "Follow"}
-        </Button>
+        {isFollowed || isFollowedUser ? (
+          <Button
+            color="primary"
+            radius="full"
+            size="sm"
+            variant="bordered"
+            onClick={() => {
+              unfollowUser(user._id);
+            }}
+          >
+            Unfollow
+          </Button>
+        ) : (
+          <Button
+            color="primary"
+            radius="full"
+            size="sm"
+            variant="solid"
+            onClick={() => {
+              followUser(user._id);
+            }}
+          >
+            Follow
+          </Button>
+        )}
       </CardHeader>
 
       <CardFooter className="gap-3">
-        <div className="flex gap-1">
-          <p className="font-semibold text-default-400 text-small">4</p>
-          <p className=" text-default-400 text-small">Following</p>
-        </div>
-        <div className="flex gap-1">
-          <p className="font-semibold text-default-400 text-small">97.1K</p>
+        <div className="flex gap-3">
+          <p className="font-semibold text-default-400 text-small">
+            {followOfUser.length}
+          </p>
           <p className="text-default-400 text-small">Followers</p>
+          <p className="font-semibold text-default-400 text-small">{followOfUser.length} followers</p>
         </div>
       </CardFooter>
     </Card>

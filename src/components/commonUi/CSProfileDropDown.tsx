@@ -17,8 +17,6 @@ export default function CSProfileDropDown() {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const router = useRouter();
 
-  console.log("currentUser", currentUser);
-
   useEffect(() => {
     const fetchAndSetComments = async () => {
       const loggedInUser = await getCurrentUser();

@@ -1,4 +1,3 @@
-import SideMenu from "@/src/components/Shared/CommonSideMenu/SideMenu";
 import Footer from "@/src/components/Shared/Footer/Footer";
 import { Navbar } from "@/src/components/Shared/navbar";
 import { fontSans } from "@/src/config/fonts";
@@ -9,7 +8,8 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import clsx from "clsx";
 import { Metadata, Viewport } from "next";
 
-import UserCard from "./_components/UserCard/UserCard";
+import SideMenu from "@/src/components/Shared/CommonSideMenu/SideMenuLeft";
+import SideMenuRight from "@/src/components/Shared/CommonSideMenu/SideMenuRight";
 
 export const metadata: Metadata = {
   title: {
@@ -58,11 +58,7 @@ export default function MainLayout({
                 {children}
               </ScrollShadow>
 
-              <div className="w-[20%] hidden lg:block ml-auto h-[90vh] bg-default-300/50 space-y-2 px-2 pt-5 mt-5 rounded-lg">
-                <UserCard />
-                <UserCard />
-                <UserCard />
-              </div>
+              {/* <SideMenuRight /> */}
             </div>
           </div>
           <Footer />
