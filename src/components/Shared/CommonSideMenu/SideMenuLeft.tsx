@@ -17,7 +17,7 @@ const pages = [
   { name: "Home", href: "/", icon: <LuHome className="h-5 w-5" /> },
   {
     name: "Dashboard",
-    href: "/dashboard",
+    href: "/profile/settings",
     icon: <MdOutlineDashboard className="h-5 w-5" />,
   },
   {
@@ -77,7 +77,7 @@ const SideMenu = () => {
   // console.log("current user", currentUser);
 
   return (
-    <div className="w-[20%] hidden lg:block h-[100vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10">
+    <div className="w-[30%] hidden lg:block h-[100vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10">
       {error && <div className="text-red-600">{error}</div>}
       <div>
         <User
@@ -116,7 +116,7 @@ const SideMenu = () => {
           )}
         </div>
       </div>
-      <div className="flex flex-col gap-3 mt-3">
+      <div className="flex flex-col gap-3 mt-5">
         {allUser?.data
           ?.slice(0, 4)
           .map((user: any) => (

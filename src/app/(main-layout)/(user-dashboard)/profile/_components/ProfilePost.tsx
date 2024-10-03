@@ -1,7 +1,6 @@
 "use client";
 
-import PostCard from "../../_components/PostCard/PostCard";
-
+import PostCard from "@/src/app/(main-layout)/_components/PostCard/PostCard";
 import { nexiosInstance } from "@/src/config/axios.instance";
 
 const ProfilePosts = async () => {
@@ -15,7 +14,6 @@ const ProfilePosts = async () => {
     if (data && typeof data === "object" && "data" in data) {
       recipes = data.data;
     }
-
 
     return (
       <div className="p-4">

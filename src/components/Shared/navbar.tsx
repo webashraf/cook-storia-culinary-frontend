@@ -1,5 +1,3 @@
-"use client";
-
 import { Input } from "@nextui-org/input";
 import { Kbd } from "@nextui-org/kbd";
 import {

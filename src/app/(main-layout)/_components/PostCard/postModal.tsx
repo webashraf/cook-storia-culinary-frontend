@@ -37,8 +37,8 @@ export default function PostModal({ postId, userId }: any) {
         const fetchedComments = await fetchComments(postId);
 
         setCommentsData(fetchedComments);
-      } catch (err) {
-        console.log("Error fetching comments:", err);
+      } catch (err: any) {
+        throw new Error(err);
       }
     };
 
@@ -57,7 +57,6 @@ export default function PostModal({ postId, userId }: any) {
         "/user-opinion/create",
         opinions
       );
-
 
       if (data.success) {
         revalidatePath("/", "page");

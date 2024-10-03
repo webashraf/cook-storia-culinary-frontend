@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import * as React from "react";
 import { Toaster } from "sonner";
 
+import UserProvider from "../context/user.provider";
+
 export interface ProvidersProps {
   children: React.ReactNode;
   themeProps?: ThemeProviderProps;
@@ -17,8 +19,10 @@ export function Providers({ children, themeProps }: ProvidersProps) {
 
   return (
     <NextUIProvider navigate={router.push}>
-      <Toaster />
-      <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+      <UserProvider>
+        <Toaster />
+        <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+      </UserProvider>
     </NextUIProvider>
   );
 }

@@ -16,14 +16,14 @@ export default function UserCard({ user, logedInUser }: any) {
     const fetchFollowers = async () => {
       try {
         const { data }: any = await nexiosInstance.get(
-          `/social/follow/${user._id}`,
+          `/social/follow/${user?._id}`,
           {
             cache: "no-store",
           }
         );
 
         if (data.success) {
-          setFollowOfUser(data.data.followers || []);
+          setFollowOfUser(data?.data?.followers || []);
         }
       } catch (error) {
         console.error("Error fetching followers:", error);
@@ -35,7 +35,7 @@ export default function UserCard({ user, logedInUser }: any) {
 
   const isFollowed = followOfUser.some(
     (follow: any) => follow?._id === logedInUser?.id
-  ); // Check if user is followed
+  );
 
   const followUser = async (userId: string) => {
     try {
@@ -56,7 +56,7 @@ export default function UserCard({ user, logedInUser }: any) {
 
           return Array.isArray(newFollowers)
             ? newFollowers
-            : [...prev, logedInUser]; // Update state
+            : [...prev, logedInUser];
         });
       }
     } catch (error) {
@@ -81,7 +81,7 @@ export default function UserCard({ user, logedInUser }: any) {
         toast.success("Successfully unfollow");
         setFollowOfUser((prev) =>
           prev.filter((fUser: any) => fUser.userId !== logedInUser?.id)
-        ); // Update local state
+        );
       }
     } catch (error) {
       setIsFollowedUser(true);
@@ -139,7 +139,9 @@ export default function UserCard({ user, logedInUser }: any) {
             {followOfUser.length}
           </p>
           <p className="text-default-400 text-small">Followers</p>
-          <p className="font-semibold text-default-400 text-small">{followOfUser.length} followers</p>
+          <p className="font-semibold text-default-400 text-small">
+            {followOfUser.length} followers
+          </p>
         </div>
       </CardFooter>
     </Card>

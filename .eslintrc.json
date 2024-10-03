@@ -1,4 +1,11 @@
 {
+  "prettier/prettier": [
+    "error",
+    {
+      "singleQuote": true,
+      "parser": "flow"
+    }
+  ],
   "$schema": "https://json.schemastore.org/eslintrc.json",
   "env": {
     "browser": false,
