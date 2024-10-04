@@ -44,6 +44,12 @@ export default function CSProfileDropDown() {
             My Profile
           </DropdownItem>
           <DropdownItem
+            key="add-recipe"
+            onClick={() => router.push("/profile/add-recipe")}
+          >
+            Add Recipe
+          </DropdownItem>
+          <DropdownItem
             key="team_settings"
             onClick={() => router.push("/profile/settings")}
           >

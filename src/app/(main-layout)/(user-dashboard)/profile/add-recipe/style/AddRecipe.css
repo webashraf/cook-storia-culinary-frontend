@@ -1,0 +1,23 @@
+/* Custom Quill toolbar styles */
+.ql-toolbar {
+  @apply border-none bg-gray-100 rounded-t-lg; /* Dark background without border */
+}
+
+.ql-toolbar .ql-picker,
+.ql-toolbar .ql-button {
+  @apply border-none text-white; /* No border for buttons and white icons */
+}
+
+.ql-toolbar .ql-active {
+  @apply bg-yellow-500; /* Active button color */
+}
+
+/* Remove borders from the Quill editor */
+.ql-snow {
+  @apply border-none; /* No border for the editor */
+}
+
+/* Make sure icons are white */
+.ql-toolbar .ql-icon {
+  @apply text-white; /* Ensure icons are white */
+}

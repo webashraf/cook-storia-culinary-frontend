@@ -13,6 +13,9 @@ const ProfileInfo = () => {
         <Link href="/">
           <Button radius="none">Edit Profile</Button>
         </Link>
+        <Link href="/profile/add-recipe">
+          <Button radius="none">Add Recipe</Button>
+        </Link>
         <Link href="/">
           <Button radius="none">Followers</Button>
         </Link>
