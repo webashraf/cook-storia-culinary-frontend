@@ -27,7 +27,7 @@ const MyComponent = () => {
     "image",
   ];
 
-  const handleChange = (content, delta, source, editor) => {
+  const handleChange = (content: any, delta: any, source: any, editor: any) => {
     setText(content);
     console.log("Editor Content:", editor.getContents());
     console.log("HTML Content:", editor.getHTML());

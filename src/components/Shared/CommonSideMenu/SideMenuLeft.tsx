@@ -77,7 +77,7 @@ const SideMenu = () => {
   // console.log("current user", currentUser);
 
   return (
-    <div className="w-[30%] hidden lg:block h-[100vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10">
+    <div className="w-[100%] hidden lg:block h-[100vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10">
       {error && <div className="text-red-600">{error}</div>}
       <div>
         <User
@@ -116,9 +116,9 @@ const SideMenu = () => {
           )}
         </div>
       </div>
-      <div className="flex flex-col gap-3 mt-5">
+      <div className="flex flex-col gap-3 mt-10">
         {allUser?.data
-          ?.slice(0, 4)
+          ?.slice(0, 3)
           .map((user: any) => (
             <div key={user?._id}>
               {user?._id !== currentUser?.id && (

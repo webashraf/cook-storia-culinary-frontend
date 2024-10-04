@@ -13,14 +13,15 @@ export default async function Home() {
     recipes = data.data;
   }
 
-
   return (
     <section className="flex">
       <div className="w-[90%] mx-auto">
         <Stories />
-        <div className="flex gap-5 items-center justify-center">
+        <div className="flex gap-5 items-center flex-wrap justify-center">
           {recipes?.map((recipe: any) => (
-            <PostCard key={recipe.title} recipe={recipe} />
+            <div key={recipe._id} className="w-[48%]">
+              <PostCard recipe={recipe} />
+            </div>
           ))}
         </div>
       </div>

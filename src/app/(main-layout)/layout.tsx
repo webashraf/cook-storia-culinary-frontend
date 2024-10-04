@@ -9,7 +9,6 @@ import clsx from "clsx";
 import { Metadata, Viewport } from "next";
 
 import SideMenu from "@/src/components/Shared/CommonSideMenu/SideMenuLeft";
-import SideMenuRight from "@/src/components/Shared/CommonSideMenu/SideMenuRight";
 
 export const metadata: Metadata = {
   title: {
@@ -47,10 +46,13 @@ export default function MainLayout({
             <Navbar />
 
             <div className="flex overflow-hidden lg:mx-5">
-              <SideMenu />
+              <div className="w-[30%]">
+                {" "}
+                <SideMenu />
+              </div>
               <ScrollShadow
                 hideScrollBar
-                className="lg:ml-auto lg:w-[85%] w-full h-screen "
+                className="lg:ml-auto  lg:w-[100%] w-full h-screen "
                 offset={0}
                 // ScrollShadowVisibility="none"
                 isEnabled={false}
