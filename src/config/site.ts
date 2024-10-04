@@ -21,7 +21,7 @@ export const siteConfig = {
   // navMobileMenuItems: [
   //   {
   //     label: "Profile",
-  //     href: "/profile",
+  //     href: "/user",
   //   },
   //   {
   //     label: "Dashboard",

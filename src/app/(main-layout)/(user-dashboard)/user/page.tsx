@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import ProfileHeader from "./_components/ProfileHeader";
-import ProfileInfo from "./_components/ProfileInfo";
-import ProfilePosts from "./_components/ProfilePost";
+import ProfileHeader from "./_components/userHeader";
+import ProfileInfo from "./_components/userInfo";
+import ProfilePosts from "./_components/userPost";
 
 const ProfilePage = () => {
   return (

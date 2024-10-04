@@ -90,7 +90,7 @@ const PostComments = ({ postId, userId }: IProps) => {
         opinions
       );
 
-      setCommentsData(await fetchComments(postId)); // Refetch comments after disliking
+      setCommentsData(await fetchComments(postId));
     } catch (err) {
       console.error("Error disliking the post:", err);
     }

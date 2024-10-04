@@ -62,7 +62,6 @@ export default function PostModal({ postId, userId }: any) {
         revalidatePath("/", "page");
       }
 
-      // await refetchComments();
       reset();
       setEditState((prev) => ({ ...prev, [commentId]: false }));
     } catch (err) {
@@ -71,7 +70,6 @@ export default function PostModal({ postId, userId }: any) {
   };
 
   const refetchComments = async () => {
-    // setLoading(true);
     try {
       const updatedComments = await fetchComments(postId);
 
@@ -92,7 +90,8 @@ export default function PostModal({ postId, userId }: any) {
           className="text-sm text-primary-300 hover:text-primary-400 underline lowercase"
           onClick={onOpen}
         >
-          See comments
+          See comments (
+          {commentsData?.data?.length ? commentsData?.data?.length : 0})
         </button>
       </div>
       <Modal isOpen={isOpen} size="md" onClose={onClose}>

@@ -17,7 +17,7 @@ const pages = [
   { name: "Home", href: "/", icon: <LuHome className="h-5 w-5" /> },
   {
     name: "Dashboard",
-    href: "/profile/settings",
+    href: "/user/settings",
     icon: <MdOutlineDashboard className="h-5 w-5" />,
   },
   {
@@ -25,7 +25,7 @@ const pages = [
     href: "/recipe-feed",
     icon: <LuBookOpen className="h-5 w-5" />,
   },
-  { name: "Profile", href: "/profile", icon: <FaUser className="h-5 w-5" /> },
+  { name: "Profile", href: "/user", icon: <FaUser className="h-5 w-5" /> },
   {
     name: "About Us",
     href: "/about-us",

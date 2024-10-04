@@ -40,28 +40,28 @@ export default function CSProfileDropDown() {
             <p className="font-bold">Signed in as</p>
             <p className="font-bold">{currentUser?.email}</p>
           </DropdownItem>
-          <DropdownItem key="settings" onClick={() => router.push("/profile")}>
+          <DropdownItem key="settings" onClick={() => router.push("/user")}>
             My Profile
           </DropdownItem>
           <DropdownItem
             key="add-recipe"
-            onClick={() => router.push("/profile/add-recipe")}
+            onClick={() => router.push("/user/add-recipe")}
           >
             Add Recipe
           </DropdownItem>
           <DropdownItem
             key="team_settings"
-            onClick={() => router.push("/profile/settings")}
+            onClick={() => router.push("/user/settings")}
           >
             Profile Settings
           </DropdownItem>
           <DropdownItem
             key="team_settings"
-            onClick={() => router.push("/profile/change-password")}
+            onClick={() => router.push("/user/change-password")}
           >
             Change Password
           </DropdownItem>
-          <DropdownItem key="analytics" onClick={() => router.push("/profile")}>
+          <DropdownItem key="analytics" onClick={() => router.push("/user")}>
             My Recipes
           </DropdownItem>
           <DropdownItem
