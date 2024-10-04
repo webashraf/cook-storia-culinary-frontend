@@ -46,7 +46,7 @@ export default function MainLayout({
             <Navbar />
 
             <div className="flex overflow-hidden lg:mx-5">
-              <div className="w-[30%]">
+              <div className="lg:w-[30%]">
                 {" "}
                 <SideMenu />
               </div>
