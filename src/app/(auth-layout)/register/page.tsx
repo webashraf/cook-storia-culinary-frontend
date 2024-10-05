@@ -13,12 +13,12 @@ import { LuUserPlus } from "react-icons/lu";
 import { MdPassword } from "react-icons/md";
 import { toast } from "sonner";
 
-interface IUserFormInfo {
+export interface IUserFormInfo {
   username: string;
   email: string;
+  id: string;
   password: string;
   profilePicture: string;
-  role: string;
 }
 
 const SignUp = () => {

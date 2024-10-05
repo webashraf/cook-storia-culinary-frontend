@@ -1,5 +1,6 @@
 "use client";
 
+import convertToCurrency from "@/src/lib/convertToCurrency";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useState } from "react";
@@ -15,7 +16,7 @@ const stripePromise = loadStripe(
 
 export default function App() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const amount: number = 5000;
+  const amount: number = convertToCurrency(200);
 
   useEffect(() => {
     fetch("/api/create-payment-intent", {

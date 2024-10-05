@@ -11,12 +11,12 @@ import {
 } from "react";
 
 import { getCurrentUser } from "../services/AuthService";
-import { IUser } from "../types";
+import { ILogInUser } from "../types";
 
 const UserContext = createContext<IUserProvider | undefined>(undefined);
 
 interface IUserProvider {
-  user: IUser | null;
+  user: ILogInUser | null;
   setUser: Dispatch<SetStateAction<null>>;
   isUserLoading: boolean;
   setIsUserLoading: Dispatch<SetStateAction<boolean>>;

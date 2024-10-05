@@ -12,8 +12,16 @@ const roleBasedRoutes = {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-
   const user = await getCurrentUser();
+
+  // console.log("pathname: " + pathname);
+  // console.log("pathnameL: " + pathname.length);
+
+  // console.log("user: " + user);
+
+  if (pathname === "/recipe-feed" && "/recipe-feed".length === 12) {
+    return NextResponse.next();
+  }
 
   if (!user) {
     if (AuthRoutes.includes(pathname)) {
@@ -25,9 +33,21 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  if (user) {
+ 
+    if (user?.isPremium) {
+      console.log("True", user?.isPremium);
+      return NextResponse.next();
+    } else {
+      console.log("False", user?.isPremium);
+      if (pathname.match(/^\/recipe-feed/)) {
+        return NextResponse.redirect(new URL("/user/membership", request.url));
+      }
+    }
+  }
+
   if (user?.role && roleBasedRoutes[user?.role as Role]) {
     const routes = roleBasedRoutes[user?.role as Role];
-
     if (routes.some((route) => pathname.match(route))) {
       return NextResponse.next();
     }
@@ -44,5 +64,6 @@ export const config = {
     // "/admin",
     "/login",
     "/register",
+    "/recipe-feed/:page*",
   ],
 };

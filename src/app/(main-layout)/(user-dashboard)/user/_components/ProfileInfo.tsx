@@ -16,6 +16,9 @@ const ProfileInfo = () => {
         <Link href="/user/add-recipe">
           <Button radius="none">Add Recipe</Button>
         </Link>
+        <Link href="/user/membership">
+          <Button radius="none">Membership</Button>
+        </Link>
         <Link href="/">
           <Button radius="none">Followers</Button>
         </Link>

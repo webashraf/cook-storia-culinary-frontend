@@ -1,4 +1,4 @@
 const convertToCurrency = (amount: number, factor = 100) =>
-  Math.round(amount * factor);
+  Math.round(Number(amount) * factor);
 
 export default convertToCurrency;

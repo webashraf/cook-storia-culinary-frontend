@@ -1,5 +1,7 @@
 "use client";
 
+import { nexiosInstance } from "@/src/config/axios.instance";
+import { useUser } from "@/src/context/user.provider";
 import convertToCurrency from "@/src/lib/convertToCurrency";
 import { Button } from "@nextui-org/button";
 import {
@@ -9,25 +11,28 @@ import {
 } from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function CheckoutForm({ amount }: { amount: number }) {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
-
+  const { user: currentUser, setUser } = useUser();
+  console.log("logged in user:", currentUser);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
     async function fetchPaymentIntent() {
+      convertToCurrency(amount);
       try {
         const response = await fetch("/api/create-payment-intent", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ amount: convertToCurrency(amount) }),
+          body: JSON.stringify({ amount: amount }),
         });
 
         const data = await response.json();
@@ -75,10 +80,30 @@ export default function CheckoutForm({ amount }: { amount: number }) {
       setErrorMessage(error.message || "An error occurred in payment.");
     } else {
       console.log("Payment successful!", paymentIntent);
-      const transactionId = paymentIntent.id;
-      const amountReceived = paymentIntent.amount_received / 100;
-      console.log("Transaction ID:", transactionId);
-      console.log("Amount Received:", amountReceived);
+      if (paymentIntent?.status) {
+        const paymentInfo = {
+          isPremium: true,
+          paymentStatus: {
+            success: true,
+            transaction: paymentIntent.id,
+            amount: paymentIntent.amount / 100,
+            date: new Date().toString(),
+          },
+        };
+
+        const { data }: any = await nexiosInstance.post(
+          `/user/update-user/${currentUser?.id}`,
+          paymentInfo
+        );
+        if (data.success) {
+          setUser(data.data);
+          toast.success(`Payment successful trID:${paymentIntent.id}`);
+          router.push(
+            `/user/membership/payment/success?transactionId=${paymentIntent.id}&amount=${paymentIntent.amount / 100}`
+          );
+        }
+        console.log("Payment Info:", data);
+      }
     }
 
     setIsLoading(false);
@@ -98,7 +123,7 @@ export default function CheckoutForm({ amount }: { amount: number }) {
           disabled={isLoading || !stripe || !elements}
           className={`mt-5 w-full bg-black text-white`}
         >
-          {isLoading ? `Processing...` : `Pay $${amount}`}
+          {isLoading ? `Processing...` : `Pay $${amount / 100}`}
         </Button>
       </form>
       {errorMessage && <div className="mt-4 text-red-500">{errorMessage}</div>}

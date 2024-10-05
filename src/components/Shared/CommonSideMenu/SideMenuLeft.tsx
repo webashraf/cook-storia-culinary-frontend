@@ -1,7 +1,6 @@
 "use client";
 
 import { Link } from "@nextui-org/link";
-import { User } from "@nextui-org/user";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaPhone, FaUser } from "react-icons/fa";
@@ -11,7 +10,9 @@ import { MdOutlineDashboard, MdWorkspacePremium } from "react-icons/md";
 
 import UserCard from "@/src/app/(main-layout)/_components/UserCard/UserCard";
 import { nexiosInstance } from "@/src/config/axios.instance";
-import { getCurrentUser } from "@/src/services/AuthService";
+import { useUser } from "@/src/context/user.provider";
+import { Avatar } from "@nextui-org/avatar";
+import UserSkeleton from "../Loader/UserSkeleton";
 
 const pages = [
   { name: "Home", href: "/", icon: <LuHome className="h-5 w-5" /> },
@@ -46,24 +47,10 @@ const pages = [
 const SideMenu = () => {
   const pathname = usePathname();
   const [allUser, setAllUser] = useState<any>(null);
-  const [currentUser, setCurrentUser] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const { user: currentUser, setUser: setCurrentUser } = useUser();
 
-  // console.log("allUser", allUser);
-  useEffect(() => {
-    const logedInUserInfo = async () => {
-      try {
-        const loggedInUser = await getCurrentUser();
-
-        setCurrentUser(loggedInUser);
-      } catch (err) {
-        console.error("Error fetching current user:", err);
-        setError("Failed to fetch current user.");
-      }
-    };
-
-    logedInUserInfo();
-  }, []);
+  console.log(currentUser);
 
   const getAllUsers = async () => {
     try {
@@ -82,20 +69,47 @@ const SideMenu = () => {
   // console.log("current user", currentUser);
 
   return (
-    <div className="w-[100%] hidden lg:block h-[100vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10">
+    <div className="w-[100%] lg:block h-[100vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10">
       {error && <div className="text-red-600">{error}</div>}
       <div>
-        <User
+        {/* <User
+          isFocusable={true}
           avatarProps={{
-            src: "https://avatars.githubusercontent.com/u/30373425?v=4",
+            src: currentUser?.photo,
           }}
           description={
-            <Link isExternal href="https://twitter.com/jrgarciadev" size="sm">
-              {currentUser?.email}
+            <Link
+              className="text-warning-500"
+              isExternal
+              href="https://twitter.com/jrgarciadev"
+              size="sm"
+            >
+              Pro
             </Link>
           }
-          name="Jhon kabir"
-        />
+          name={`${currentUser?.name}`}
+          className=" uppercase"
+        /> */}
+
+        {currentUser ? (
+          <div className="flex gap-5">
+            <Avatar
+              isBordered
+              color={currentUser?.isPremium ? "warning" : "primary"}
+              src={currentUser?.photo}
+            />
+            <div className="relative">
+              <h4 className="uppercase">{currentUser?.name}</h4>
+              {currentUser.isPremium ? (
+                <p className="text-sm text-warning-600 ">Pro User</p>
+              ) : (
+                <p className="text-sm text-default-400">Basic user</p>
+              )}
+            </div>
+          </div>
+        ) : (
+          <UserSkeleton />
+        )}
         <div className="mt-10 flex flex-col gap-2">
           {pages.map((page) => (
             <div key={page.href}>

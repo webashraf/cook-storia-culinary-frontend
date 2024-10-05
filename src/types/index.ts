@@ -4,10 +4,21 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
 
-export interface IUser {
+interface PaymentStatus {
+  amount: number;
+  success: boolean;
+  transaction: string;
+  date: string;
+}
+
+export interface ILogInUser {
   name: string;
   email: string;
+  exp: number;
+  iat: number;
   id: string;
-  profilePicture?: string;
-  role: string;
+  isPremium?: boolean;
+  paymentStatus?: PaymentStatus;
+  photo: string;
+  role: "user" | "admin";
 }
