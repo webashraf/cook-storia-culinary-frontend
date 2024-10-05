@@ -5,6 +5,7 @@ import { Input, Textarea } from "@nextui-org/input";
 import { FormEvent, useState } from "react";
 
 const ContactUs = () => {
+  console.log("", process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
   const [formData, setFormData] = useState({
     name: "",
     email: "",

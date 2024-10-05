@@ -139,9 +139,7 @@ export default function UserCard({ user, logedInUser }: any) {
             {followOfUser.length}
           </p>
           <p className="text-default-400 text-small">Followers</p>
-          <p className="font-semibold text-default-400 text-small">
-            {followOfUser.length} followers
-          </p>
+         
         </div>
       </CardFooter>
     </Card>

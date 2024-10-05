@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { FaPhone, FaUser } from "react-icons/fa";
 import { IoInformationCircle } from "react-icons/io5";
 import { LuBookOpen, LuHome, LuLogIn } from "react-icons/lu";
-import { MdOutlineDashboard } from "react-icons/md";
+import { MdOutlineDashboard, MdWorkspacePremium } from "react-icons/md";
 
 import UserCard from "@/src/app/(main-layout)/_components/UserCard/UserCard";
 import { nexiosInstance } from "@/src/config/axios.instance";
@@ -19,6 +19,11 @@ const pages = [
     name: "Dashboard",
     href: "/user/settings",
     icon: <MdOutlineDashboard className="h-5 w-5" />,
+  },
+  {
+    name: "Membership",
+    href: "/user/membership",
+    icon: <MdWorkspacePremium className="h-5 w-5" />,
   },
   {
     name: "Recipe Feed",
@@ -96,7 +101,7 @@ const SideMenu = () => {
             <div key={page.href}>
               <Link className="text-default-600" href={page.href}>
                 <span
-                  className={`flex items-center text-default-800 text-left p-2 rounded-md ${pathname === page.href ? " bg-default-500 text-default-100" : ""}`}
+                  className={`flex items-center text-default-800 text-left p-2 rounded-md ${pathname === page.href ? " bg-primary-500 text-default-100" : ""}`}
                 >
                   {page.icon}
                 </span>
