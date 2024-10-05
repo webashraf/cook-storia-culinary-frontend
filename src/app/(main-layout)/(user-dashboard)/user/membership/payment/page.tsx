@@ -15,9 +15,8 @@ const stripePromise = loadStripe(
 
 export default function App() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const amount: number = 500;
+  const amount: number = 5000;
 
-  // Fetch clientSecret from your backend
   useEffect(() => {
     fetch("/api/create-payment-intent", {
       method: "POST",
@@ -33,7 +32,7 @@ export default function App() {
   };
 
   return (
-    <div className="app bg-white p-5 m-10">
+    <div className="app bg-white p-5 m-10 rounded-md shadow-xl shadow-primary-400/30 mt-20">
       {clientSecret ? (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm amount={amount} />

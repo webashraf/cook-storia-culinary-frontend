@@ -1,22 +1,24 @@
 "use client";
 
 import convertToCurrency from "@/src/lib/convertToCurrency";
+import { Button } from "@nextui-org/button";
 import {
   PaymentElement,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function CheckoutForm({ amount }: { amount: number }) {
   const stripe = useStripe();
   const elements = useElements();
+  const router = useRouter();
 
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
 
-  // Fetch client secret on mount or when amount changes
   useEffect(() => {
     async function fetchPaymentIntent() {
       try {
@@ -38,29 +40,22 @@ export default function CheckoutForm({ amount }: { amount: number }) {
     fetchPaymentIntent();
   }, [amount]);
 
-  // Handle payment submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
       return;
     }
 
-    setIsLoading(true);
+    const { error: submitError } = await elements.submit();
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
-      },
-    });
-
-    // Handle errors
-    if (error) {
-      if (error.type === "card_error" || error.type === "validation_error") {
-        setErrorMessage(error.message || "Payment error occurred.");
+    if (submitError) {
+      if (
+        submitError.type === "card_error" ||
+        submitError.type === "validation_error"
+      ) {
+        setErrorMessage(submitError.message || "Payment error occurred.");
       } else {
         setErrorMessage("An unexpected error occurred.");
       }
@@ -68,20 +63,43 @@ export default function CheckoutForm({ amount }: { amount: number }) {
       setErrorMessage("");
     }
 
+    const { error, paymentIntent }: any = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: "",
+      },
+      redirect: "if_required",
+    });
+
+    if (error) {
+      setErrorMessage(error.message || "An error occurred in payment.");
+    } else {
+      console.log("Payment successful!", paymentIntent);
+      const transactionId = paymentIntent.id;
+      const amountReceived = paymentIntent.amount_received / 100;
+      console.log("Transaction ID:", transactionId);
+      console.log("Amount Received:", amountReceived);
+    }
+
     setIsLoading(false);
   };
 
+  if (!clientSecret || !stripe || !elements) {
+    return <h2 className="text-black">Loading...</h2>;
+  }
+
   return (
     <>
-      <form id="payment-form" onSubmit={handleSubmit}>
+      <form id="payment-form" className="" onSubmit={handleSubmit}>
         {clientSecret && <PaymentElement />}
-        <button
+        <Button
+          isLoading={isLoading || !stripe || !elements}
           type="submit"
           disabled={isLoading || !stripe || !elements}
-          className={`mt-4 px-4 py-2 text-white bg-blue-500 rounded disabled:bg-gray-300`}
+          className={`mt-5 w-full bg-black text-white`}
         >
-          {isLoading ? "Processing..." : "Pay"}
-        </button>
+          {isLoading ? `Processing...` : `Pay $${amount}`}
+        </Button>
       </form>
       {errorMessage && <div className="mt-4 text-red-500">{errorMessage}</div>}
     </>
