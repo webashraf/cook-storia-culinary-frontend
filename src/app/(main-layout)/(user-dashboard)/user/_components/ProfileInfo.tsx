@@ -13,11 +13,14 @@ const ProfileInfo = () => {
         <Link href="/">
           <Button radius="none">Edit Profile</Button>
         </Link>
+        <Link href="/user/membership">
+          <Button radius="none">Membership</Button>
+        </Link>
         <Link href="/user/add-recipe">
           <Button radius="none">Add Recipe</Button>
         </Link>
-        <Link href="/user/membership">
-          <Button radius="none">Membership</Button>
+        <Link href="/user/change-password">
+          <Button radius="none">Change Password</Button>
         </Link>
         <Link href="/">
           <Button radius="none">Followers</Button>

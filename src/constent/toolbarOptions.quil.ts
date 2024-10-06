@@ -1,7 +1,7 @@
 export const toolbarOptions = [
   ["bold", "italic", "underline", "strike"],
   ["blockquote", "code-block"],
-  ["link", "image", "video", "formula"],
+  [ "image", ],
 
   [{ header: 1 }, { header: 2 }],
   [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
