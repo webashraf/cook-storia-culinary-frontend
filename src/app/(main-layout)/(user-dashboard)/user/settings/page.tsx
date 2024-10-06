@@ -1,14 +1,8 @@
-"use client";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
-import { useState } from "react";
 import { IoMail } from "react-icons/io5";
 
-const page = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  const toggleVisibility = () => setIsVisible(!isVisible);
-
+const SettingsPage = () => {
   return (
     <div className="min-h-[90vh] flex items-center justify-center ">
       <form className=" border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg p-12 w-[500px] space-y-8">
@@ -24,7 +18,6 @@ const page = () => {
             <IoMail className="text-2xl text-gray-600 pointer-events-none flex-shrink-0" />
           }
           type="text"
-          // onClear={() => //console.log("input cleared")}
         />
         <Input
           className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
@@ -34,7 +27,6 @@ const page = () => {
             <IoMail className="text-2xl text-gray-600 pointer-events-none flex-shrink-0" />
           }
           type="email"
-          // onClear={() => //console.log("input cleared")}
         />
 
         <Input
@@ -59,4 +51,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SettingsPage;

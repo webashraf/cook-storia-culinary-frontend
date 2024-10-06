@@ -14,11 +14,6 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const user = await getCurrentUser();
 
-  // console.log("pathname: " + pathname);
-  // console.log("pathnameL: " + pathname.length);
-
-  // console.log("user: " + user);
-
   if (pathname === "/recipe-feed" && "/recipe-feed".length === 12) {
     return NextResponse.next();
   }
@@ -28,18 +23,15 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     } else {
       return NextResponse.redirect(
-        new URL(`/login?redirect=${pathname}`, request.url)
+        new URL(`/login?redirect=${pathname}`, request.url),
       );
     }
   }
 
   if (user) {
- 
     if (user?.isPremium) {
-      console.log("True", user?.isPremium);
       return NextResponse.next();
     } else {
-      console.log("False", user?.isPremium);
       if (pathname.match(/^\/recipe-feed/)) {
         return NextResponse.redirect(new URL("/user/membership", request.url));
       }
@@ -48,19 +40,20 @@ export async function middleware(request: NextRequest) {
 
   if (user?.role && roleBasedRoutes[user?.role as Role]) {
     const routes = roleBasedRoutes[user?.role as Role];
+
     if (routes.some((route) => pathname.match(route))) {
       return NextResponse.next();
     }
   }
 
-  return NextResponse.redirect(new URL("/", request.url));
+  return NextResponse.redirect(new URL("/login", request.url));
 }
 
 export const config = {
   matcher: [
-    // "/user",
-    // "/admin/:page*",
-    // "/user/:page*",
+    "/",
+    "/user/:page*",
+    "/admin/:page*",
     // "/admin",
     "/login",
     "/register",

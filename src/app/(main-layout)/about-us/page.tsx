@@ -7,7 +7,7 @@ const AboutUs = () => {
         <h1 className="text-5xl lg:text-6xl font-extrabold  mb-8">
           Welcome to Cookstoria Culinary
         </h1>
-        <p className=" text-default-600 max-w-4xl mx-auto mb-12">
+        <p className=" text-default-600 pl-20 mx-auto mb-12">
           Cookstoria Culinary is your ultimate destination for all things
           cooking. Our platform is designed to bring together cooking
           enthusiasts from around the world, creating a space where food lovers

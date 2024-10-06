@@ -4,7 +4,7 @@ import { User } from "@nextui-org/user";
 const page = ({ params }: { params: { id: string } }) => {
   return (
     <div className="bg-gradient-to-b min-h-screen p-6 text-default-900 w-full">
-      <div className="max-w-4xl mx-auto bg-default-100 rounded-xl shadow-2xl overflow-hidden">
+      <div className="pl-20 mx-auto bg-default-100 rounded-xl shadow-2xl overflow-hidden">
         {/* Image Section */}
         <div className="relative">
           <Image

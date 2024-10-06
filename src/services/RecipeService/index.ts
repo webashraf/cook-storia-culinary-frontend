@@ -1,5 +1,7 @@
 "use server";
 
+import { toast } from "sonner";
+
 import { nexiosInstance } from "@/src/config/axios.instance";
 
 export const fetchComments = async (postId: string) => {
@@ -14,66 +16,16 @@ export const fetchComments = async (postId: string) => {
   }
 };
 
-export const getAllRecipeBySearchAndFilter = async (query: string) => {
-  console.log(query);
+export const getAllRecipeBySearchAndFilter = async () => {
   try {
     const { data }: any = await nexiosInstance.get(`/recipe`);
 
     if (data?.success) {
-      console.log("Like response:", data);
       return data;
+    } else {
+      toast.error(`Error fetching recipe`);
     }
-    // revalidateTag("recipeComments");
-    // setCommentsData(await fetchComments(postId));
   } catch (err) {
-    console.error("Error liking the post:", err);
+    toast.error(`Error fetching recipe`);
   }
 };
-
-// export const handleLike = async (postId: string, userId: string) => {
-//console.log(postId, userId);
-
-// const opinions: IOpinions = {
-//   postId,
-//   userId,
-//   upVote: 1,
-// };
-
-// try {
-//   const { data }: any = await nexiosInstance.post(
-//     "/user-opinion/create",
-//     opinions
-//   );
-
-//   if (data?.success) {
-//     //console.log("Like response:", data);
-//     revalidateTag("comments");
-//   }
-//   // revalidateTag("recipeComments");
-//   // setCommentsData(await fetchComments(postId));
-// } catch (err) {
-//   console.error("Error liking the post:", err);
-// }
-// };
-// export const handleDislike = async (postId: string, userId: string) => {
-//   const opinions: IOpinions = {
-//     postId,
-//     userId,
-//     downVote: 1,
-//   };
-
-//   try {
-//     const { data }: any = await nexiosInstance.post(
-//       "/user-opinion/create",
-//       opinions
-//     );
-
-//     if (data?.success) {
-//       //console.log("dislike response:", data);
-//       revalidateTag("comments");
-//     }
-//     // setCommentsData(await fetchComments(postId)); // Refetch comments after disliking
-//   } catch (err) {
-//     console.error("Error disliking the post:", err);
-//   }
-// };

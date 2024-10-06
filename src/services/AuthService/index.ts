@@ -12,7 +12,7 @@ export const loginUser = async (userInfo: {
   try {
     const { data }: any = await nexiosInstance.post(
       "/auth/login-user",
-      userInfo,
+      userInfo
     );
 
     if (data.success) {
@@ -36,7 +36,7 @@ export const getCurrentUser = async () => {
 
   let decodedToken = null;
 
-  if (!!accessToken) {
+  if (accessToken) {
     decodedToken = await jwtDecode(accessToken);
   }
 

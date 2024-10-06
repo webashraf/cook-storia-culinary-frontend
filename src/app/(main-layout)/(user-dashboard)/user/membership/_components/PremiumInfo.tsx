@@ -1,7 +1,8 @@
 "use client";
 
-import { useUser } from "@/src/context/user.provider";
 import moment from "moment";
+
+import { useUser } from "@/src/context/user.provider";
 
 // Sample data for demonstration purposes
 const premiumInfo = [

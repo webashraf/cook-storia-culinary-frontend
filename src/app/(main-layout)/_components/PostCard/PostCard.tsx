@@ -2,20 +2,21 @@ import { Chip } from "@nextui-org/chip";
 import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
 import { User } from "@nextui-org/user";
+
 import PostComments from "./PostComments";
 
 const PostCard = ({ recipe }: any) => {
   return (
     <>
-      <div className="min-h-[400px] min:w-[300px]  mx-aut border border-default-300 p-5 rounded-md md:w-full w-ful">
+      <div className="min-h-[400px] min:w-[300px]   mx-aut border border-default-300 p-5 rounded-md md:w-full w-ful">
         <User
-        className="mb-3"
           avatarProps={{
             src: recipe?.user?.profilePicture,
           }}
+          className="mb-3"
           description={
             <Link isExternal href={`mailto:${recipe?.user?.email}`} size="sm">
-              {recipe?.user?._id}
+              {recipe?.user?.email}
             </Link>
           }
           name={recipe?.user?.username}

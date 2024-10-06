@@ -3,16 +3,17 @@
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IoEyeOff, IoEyeSharp, IoMail } from "react-icons/io5";
 import { MdPassword } from "react-icons/md";
 import { toast } from "sonner";
 
+import { loginUser } from "@/src/services/AuthService";
+
 import { useUser } from "../context/user.provider";
 
-import { loginUser } from "@/src/services/AuthService";
 
 const Login = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -20,7 +21,6 @@ const Login = () => {
   const defaultValues = { email: "ali@gmail.com", password: "123456" };
   const { handleSubmit, register } = useForm({ defaultValues });
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { setIsUserLoading } = useUser();
 
   const loginForm: SubmitHandler<any> = async (formData) => {
@@ -92,8 +92,8 @@ const Login = () => {
 
         <div className="flex justify-between items-center">
           <Link
-            href="/forgat-password"
             className="text-sm text-blue-600 hover:underline focus:outline-none"
+            href="/forgat-password"
             type="button"
           >
             Forgot Password?

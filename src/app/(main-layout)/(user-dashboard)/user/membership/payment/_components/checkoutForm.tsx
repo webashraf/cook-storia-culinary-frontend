@@ -1,8 +1,5 @@
 "use client";
 
-import { nexiosInstance } from "@/src/config/axios.instance";
-import { useUser } from "@/src/context/user.provider";
-import convertToCurrency from "@/src/lib/convertToCurrency";
 import { Button } from "@nextui-org/button";
 import {
   PaymentElement,
@@ -10,15 +7,19 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { toast } from "sonner";
+
+import { nexiosInstance } from "@/src/config/axios.instance";
+import { useUser } from "@/src/context/user.provider";
+import convertToCurrency from "@/src/lib/convertToCurrency";
 
 export default function CheckoutForm({ amount }: { amount: number }) {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
   const { user: currentUser, setUser } = useUser();
-  console.log("logged in user:", currentUser);
+
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
@@ -36,6 +37,7 @@ export default function CheckoutForm({ amount }: { amount: number }) {
         });
 
         const data = await response.json();
+
         setClientSecret(data.clientSecret);
       } catch (error) {
         setErrorMessage("Failed to create payment intent. Please try again.");
@@ -45,7 +47,7 @@ export default function CheckoutForm({ amount }: { amount: number }) {
     fetchPaymentIntent();
   }, [amount]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -79,7 +81,6 @@ export default function CheckoutForm({ amount }: { amount: number }) {
     if (error) {
       setErrorMessage(error.message || "An error occurred in payment.");
     } else {
-      console.log("Payment successful!", paymentIntent);
       if (paymentIntent?.status) {
         const paymentInfo = {
           isPremium: true,
@@ -95,6 +96,7 @@ export default function CheckoutForm({ amount }: { amount: number }) {
           `/user/update-user/${currentUser?.id}`,
           paymentInfo
         );
+
         if (data.success) {
           setUser(data.data);
           toast.success(`Payment successful trID:${paymentIntent.id}`);
@@ -102,7 +104,6 @@ export default function CheckoutForm({ amount }: { amount: number }) {
             `/user/membership/payment/success?transactionId=${paymentIntent.id}&amount=${paymentIntent.amount / 100}`
           );
         }
-        console.log("Payment Info:", data);
       }
     }
 
@@ -115,13 +116,13 @@ export default function CheckoutForm({ amount }: { amount: number }) {
 
   return (
     <>
-      <form id="payment-form" className="" onSubmit={handleSubmit}>
+      <form className="" id="payment-form" onSubmit={handleSubmit}>
         {clientSecret && <PaymentElement />}
         <Button
+          className={`mt-5 w-full bg-black text-white`}
+          disabled={isLoading || !stripe || !elements}
           isLoading={isLoading || !stripe || !elements}
           type="submit"
-          disabled={isLoading || !stripe || !elements}
-          className={`mt-5 w-full bg-black text-white`}
         >
           {isLoading ? `Processing...` : `Pay $${amount / 100}`}
         </Button>

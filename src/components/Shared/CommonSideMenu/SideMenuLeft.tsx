@@ -1,5 +1,6 @@
 "use client";
 
+import { Avatar } from "@nextui-org/avatar";
 import { Link } from "@nextui-org/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,10 +9,11 @@ import { IoInformationCircle } from "react-icons/io5";
 import { LuBookOpen, LuHome, LuLogIn } from "react-icons/lu";
 import { MdOutlineDashboard, MdWorkspacePremium } from "react-icons/md";
 
+
 import UserCard from "@/src/app/(main-layout)/_components/UserCard/UserCard";
 import { nexiosInstance } from "@/src/config/axios.instance";
 import { useUser } from "@/src/context/user.provider";
-import { Avatar } from "@nextui-org/avatar";
+
 import UserSkeleton from "../Loader/UserSkeleton";
 
 const pages = [
@@ -48,9 +50,7 @@ const SideMenu = () => {
   const pathname = usePathname();
   const [allUser, setAllUser] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-  const { user: currentUser, setUser: setCurrentUser } = useUser();
-
-  console.log(currentUser);
+  const { user: currentUser } = useUser();
 
   const getAllUsers = async () => {
     try {
@@ -58,7 +58,6 @@ const SideMenu = () => {
 
       setAllUser(data);
     } catch (err) {
-      console.error("Error fetching all users:", err);
       setError("Failed to fetch users.");
     }
   };
@@ -66,7 +65,6 @@ const SideMenu = () => {
   useEffect(() => {
     getAllUsers();
   }, []);
-  // console.log("current user", currentUser);
 
   return (
     <div className="w-[100%] lg:block h-[100vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10">

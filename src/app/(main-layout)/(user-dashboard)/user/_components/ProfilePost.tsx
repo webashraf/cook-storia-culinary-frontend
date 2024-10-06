@@ -1,48 +1,59 @@
 "use client";
 
-import PostCard from "@/src/app/(main-layout)/_components/PostCard/PostCard";
-import { nexiosInstance } from "@/src/config/axios.instance";
+import { revalidateTag } from "next/cache";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
+
+import PostCard from "@/src/app/(main-layout)/_components/PostCard/PostCard";
+import Loading from "@/src/components/UI/Loading/Loading";
+import { nexiosInstance } from "@/src/config/axios.instance";
+import { useUser } from "@/src/context/user.provider";
 
 const ProfilePosts = () => {
   const [recipes, setRecipes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { user: currentUser } = useUser();
 
+  revalidateTag("comments");
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const { data }: any = await nexiosInstance.get("/recipe", {
-          cache: "no-store",
-        });
+        const { data }: any = await nexiosInstance.get(
+          `/recipe?user=${currentUser?.id}`,
+        );
 
+        if (data.success) {
+          setLoading(false);
+        }
         if (data && typeof data === "object" && "data" in data) {
           setRecipes(data.data);
         } else {
           setRecipes([]);
         }
-      } catch (error) {
-        console.error("Error fetching recipes:", error);
+      } catch (error: any) {
+        toast.error("Error fetching recipes:", error);
       }
     };
 
     fetchRecipes();
-  }, []); // Empty dependency array to run only once on mount
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  }, [currentUser]);
 
   return (
-    <div className="p-4">
-      <div className="grid grid-cols-1 gap-4">
-        {recipes.length > 0 ? (
-          recipes.map((post: any) => (
-            <PostCard key={post.title} recipe={post} />
-          ))
-        ) : (
-          <p>No recipes found.</p>
-        )}
-      </div>
+    <div className="pt-5 w-full">
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="grid grid-cols-1 gap-4">
+          <h2>My Post</h2>
+          {recipes.length > 0 ? (
+            recipes.map((post: any) => (
+              <PostCard key={post.title} recipe={post} />
+            ))
+          ) : (
+            <p>No recipes found.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };

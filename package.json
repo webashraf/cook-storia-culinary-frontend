@@ -47,6 +47,7 @@
 		"moment": "^2.30.1",
 		"nexios-http": "^1.1.21",
 		"next": "^14.2.4",
+		"next-cloudinary": "^6.14.1",
 		"next-themes": "^0.2.1",
 		"quill-image-resize-module": "^3.0.0",
 		"react": "18.3.1",
@@ -58,6 +59,7 @@
 		"stripe": "^17.1.0"
 	},
 	"devDependencies": {
+		"@next/eslint-plugin-next": "^14.2.14",
 		"@types/node": "20.5.7",
 		"@types/react": "18.3.3",
 		"@types/react-dom": "18.3.0",

@@ -14,11 +14,12 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { LuPencil } from "react-icons/lu";
 
-import { IOpinions } from "./PostComments";
 
 import { nexiosInstance } from "@/src/config/axios.instance";
 import { getCurrentUser } from "@/src/services/AuthService";
 import { fetchComments } from "@/src/services/RecipeService";
+
+import { IOpinions } from "./PostComments";
 
 export default function PostModal({ postId, userId }: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,7 +56,7 @@ export default function PostModal({ postId, userId }: any) {
     try {
       const { data }: any = await nexiosInstance.post(
         "/user-opinion/create",
-        opinions
+        opinions,
       );
 
       if (data.success) {
@@ -65,7 +66,7 @@ export default function PostModal({ postId, userId }: any) {
       reset();
       setEditState((prev) => ({ ...prev, [commentId]: false }));
     } catch (err) {
-      console.error("Error saving the comment:", err);
+      // console.error("Error saving the comment:", err);
     }
   };
 
@@ -75,7 +76,7 @@ export default function PostModal({ postId, userId }: any) {
 
       setCommentsData(updatedComments);
     } catch (err) {
-      console.error("Error fetching updated comments:", err);
+      // console.error("Error fetching updated comments:", err);
     }
   };
 
@@ -112,7 +113,7 @@ export default function PostModal({ postId, userId }: any) {
                           size="sm"
                         >
                           {moment(comment.createdAt).format(
-                            "MMM YYYY, h:mm:ss a"
+                            "MMM YYYY, h:mm:ss a",
                           )}
                         </Link>
                       }
@@ -129,7 +130,7 @@ export default function PostModal({ postId, userId }: any) {
                       <form
                         className="w-full"
                         onSubmit={handleSubmit((data) =>
-                          onSubmit(data, comment._id)
+                          onSubmit(data, comment._id),
                         )}
                       >
                         {comment?.userId?.email === currentUser?.email && (

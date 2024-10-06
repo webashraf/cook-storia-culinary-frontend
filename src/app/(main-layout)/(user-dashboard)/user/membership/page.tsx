@@ -1,10 +1,12 @@
 "use client";
 
 import { useUser } from "@/src/context/user.provider";
+
 import PlanAds from "./_components/PlanAds";
 import PremiumInfo from "./_components/PremiumInfo";
 
-const page = () => {
+
+const MembershipPage = () => {
   const { user } = useUser();
 
   if (!user) {
@@ -14,4 +16,4 @@ const page = () => {
   return <div>{user?.isPremium ? <PremiumInfo /> : <PlanAds />}</div>;
 };
 
-export default page;
+export default MembershipPage;

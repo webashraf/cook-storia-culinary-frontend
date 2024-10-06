@@ -1,29 +1,29 @@
 "use client";
 
+import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
+import { Select, SelectItem } from "@nextui-org/select";
+import { Slider } from "@nextui-org/slider";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import CommonHero from "@/src/components/Shared/CommonHero/CommonHero";
 import { SearchIcon } from "@/src/components/icons";
+import CommonHero from "@/src/components/Shared/CommonHero/CommonHero";
+import Loading from "@/src/components/UI/Loading/Loading";
 import { nexiosInstance } from "@/src/config/axios.instance";
 import {
   recipeCategories,
   recipeCuisines,
   recipeTags,
 } from "@/src/constent/recipe.constant";
-import { Button } from "@nextui-org/button";
-import { Select, SelectItem } from "@nextui-org/select";
-import { Slider } from "@nextui-org/slider";
-import { useEffect, useState } from "react";
+
 import PostCard from "../_components/PostCard/PostCard";
 
 const RecipeFeed = () => {
   const [querySearchFilter, setQuerySearchFilter] = useState("");
   const [recipeData, setRecipeData] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  // cuisine, cookingTime, preparationTime,
 
   const {
     handleSubmit: handleSearchSubmit,
@@ -56,14 +56,10 @@ const RecipeFeed = () => {
         const { data }: any = await nexiosInstance.get(
           `/recipe?sort=servings&isDeleted=false&status=publish&${querySearchFilter}`
         );
-        console.log(
-          "query string:",
-          `/recipe?sort=servings&isDeleted=false&status=publish&${querySearchFilter}`
-        );
-        console.log("recipe data", data);
+
         setRecipeData(data.data);
       } catch (error) {
-        console.error("Error fetching recipes:", error);
+        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -74,12 +70,11 @@ const RecipeFeed = () => {
 
   const onSearchSubmit = (data: Record<string, any>) => {
     const queryString = `searchTerm=${encodeURIComponent(data.search)}`;
+
     setQuerySearchFilter(queryString);
   };
 
   const onFilterSubmit = (data: Record<string, any>) => {
-    console.log(data);
-
     const queryString = Object.keys(data)
       .filter(
         (key) =>
@@ -87,6 +82,7 @@ const RecipeFeed = () => {
       )
       .flatMap((key) => {
         const value = data[key];
+
         if (typeof value === "string" && value.includes(",")) {
           return value
             .split(",")
@@ -95,9 +91,11 @@ const RecipeFeed = () => {
                 `${encodeURIComponent(key)}=${encodeURIComponent(val.trim())}`
             );
         }
+
         return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
       })
       .join("&");
+
     setQuerySearchFilter(queryString);
   };
 
@@ -106,6 +104,10 @@ const RecipeFeed = () => {
     searchReset();
     setQuerySearchFilter("");
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -116,20 +118,20 @@ const RecipeFeed = () => {
           <div className="py-5 flex justify-between">
             <div className="w-52 ">
               <Controller
-                name="search"
                 control={searchControl}
+                name="search"
                 render={({ field }) => (
                   <Input
                     {...field}
                     isClearable
+                    className=" "
                     placeholder="Type to search..."
                     radius="lg"
-                    className=" "
                     startContent={
                       <Button
                         isIconOnly
-                        type="submit"
                         className="relative -left-3"
+                        type="submit"
                       >
                         <SearchIcon className="text-black/50 ml-0  dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0 " />
                       </Button>
@@ -148,8 +150,8 @@ const RecipeFeed = () => {
           <ScrollShadow
             hideScrollBar
             className="ml-auto lg:w-[85%] w-full h-screen"
-            offset={0}
             isEnabled={false}
+            offset={0}
           >
             <div className="grid grid-cols-1 gap-5">
               {recipeData?.length === 0 ? (
@@ -163,8 +165,8 @@ const RecipeFeed = () => {
           </ScrollShadow>
 
           <form
-            onSubmit={handleFilterSubmit(onFilterSubmit)}
             className=" bg-default-400/30 lg:w-[30%] rounded-md p-5 space-y-10"
+            onSubmit={handleFilterSubmit(onFilterSubmit)}
           >
             <h3 className="text-xl underline">Filtering</h3>
 
@@ -173,18 +175,16 @@ const RecipeFeed = () => {
               <div className="flex flex-col gap-5">
                 {["cookingTime", "preparationTime"].map((item: any) => (
                   <Controller
-                    name={item}
+                    key={item}
                     control={filterControl}
+                    name={item}
                     render={({ field }) => (
                       <Slider
                         {...field}
-                        label={item}
-                        showTooltip={true}
-                        size="sm"
-                        step={5}
+                        className="max-w-md"
+                        defaultValue={0.2}
                         formatOptions={{ style: "decimal" }}
-                        maxValue={60}
-                        minValue={0}
+                        label={item}
                         marks={[
                           {
                             value: 10,
@@ -211,8 +211,11 @@ const RecipeFeed = () => {
                             label: "60m",
                           },
                         ]}
-                        defaultValue={0.2}
-                        className="max-w-md"
+                        maxValue={60}
+                        minValue={0}
+                        showTooltip={true}
+                        size="sm"
+                        step={5}
                       />
                     )}
                   />
@@ -224,14 +227,14 @@ const RecipeFeed = () => {
             <div className="flex lg:flex-col gap-5">
               <div className="lg:w-full w-[33%]">
                 <Controller
-                  name="category"
                   control={filterControl}
+                  name="category"
                   render={({ field }) => (
                     <Select
                       {...field}
+                      className="max-w-xs"
                       label="Filter by category"
                       selectionMode="multiple"
-                      className="max-w-xs"
                     >
                       {recipeCategories.map((item) => (
                         <SelectItem key={item}>{item}</SelectItem>
@@ -244,15 +247,15 @@ const RecipeFeed = () => {
               <div className="lg:w-full w-[33%]">
                 {/* <h4 className="capitalize mb-2">Filter by cuisine</h4> */}
                 <Controller
-                  name="cuisine"
                   control={filterControl}
+                  name="cuisine"
                   render={({ field }) => (
                     <Select
                       {...field}
-                      onChange={field.onChange}
+                      className="max-w-xs"
                       label="Filter by cuisine"
                       selectionMode="multiple"
-                      className="max-w-xs"
+                      onChange={field.onChange}
                     >
                       {recipeCuisines.map((item) => (
                         <SelectItem key={item}>{item}</SelectItem>
@@ -264,15 +267,15 @@ const RecipeFeed = () => {
               <div className="lg:w-full w-[33%]">
                 {/* <h4 className="capitalize mb-2">Filter by tags</h4> */}
                 <Controller
-                  name="tags"
                   control={filterControl}
+                  name="tags"
                   render={({ field }) => (
                     <Select
                       {...field}
-                      onChange={field.onChange}
+                      className="max-w-xs"
                       label="Filter by tags"
                       selectionMode="multiple"
-                      className="max-w-xs"
+                      onChange={field.onChange}
                     >
                       {recipeTags.map((item) => (
                         <SelectItem key={item}>{item}</SelectItem>
@@ -285,9 +288,9 @@ const RecipeFeed = () => {
 
             <div className="mt-4">
               <Button
+                className=" text-white py-2 px-4 rounded-md"
                 type="submit"
                 variant="faded"
-                className=" text-white py-2 px-4 rounded-md"
               >
                 Apply Filters
               </Button>

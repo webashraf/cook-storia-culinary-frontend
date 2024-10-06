@@ -1,7 +1,8 @@
+import { nexiosInstance } from "@/src/config/axios.instance";
+
 import PostCard from "./_components/PostCard/PostCard";
 import Stories from "./_components/Stories/Stories";
 
-import { nexiosInstance } from "@/src/config/axios.instance";
 
 export default async function Home() {
   const { data } = await nexiosInstance.get("/recipe", {

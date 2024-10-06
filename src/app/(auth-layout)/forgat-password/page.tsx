@@ -1,7 +1,5 @@
 "use client";
 
-import { nexiosInstance } from "@/src/config/axios.instance";
-import { useUser } from "@/src/context/user.provider";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
@@ -11,6 +9,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { IoEyeOff, IoEyeSharp, IoMail } from "react-icons/io5";
 import { MdPassword } from "react-icons/md";
 import { toast } from "sonner";
+
+import { nexiosInstance } from "@/src/config/axios.instance";
+import { useUser } from "@/src/context/user.provider";
 
 interface IFormInfo {
   email: string;
@@ -33,15 +34,12 @@ const ForgatPassword = () => {
   const { setIsUserLoading } = useUser();
 
   const onSubmit: SubmitHandler<IFormInfo> = async (formData) => {
-    console.log(formData);
     try {
-      console.log("first");
       const { data }: any = await nexiosInstance.post(
         "/auth/generate-new-password",
-        formData
+        formData,
       );
 
-      console.log(data);
       if (data.success) {
         setIsUserLoading(true);
         toast.success("Password change successful!!");
@@ -50,7 +48,6 @@ const ForgatPassword = () => {
         toast.error("Failed to change password");
       }
     } catch (error) {
-      console.log(error);
       toast.error("An error occurred. Please try again.");
     }
   };
@@ -112,8 +109,8 @@ const ForgatPassword = () => {
 
         <div className="flex justify-between items-center">
           <Link
-            href="/login"
             className="text-sm text-blue-600 hover:underline focus:outline-none"
+            href="/login"
             type="button"
           >
             Go to login page
@@ -122,11 +119,11 @@ const ForgatPassword = () => {
 
         <div className="text-center">
           <span className="text-sm text-gray-500">
-            Don't have an account?&nbsp;
+            Dont have an account?&nbsp;
           </span>
           <Link
-            href="/register"
             className="text-sm text-blue-600 hover:underline focus:outline-none"
+            href="/register"
           >
             Sign Up
           </Link>

@@ -9,6 +9,7 @@ import {
 } from "@nextui-org/dropdown";
 import { Link } from "@nextui-org/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import { useUser } from "@/src/context/user.provider";
 import { logoutUser } from "@/src/services/AuthService";
@@ -21,6 +22,9 @@ export default function CSProfileDropDown() {
   const handleLogout = () => {
     logoutUser();
     setIsUserLoading(true);
+    if (!currentUser) {
+      toast.success("Logged out!!");
+    }
     router.push("/");
   };
 

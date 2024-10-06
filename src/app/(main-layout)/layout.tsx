@@ -10,6 +10,8 @@ import { Metadata, Viewport } from "next";
 
 import SideMenu from "@/src/components/Shared/CommonSideMenu/SideMenuLeft";
 
+import { ReactNode } from "react";
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -28,11 +30,7 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function MainLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function MainLayout({ children }: { children: ReactNode }) {
   return (
     <div className="">
       <div

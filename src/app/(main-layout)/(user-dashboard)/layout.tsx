@@ -1,5 +1,6 @@
 import "@/src/styles/globals.css";
 import { Viewport } from "next";
+import React from "react";
 
 export const viewport: Viewport = {
   themeColor: [

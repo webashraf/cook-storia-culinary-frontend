@@ -57,8 +57,8 @@ const PlanAds = () => {
       <div className="text-center">
         <h1 className="text-2xl font-bold mb-4">Don’t Miss Out!</h1>
         <p className=" mb-6">
-          **Without a premium plan, you won't be able to access detailed
-          content, recipes, and tutorials.**
+          **Without a premium plan, you wont be able to access detailed content,
+          recipes, and tutorials.**
         </p>
         <div className=" w-full flex justify-center items-center">
           <Link href="/user/membership/payment">

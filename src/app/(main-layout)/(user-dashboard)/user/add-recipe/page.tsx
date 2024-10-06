@@ -1,37 +1,49 @@
 "use client";
 
-import {
-  dietaryRestrictions,
-  recipeCategories,
-  recipeCuisines,
-  recipeTags,
-} from "@/src/constent/recipe.constant";
-import { toolbarOptions } from "@/src/constent/toolbarOptions.quil";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import ReactQuill from "react-quill";
+
+import { nexiosInstance } from "@/src/config/axios.instance";
+import {
+  dietaryRestrictions,
+  recipeCategories,
+  recipeTags,
+} from "@/src/constent/recipe.constant";
+import { toolbarOptions } from "@/src/constent/toolbarOptions.quil";
+import { useUser } from "@/src/context/user.provider";
 import "react-quill/dist/quill.snow.css";
 import "./style/AddRecipe.css";
 
-// Define the form data type
 interface FormData {
   title: string;
   ingredients: string[];
   cookingTime: number;
+  preparationTime: number;
   categories: string[];
   tags: string[];
   dietaryRestrictions: string[];
   cuisine: string;
-  description: string; // Added description field for ReactQuill
+  instructions: string;
+  image: string;
+  servings: number;
+  nutritionFacts: {
+    calories: number;
+    protein: number;
+    fat: number;
+    carbohydrates: number;
+  };
 }
 
 const MyComponent = () => {
   const [text, setText] = useState<string>("");
   const [quilData, setQuillData] = useState<any>({});
-  const [quillError, setQuillError] = useState<string | null>(null); // State for Quill error
+  const [quillError, setQuillError] = useState<string | null>(null);
+  const { user: currentUser } = useUser();
+
   const {
     register,
     handleSubmit,
@@ -47,36 +59,70 @@ const MyComponent = () => {
     editor: any
   ) => {
     setText(content);
-    setValue("description", content);
-
-    const editorContents = editor.getContents();
-    const images = editorContents.ops
-      .filter((op: any) => op.insert && op.insert.image)
-      .map((op: any) => op.insert.image);
+    setValue("instructions", content);
 
     const plainTextContent = editor.getText().replace(/\n/g, "");
 
     const quilEditorInfo = {
-      imageUrl: images[0],
-      htmlDescription: editor.getHTML(),
-      description: plainTextContent,
+      htmlInstructions: editor.getHTML(),
+      instructions: plainTextContent,
     };
+
     setQuillData(quilEditorInfo);
   };
 
-  const onSubmit = (data: FormData) => {
-    const editorContents = quilData.description;
-    const images = quilData.imageUrl;
-    console.log(quilData.description, quilData.imageUrl);
+  const onSubmit = async (data: FormData) => {
+    const editorContents = quilData.instructions;
 
-    if (!editorContents && !images) {
-      setQuillError("Description and image are required.");
+    if (!editorContents) {
+      setQuillError("Instructions are required.");
+
       return;
     } else {
       setQuillError(null);
     }
 
-    console.log("Form Data:", { ...data, ...quilData });
+    const image = data.image;
+
+    console.log(image);
+
+    const formDataForSubmit = {
+      ...data,
+      user: currentUser?.id,
+      cookingTime: Number(data.cookingTime),
+      preparationTime: Number(data.preparationTime),
+      servings: Number(data.servings),
+      image,
+      ingredients: (data?.ingredients as any)
+        .split(",")
+        .map((item: string) => item.trim()),
+      tags: (data.tags as any)?.split(",").map((item: string) => item.trim()),
+      categories: (data.categories as any)
+        ?.split(",")
+        .map((item: string) => item.trim()),
+      dietaryRestrictions: (data.dietaryRestrictions as any)
+        ?.split(",")
+        .map((item: string) => item.trim()),
+      ...quilData,
+    };
+
+    console.log("Form Data:", formDataForSubmit);
+
+    try {
+      const { data }: any = await nexiosInstance.post(
+        "/recipe/create-recipe",
+        {
+          data: JSON.stringify(formDataForSubmit),
+        },
+        // {
+        //   headers: { "Content-Type": "multipart/form-data" },
+        // }
+      );
+
+      console.log("Response:", data);
+    } catch (error: any) {
+      console.log("Error:", error);
+    }
   };
 
   const modules = {
@@ -98,75 +144,63 @@ const MyComponent = () => {
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-full h-[90vh] overflow-y-scroll my-auto">
       <form
-        onSubmit={handleSubmit(onSubmit)}
         className="border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg p-12 space-y-8"
+        onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="text-3xl font-bold text-center text-default-800">
           Add your recipe
         </h2>
 
-        {/* Recipe Title */}
-        <Input
-          {...register("title", { required: "Title is required" })}
-          className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
-          label="Recipe Title"
-          placeholder="Give your recipe title"
-          type="text"
-        />
-        {errors.title && (
-          <span className="text-red-500 block w-full">
-            {errors.title.message}
-          </span>
-        )}
-
-        <div className="flex flex-wrap gap-5">
-          {/* Ingredients */}
+        {/* Part 1: Recipe Details */}
+        <fieldset className="flex flex-wrap gap-5">
+          <legend className="text-2xl font-semibold mb-4">
+            Recipe Details
+          </legend>
           <div className="w-[48%]">
-            <Controller
-              name="ingredients"
-              control={control}
-              rules={{ required: "Ingredients are required" }}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  onChange={field.onChange}
-                  label="Ingredients"
-                  selectionMode="multiple"
-                  placeholder="Select ingredients"
-                  className="w-full"
-                >
-                  {["Flour", "Sugar", "Salt", "Butter", "Eggs"].map((item) => (
-                    <SelectItem key={item} value={item}>
-                      {item}
-                    </SelectItem>
-                  ))}
-                </Select>
-              )}
+            <Input
+              {...register("title", { required: "Title is required" })}
+              className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
+              label="Recipe Title"
+              placeholder="Give your recipe title"
+              type="text"
             />
-            {errors.ingredients && (
+            {errors.title && (
               <span className="text-red-500 block w-full">
-                {errors.ingredients.message}
+                {errors.title.message}
               </span>
             )}
           </div>
 
-          {/* Cooking Time */}
+          <div className="w-[48%]">
+            <Input
+              {...register("servings", { required: "Servings are required" })}
+              className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
+              label="Servings"
+              placeholder="Number of servings"
+              type="number"
+            />
+            {errors.servings && (
+              <span className="text-red-500 block w-full">
+                {errors.servings.message}
+              </span>
+            )}
+          </div>
+
           <div className="w-[48%]">
             <Controller
-              name="cookingTime"
               control={control}
-              rules={{ required: "Cooking time is required" }}
+              name="preparationTime"
               render={({ field }) => (
                 <Select
                   {...field}
-                  onChange={field.onChange}
-                  label="Cooking Time (minutes)"
-                  placeholder="Select cooking time"
                   className="w-full"
+                  label="Preparation Time (minutes)"
+                  placeholder="Select preparation time"
+                  onChange={field.onChange}
                 >
-                  {Array.from({ length: 13 }, (_, i) => (i + 1) * 5).map(
+                  {Array.from({ length: 26 }, (_, i) => (i + 1) * 5).map(
                     (time) => (
                       <SelectItem key={time} value={time}>
                         {time} minutes
@@ -175,6 +209,37 @@ const MyComponent = () => {
                   )}
                 </Select>
               )}
+              rules={{ required: "Preparation time is required" }}
+            />
+            {errors.preparationTime && (
+              <span className="text-red-500 block w-full">
+                {errors.preparationTime.message}
+              </span>
+            )}
+          </div>
+
+          <div className="w-[48%]">
+            <Controller
+              control={control}
+              name="cookingTime"
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  className="w-full"
+                  label="Cooking Time (minutes)"
+                  placeholder="Select cooking time"
+                  onChange={field.onChange}
+                >
+                  {Array.from({ length: 26 }, (_, i) => (i + 1) * 5).map(
+                    (time) => (
+                      <SelectItem key={time} value={time}>
+                        {time} minutes
+                      </SelectItem>
+                    )
+                  )}
+                </Select>
+              )}
+              rules={{ required: "Cooking time is required" }}
             />
             {errors.cookingTime && (
               <span className="text-red-500 block w-full">
@@ -183,153 +248,262 @@ const MyComponent = () => {
             )}
           </div>
 
-          {/* Categories */}
-          <div className="w-[48%]">
+          <div className="w-[100%]">
+            <Input
+              {...register("image", { required: "Image is required" })}
+              className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
+              type="file"
+            />
+            {errors.image && (
+              <span className="text-red-500 block w-full">
+                {errors.image.message}
+              </span>
+            )}
+          </div>
+        </fieldset>
+
+        {/* Part 2: Ingredients and Nutrition Facts */}
+        <fieldset>
+          <legend className="text-2xl font-semibold mb-4">
+            Ingredients and Nutrition Facts
+          </legend>
+          <div className="flex flex-wrap gap-5">
             <Controller
-              name="categories"
               control={control}
-              rules={{ required: "Categories are required" }}
+              name="ingredients"
               render={({ field }) => (
                 <Select
                   {...field}
-                  onChange={field.onChange}
-                  label="Categories"
+                  className="w-full"
+                  label="Ingredients"
+                  placeholder="Select ingredients"
                   selectionMode="multiple"
-                  placeholder="Select categories"
-                  className="w-full"
-                >
-                  {recipeCategories.map((category) => (
-                    <SelectItem key={category} value={category}>
-                      {category}
-                    </SelectItem>
-                  ))}
-                </Select>
-              )}
-            />
-            {errors.categories && (
-              <span className="text-red-500 block w-full">
-                {errors.categories.message}
-              </span>
-            )}
-          </div>
-
-          {/* Tags */}
-          <div className="w-[48%]">
-            <Controller
-              name="tags"
-              control={control}
-              rules={{ required: "Tags are required" }}
-              render={({ field }) => (
-                <Select
-                  {...field}
                   onChange={field.onChange}
-                  label="Tags"
-                  selectionMode="multiple"
-                  placeholder="Select tags"
-                  className="w-full"
                 >
-                  {recipeTags.map((tag) => (
-                    <SelectItem key={tag} value={tag}>
-                      {tag}
+                  {["Flour", "Sugar", "Salt", "Butter", "Eggs"].map((item) => (
+                    <SelectItem key={item} value={item}>
+                      {item}
                     </SelectItem>
                   ))}
                 </Select>
               )}
+              rules={{ required: "Ingredients are required" }}
             />
-            {errors.tags && (
+            {errors.ingredients && (
               <span className="text-red-500 block w-full">
-                {errors.tags.message}
+                {errors.ingredients.message}
               </span>
             )}
-          </div>
 
-          {/* Dietary Restrictions */}
-          <div className="w-[48%]">
-            <Controller
-              name="dietaryRestrictions"
-              control={control}
-              rules={{ required: "Dietary restrictions are required" }}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  onChange={field.onChange}
-                  label="Dietary Restrictions"
-                  selectionMode="multiple"
-                  placeholder="Select dietary restrictions"
-                  className="w-full"
-                >
-                  {dietaryRestrictions.map((restriction) => (
-                    <SelectItem key={restriction} value={restriction}>
-                      {restriction}
-                    </SelectItem>
-                  ))}
-                </Select>
-              )}
-            />
-            {errors.dietaryRestrictions && (
-              <span className="text-red-500 block w-full">
-                {errors.dietaryRestrictions.message}
-              </span>
-            )}
-          </div>
+            {/* Nutrition Facts */}
+            <div className="w-full">
+              <h3 className="text-xl font-semibold mb-4">Nutrition Facts</h3>
+              <div className="flex flex-wrap gap-5">
+                <div className="w-[48%]">
+                  <Input
+                    {...register("nutritionFacts.calories", {
+                      required: "Calories are required",
+                      valueAsNumber: true,
+                    })}
+                    className="border-gray-300 rounded-lg"
+                    label="Calories (kcal)"
+                    placeholder="500"
+                    type="number"
+                  />
+                  {errors.nutritionFacts?.calories && (
+                    <span className="text-red-500 block w-full">
+                      {errors.nutritionFacts.calories.message}
+                    </span>
+                  )}
+                </div>
 
-          {/* Cuisine */}
-          <div className="w-[48%]">
-            <Controller
-              name="cuisine"
-              control={control}
-              rules={{ required: "Cuisine is required" }}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  onChange={field.onChange}
-                  label="Cuisine"
-                  placeholder="Select cuisine"
-                  className="w-full"
-                >
-                  {recipeCuisines.map((cuisine) => (
-                    <SelectItem key={cuisine} value={cuisine}>
-                      {cuisine}
-                    </SelectItem>
-                  ))}
-                </Select>
-              )}
-            />
-            {errors.cuisine && (
-              <span className="text-red-500 block w-full">
-                {errors.cuisine.message}
-              </span>
-            )}
-          </div>
-        </div>
+                <div className="w-[48%]">
+                  <Input
+                    {...register("nutritionFacts.protein", {
+                      required: "Protein is required",
+                      valueAsNumber: true,
+                    })}
+                    className="border-gray-300 rounded-lg"
+                    label="Protein (g)"
+                    placeholder="25"
+                    type="number"
+                  />
+                  {errors.nutritionFacts?.protein && (
+                    <span className="text-red-500 block w-full">
+                      {errors.nutritionFacts.protein.message}
+                    </span>
+                  )}
+                </div>
 
-        {/* Rich Text Editor */}
-        <div className="text-editor bg-gray-50 rounded-lg shadow-lg bg-transparent text-white">
-          <h4 className="mb-1 flex justify-between items-center">
-            Give Description and your recipe photo
-            {quillError && (
-              <span className="text-red-500 ml-2">{quillError}</span>
+                <div className="w-[48%]">
+                  <Input
+                    {...register("nutritionFacts.fat", {
+                      required: "Fat is required",
+                      valueAsNumber: true,
+                    })}
+                    className="border-gray-300 rounded-lg"
+                    label="Fat (g)"
+                    placeholder="20"
+                    type="number"
+                  />
+                  {errors.nutritionFacts?.fat && (
+                    <span className="text-red-500 block w-full">
+                      {errors.nutritionFacts.fat.message}
+                    </span>
+                  )}
+                </div>
+
+                <div className="w-[48%]">
+                  <Input
+                    {...register("nutritionFacts.carbohydrates", {
+                      required: "Carbohydrates are required",
+                      valueAsNumber: true,
+                    })}
+                    className="border-gray-300 rounded-lg"
+                    label="Carbohydrates (g)"
+                    placeholder="60"
+                    type="number"
+                  />
+                  {errors.nutritionFacts?.carbohydrates && (
+                    <span className="text-red-500 block w-full">
+                      {errors.nutritionFacts.carbohydrates.message}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        {/* Part 3: Categories, Tags, Dietary Restrictions, Cuisine */}
+        <fieldset className="flex flex-wrap gap-5">
+          <legend className="text-2xl font-semibold mb-4">
+            Categories, Tags, Dietary Restrictions, Cuisine
+          </legend>
+          <Controller
+            control={control}
+            name="categories"
+            render={({ field }) => (
+              <Select
+                {...field}
+                className="w-full"
+                label="Categories"
+                placeholder="Select categories"
+                selectionMode="multiple"
+                onChange={field.onChange}
+              >
+                {recipeCategories.map((category) => (
+                  <SelectItem key={category} value={category}>
+                    {category}
+                  </SelectItem>
+                ))}
+              </Select>
             )}
-          </h4>
-          <ReactQuill
-            theme="snow"
-            value={text}
-            onChange={handleChange}
-            modules={modules}
-            formats={formats}
-            className="lux-quill h-[30vh] border-none mb-[100px]"
+            rules={{ required: "Categories are required" }}
           />
-        </div>
+          {errors.categories && (
+            <span className="text-red-500 block w-full">
+              {errors.categories.message}
+            </span>
+          )}
 
-        {/* Submit Button */}
-        <Button
-          className="w-full text-white bg-black hover:bg-gray-800 transition-colors duration-300"
-          color="primary"
-          variant="shadow"
-          type="submit"
-        >
-          Save
-        </Button>
+          <Controller
+            control={control}
+            name="tags"
+            render={({ field }) => (
+              <Select
+                {...field}
+                className="w-full"
+                label="Tags"
+                placeholder="Select tags"
+                selectionMode="multiple"
+                onChange={field.onChange}
+              >
+                {recipeTags.map((tag) => (
+                  <SelectItem key={tag} value={tag}>
+                    {tag}
+                  </SelectItem>
+                ))}
+              </Select>
+            )}
+            rules={{ required: "Tags are required" }}
+          />
+          {errors.tags && (
+            <span className="text-red-500 block w-full">
+              {errors.tags.message}
+            </span>
+          )}
+
+          <Controller
+            control={control}
+            name="dietaryRestrictions"
+            render={({ field }) => (
+              <Select
+                {...field}
+                className="w-full"
+                label="Dietary Restrictions"
+                placeholder="Select dietary restrictions"
+                selectionMode="multiple"
+                onChange={field.onChange}
+              >
+                {dietaryRestrictions.map((restriction) => (
+                  <SelectItem key={restriction} value={restriction}>
+                    {restriction}
+                  </SelectItem>
+                ))}
+              </Select>
+            )}
+          />
+          <Controller
+            control={control}
+            name="cuisine"
+            render={({ field }) => (
+              <Select
+                {...field}
+                className="w-full"
+                label="Cuisine"
+                placeholder="Select recipe cuisine"
+                selectionMode="multiple"
+                onChange={field.onChange}
+              >
+                {dietaryRestrictions.map((restriction) => (
+                  <SelectItem key={restriction} value={restriction}>
+                    {restriction}
+                  </SelectItem>
+                ))}
+              </Select>
+            )}
+          />
+        </fieldset>
+
+        {/* Part 4: Instructions */}
+        <fieldset>
+          <legend className="text-2xl font-semibold mb-4">
+            Recipe Instructions
+          </legend>
+          <div className="quill-container mb-20">
+            <ReactQuill
+              className=" h-[300px] "
+              formats={formats}
+              modules={modules}
+              theme="snow"
+              value={text}
+              onChange={handleChange}
+            />
+          </div>
+          {quillError && <p className="text-red-500">{quillError}</p>}
+        </fieldset>
+
+        <div className="w-full flex justify-center">
+          <Button
+            className="w-full sm:w-auto"
+            size="lg"
+            type="submit"
+            variant="solid"
+          >
+            Submit Recipe
+          </Button>
+        </div>
       </form>
     </div>
   );

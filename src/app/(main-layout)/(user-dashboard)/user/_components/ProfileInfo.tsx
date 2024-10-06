@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 const ProfileInfo = () => {
   return (
-    <div className=" p-4 pb-0 border-b border-gray-300 dark:border-gray-700">
+    <div className=" p-4 pl-0 pb-0 border-b border-gray-300 dark:border-gray-700">
       <p className="text-gray-600 dark:text-gray-300 mb-5">
         Turning Ingredients into Culinary Art
       </p>

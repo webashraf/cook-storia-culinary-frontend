@@ -9,11 +9,11 @@ import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import { toast } from "sonner";
 
-import PostModal from "./postModal";
-
 import { nexiosInstance } from "@/src/config/axios.instance";
 import { getCurrentUser } from "@/src/services/AuthService";
 import { fetchComments } from "@/src/services/RecipeService";
+
+import PostModal from "./postModal";
 
 export interface IOpinions {
   _id?: string;
@@ -49,7 +49,7 @@ const PostComments = ({ postId, userId }: IProps) => {
 
         setCommentsData(fetchedComments);
       } catch (err) {
-        console.error("Error fetching comments:", err);
+        console.log(err);
       } finally {
         setLoading(false);
       }
@@ -66,14 +66,18 @@ const PostComments = ({ postId, userId }: IProps) => {
     };
 
     try {
-      const { data } = await nexiosInstance.post(
+      const { data }: any = await nexiosInstance.post(
         "/user-opinion/create",
         opinions
       );
 
+      if (data?.success) {
+        toast.success(data?.message);
+      }
+
       setCommentsData(await fetchComments(postId));
-    } catch (err) {
-      console.error("Error liking the post:", err);
+    } catch (err: any) {
+      toast.error("Error", err?.message);
     }
   };
 
@@ -92,7 +96,7 @@ const PostComments = ({ postId, userId }: IProps) => {
 
       setCommentsData(await fetchComments(postId));
     } catch (err) {
-      console.error("Error disliking the post:", err);
+      // console.error("Error disliking the post:", err);
     }
   };
 
@@ -111,14 +115,14 @@ const PostComments = ({ postId, userId }: IProps) => {
         );
 
         reset();
-        setCommentsData(await fetchComments(postId)); // Refetch comments
+        setCommentsData(await fetchComments(postId));
         if (!data.success) {
           toast.error("Failed to comment");
         } else {
           toast.success("Comment created successfully");
         }
       } catch (err) {
-        console.error("Error submitting comment:", err);
+        // console.error("Error submitting comment:", err);
       }
     }
   };

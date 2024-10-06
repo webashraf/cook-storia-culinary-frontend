@@ -1,11 +1,12 @@
 import "@/src/styles/globals.css";
 import clsx from "clsx";
 import { Metadata, Viewport } from "next";
-
-import { Providers } from "./providers";
+import { ReactNode } from "react";
 
 import { fontSans } from "@/src/config/fonts";
 import { siteConfig } from "@/src/config/site";
+
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: {
@@ -25,11 +26,7 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html suppressHydrationWarning lang="en">
       <head />

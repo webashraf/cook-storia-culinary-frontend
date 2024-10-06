@@ -11,11 +11,12 @@ import { AiFillMessage } from "react-icons/ai";
 import { LuChefHat } from "react-icons/lu";
 import { RiNotification3Fill } from "react-icons/ri";
 
+import { SearchIcon } from "@/src/components/icons";
+
 import CSBadge from "../commonUi/CSBadge";
 import CSProfileDropDown from "../commonUi/CSProfileDropDown";
 import { ThemeSwitch } from "../theme-switch";
 
-import { SearchIcon } from "@/src/components/icons";
 export const Navbar = () => {
   const searchInput = (
     <Input

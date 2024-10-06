@@ -1,7 +1,5 @@
 "use client";
 
-import { nexiosInstance } from "@/src/config/axios.instance";
-import { useUser } from "@/src/context/user.provider";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
@@ -12,6 +10,9 @@ import { IoEyeOff, IoEyeSharp, IoMail } from "react-icons/io5";
 import { LuUserPlus } from "react-icons/lu";
 import { MdPassword } from "react-icons/md";
 import { toast } from "sonner";
+
+import { useUser } from "@/src/context/user.provider";
+import { nexiosInstance } from "@/src/config/axios.instance";
 
 export interface IUserFormInfo {
   username: string;
@@ -48,6 +49,7 @@ const SignUp = () => {
         ...formData,
         role: "user",
       });
+
       if (data.success) {
         setIsUserLoading(true);
         toast.success("Registration successful!");
@@ -101,9 +103,6 @@ const SignUp = () => {
           label="Password"
           placeholder="Enter your password"
           {...register("password", { required: "Password is required" })}
-          startContent={
-            <MdPassword className="text-2xl text-gray-600 pointer-events-none flex-shrink-0" />
-          }
           endContent={
             <button
               aria-label="toggle password visibility"
@@ -117,6 +116,9 @@ const SignUp = () => {
                 <IoEyeSharp className="text-2xl text-gray-600 pointer-events-none" />
               )}
             </button>
+          }
+          startContent={
+            <MdPassword className="text-2xl text-gray-600 pointer-events-none flex-shrink-0" />
           }
           type={isVisible ? "text" : "password"}
         />
@@ -145,8 +147,8 @@ const SignUp = () => {
         <Button
           className="w-full text-white bg-black hover:bg-gray-800 transition-colors duration-300"
           color="primary"
-          variant="shadow"
           type="submit"
+          variant="shadow"
         >
           Register
         </Button>
@@ -156,8 +158,8 @@ const SignUp = () => {
             Already have an account?&nbsp;
           </span>
           <Link
-            href="/login"
             className="text-sm text-blue-600 hover:underline focus:outline-none"
+            href="/login"
           >
             Login
           </Link>

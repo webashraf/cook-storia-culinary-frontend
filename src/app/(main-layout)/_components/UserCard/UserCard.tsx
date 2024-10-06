@@ -19,14 +19,14 @@ export default function UserCard({ user, logedInUser }: any) {
           `/social/follow/${user?._id}`,
           {
             cache: "no-store",
-          }
+          },
         );
 
         if (data.success) {
           setFollowOfUser(data?.data?.followers || []);
         }
       } catch (error) {
-        console.error("Error fetching followers:", error);
+        throw new Error("Failed to retrive followers");
       }
     };
 
@@ -34,7 +34,7 @@ export default function UserCard({ user, logedInUser }: any) {
   }, [user._id]);
 
   const isFollowed = followOfUser.some(
-    (follow: any) => follow?._id === logedInUser?.id
+    (follow: any) => follow?._id === logedInUser?.id,
   );
 
   const followUser = async (userId: string) => {
@@ -45,7 +45,7 @@ export default function UserCard({ user, logedInUser }: any) {
       };
       const { data }: any = await nexiosInstance.post(
         "/social/follow",
-        followOptions
+        followOptions,
       );
 
       setIsFollowedUser(true);
@@ -62,7 +62,6 @@ export default function UserCard({ user, logedInUser }: any) {
     } catch (error) {
       setIsFollowedUser(false);
       toast.error("Failed to follow user");
-      console.error("Error following user:", error);
     }
   };
 
@@ -73,20 +72,19 @@ export default function UserCard({ user, logedInUser }: any) {
       };
       const { data }: any = await nexiosInstance.post(
         `/social/unfollow/${userId}`,
-        followOptions
+        followOptions,
       );
 
       setIsFollowedUser(false);
       if (data.success) {
         toast.success("Successfully unfollow");
         setFollowOfUser((prev) =>
-          prev.filter((fUser: any) => fUser.userId !== logedInUser?.id)
+          prev.filter((fUser: any) => fUser.userId !== logedInUser?.id),
         );
       }
     } catch (error) {
       setIsFollowedUser(true);
       toast.error("Failed to unfollow user");
-      console.error("Error unfollowing user:", error);
     }
   };
 
@@ -139,7 +137,6 @@ export default function UserCard({ user, logedInUser }: any) {
             {followOfUser.length}
           </p>
           <p className="text-default-400 text-small">Followers</p>
-         
         </div>
       </CardFooter>
     </Card>

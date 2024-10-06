@@ -1,7 +1,7 @@
 export const recipeCuisines = [
   "Italian",
   "Mexican",
-  "Indian",
+  "Bangladeshi",
   "French",
   "Chinese",
 ];
