@@ -35,7 +35,13 @@ const statusColorMap = {
   vacation: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "role", "status", "actions"];
+const INITIAL_VISIBLE_COLUMNS = [
+  "name",
+  "recipe",
+  "status",
+  "isDeleted",
+  "actions",
+];
 
 export function capitalize(str: any) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -85,7 +91,7 @@ export default function App() {
     };
 
     fetchRecipes();
-  }, []);
+  }, [loading]);
 
   const filteredItems = useMemo(() => {
     let filteredrecipes = [...recipes];
@@ -99,8 +105,8 @@ export default function App() {
       statusFilter !== "all" &&
       Array.from(statusFilter).length !== statusOptions.length
     ) {
-      filteredrecipes = filteredrecipes.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
+      filteredrecipes = filteredrecipes.filter((recipe) =>
+        Array.from(statusFilter).includes(recipe.status)
       );
     }
 
@@ -126,71 +132,114 @@ export default function App() {
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = useCallback((recipe: any, columnKey: any) => {
-    const cellValue = recipe[columnKey];
+  const handlePublish = useCallback((recipeId: string) => {
+    console.log("Publish recipe with _id:", recipeId);
+    const { data }: any = nexiosInstance.put(
+      `/recipe/status/${recipeId}?status=publish`,
+      {}
+    );
 
-    switch (columnKey) {
-      case "name":
-        return (
-          <User
-            avatarProps={{ radius: "lg", src: recipe?.user?.avatar }}
-            description={recipe?.user?.email}
-            name={recipe?.user?.username}
-          >
-            {recipe?.user?.email}
-          </User>
-        );
-      case "recipe":
-        return (
-          <div>
-            <h4>{recipe?.title}</h4>
-          </div>
-        );
-      case "isDeleted":
-        return <div>{recipe?.isDeleted ? "Yes" : "No"}</div>;
-      case "isPremime":
-        return <div>{recipe?.isPremime ? "Yes" : "No"}</div>;
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-            <p className="text-bold text-tiny capitalize text-default-400">
-              {recipe?.user?.role}
-            </p>
-          </div>
-        );
-      case "status":
-        return (
-          <Chip
-            className="capitalize"
-            color={(statusColorMap as any)[recipe?.status]}
-            size="sm"
-            variant="flat"
-          >
-            {cellValue}
-          </Chip>
-        );
-      case "actions":
-        return (
-          <div className="relative flex justify-end items-center gap-2">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="light">
-                  <BsThreeDotsVertical className="text-default-300" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem>Publish</DropdownItem>
-                <DropdownItem>Unpublish</DropdownItem>
-                <DropdownItem>Delete</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-        );
-      default:
-        return cellValue;
-    }
+    setLoading(true);
   }, []);
+
+  const handleUnpublish = useCallback((recipeId: string) => {
+    console.log("Unpublish recipe with _id:", recipeId);
+    const { data }: any = nexiosInstance.put(
+      `/recipe/status/${recipeId}?status=unpublish`,
+      {}
+    );
+
+    setLoading(true);
+  }, []);
+
+  const handleDelete = useCallback((recipeId: string) => {
+    console.log("Delete recipe with _id:", recipeId);
+    const { data }: any = nexiosInstance.put(
+      `/recipe/status/${recipeId}?isDeleted=true`,
+      {}
+    );
+
+    setLoading(true);
+  }, []);
+
+  const renderCell = useCallback(
+    (recipe: any, columnKey: any) => {
+      const cellValue = recipe[columnKey];
+
+      switch (columnKey) {
+        case "name":
+          return (
+            <User
+              avatarProps={{ radius: "lg", src: recipe?.user?.avatar }}
+              description={recipe?.user?.email}
+              name={recipe?.user?.username}
+            >
+              {recipe?.user?.email}
+            </User>
+          );
+        case "recipe":
+          return (
+            <div>
+              <h4>{recipe?.title}</h4>
+            </div>
+          );
+        case "isDeleted":
+          return (
+            <div>
+              {recipe?.isDeleted ? <p className="text-red-500">Yes</p> : "No"}
+            </div>
+          );
+        case "isPremium":
+          return <div>{recipe?.isPremium ? "Yes" : "No"}</div>;
+        case "role":
+          return (
+            <div className="flex flex-col">
+              <p className="text-bold text-small capitalize">{cellValue}</p>
+              <p className="text-bold text-tiny capitalize text-default-400">
+                {recipe?.user?.role}
+              </p>
+            </div>
+          );
+        case "status":
+          return (
+            <Chip
+              className="capitalize"
+              color={(statusColorMap as any)[recipe?.status]}
+              size="sm"
+              variant="flat"
+            >
+              {cellValue}
+            </Chip>
+          );
+        case "actions":
+          return (
+            <div className="relative flex justify-end items-center gap-2">
+              <Dropdown>
+                <DropdownTrigger>
+                  <Button isIconOnly size="sm" variant="light">
+                    <BsThreeDotsVertical className="text-default-300" />
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu>
+                  <DropdownItem onClick={() => handlePublish(recipe._id)}>
+                    Publish
+                  </DropdownItem>
+                  <DropdownItem onClick={() => handleUnpublish(recipe._id)}>
+                    Unpublish
+                  </DropdownItem>
+                  <DropdownItem onClick={() => handleDelete(recipe._id)}>
+                    Delete
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </div>
+          );
+        default:
+          return cellValue;
+      }
+    },
+    [handlePublish, handleUnpublish, handleDelete]
+  );
 
   const onNextPage = useCallback(() => {
     if (page < pages) {
@@ -383,7 +432,7 @@ export default function App() {
           <TableColumn
             key={column.uid}
             align={column.uid === "actions" ? "center" : "start"}
-            allowsSorting={column.sortable}
+            allowsSorting={column?.sortable}
           >
             {column.name}
           </TableColumn>
