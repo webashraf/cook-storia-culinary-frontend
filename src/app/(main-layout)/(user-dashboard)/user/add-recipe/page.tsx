@@ -6,11 +6,13 @@ import { Select, SelectItem } from "@nextui-org/select";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import ReactQuill from "react-quill";
+import { toast } from "sonner";
 
-import { nexiosInstance } from "@/src/config/axios.instance";
 import {
   dietaryRestrictions,
+  ingredientsArr,
   recipeCategories,
+  recipeCuisines,
   recipeTags,
 } from "@/src/constent/recipe.constant";
 import { toolbarOptions } from "@/src/constent/toolbarOptions.quil";
@@ -31,7 +33,7 @@ interface FormData {
   image: string;
   servings: number;
   nutritionFacts: {
-    calories: number;
+    calories: number | any;
     protein: number;
     fat: number;
     carbohydrates: number;
@@ -54,10 +56,6 @@ const MyComponent = () => {
     defaultValues: {
       title: "Murgir kala vuna",
       servings: 5,
-      "nutritionFacts.calories": 7,
-      "nutritionFacts.protein": 10,
-      "nutritionFacts.fat": 12,
-      "nutritionFacts.carbohydrates": 20,
     },
   });
 
@@ -81,6 +79,7 @@ const MyComponent = () => {
   };
 
   const onSubmit = async (data: FormData) => {
+    const formData = new FormData();
     const editorContents = quilData.instructions;
 
     if (!editorContents) {
@@ -93,7 +92,12 @@ const MyComponent = () => {
 
     const image = data.image[0];
 
-    console.log(image);
+    // Ensure image is provided
+    if (!image) {
+      console.error("Image is required.");
+
+      return;
+    }
 
     const formDataForSubmit = {
       ...data,
@@ -101,7 +105,6 @@ const MyComponent = () => {
       cookingTime: Number(data.cookingTime),
       preparationTime: Number(data.preparationTime),
       servings: Number(data.servings),
-      image,
       ingredients: (data?.ingredients as any)
         .split(",")
         .map((item: string) => item.trim()),
@@ -115,21 +118,32 @@ const MyComponent = () => {
       ...quilData,
     };
 
-    console.log("Form Data:", formDataForSubmit);
-
+    formData.append("data", JSON.stringify(formDataForSubmit));
+    formData.append("image", image);
+    console.log(formDataForSubmit);
     try {
-      const { data }: any = await nexiosInstance.post(
-        "/recipe/create-recipe",
+      const response = await fetch(
+        "http://localhost:5000/api/v1/recipe/create-recipe",
         {
-          data: JSON.stringify(formDataForSubmit),
+          method: "POST",
+          body: formData,
         }
-        // {
-        //   headers: { "Content-Type": "multipart/form-data" },
-        // }
       );
+      const responseData = await response.json();
 
-      console.log("Response:", data);
-    } catch (error: any) {
+      console.log(responseData);
+      if (responseData.success) {
+        toast.success("Recipe created successfully!!");
+      }
+      if (!responseData.success) {
+        toast.error("Recipe Post failed!", responseData?.message);
+      }
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      console.log("Response:", responseData);
+    } catch (error) {
       console.log("Error:", error);
     }
   };
@@ -285,12 +299,13 @@ const MyComponent = () => {
                 <Select
                   {...field}
                   className="w-full"
+                  defaultSelectedKeys={ingredientsArr}
                   label="Ingredients"
                   placeholder="Select ingredients"
                   selectionMode="multiple"
                   onChange={field.onChange}
                 >
-                  {["Flour", "Sugar", "Salt", "Butter", "Eggs"].map((item) => (
+                  {ingredientsArr.map((item) => (
                     <SelectItem key={item} value={item}>
                       {item}
                     </SelectItem>
@@ -322,7 +337,7 @@ const MyComponent = () => {
                   />
                   {errors.nutritionFacts?.calories && (
                     <span className="text-red-500 block w-full">
-                      {errors.nutritionFacts.calories.message}
+                      {(errors as any).nutritionFacts.calories.message}
                     </span>
                   )}
                 </div>
@@ -397,6 +412,7 @@ const MyComponent = () => {
               <Select
                 {...field}
                 className="w-full"
+                defaultSelectedKeys={recipeCategories}
                 label="Categories"
                 placeholder="Select categories"
                 selectionMode="multiple"
@@ -424,6 +440,7 @@ const MyComponent = () => {
               <Select
                 {...field}
                 className="w-full"
+                defaultSelectedKeys={recipeTags}
                 label="Tags"
                 placeholder="Select tags"
                 selectionMode="multiple"
@@ -451,6 +468,7 @@ const MyComponent = () => {
               <Select
                 {...field}
                 className="w-full"
+                defaultSelectedKeys={dietaryRestrictions}
                 label="Dietary Restrictions"
                 placeholder="Select dietary restrictions"
                 selectionMode="multiple"
@@ -471,12 +489,13 @@ const MyComponent = () => {
               <Select
                 {...field}
                 className="w-full"
+                defaultSelectedKeys={recipeCuisines}
                 label="Cuisine"
                 placeholder="Select recipe cuisine"
                 selectionMode="multiple"
                 onChange={field.onChange}
               >
-                {dietaryRestrictions.map((restriction) => (
+                {recipeCuisines.map((restriction) => (
                   <SelectItem key={restriction} value={restriction}>
                     {restriction}
                   </SelectItem>

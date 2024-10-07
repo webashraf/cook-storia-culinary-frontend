@@ -13,3 +13,4 @@ export const dietaryRestrictions = [
 ];
 export const recipeCategories = ["Breakfast", "Lunch", "Dinner", "Dessert"];
 export const recipeTags = ["Spicy", "Healthy", "Quick", "Comfort Food"];
+export const ingredientsArr = ["Flour", "Sugar", "Salt", "Butter", "Eggs"];
