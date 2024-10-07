@@ -50,7 +50,16 @@ const MyComponent = () => {
     setValue,
     control,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    defaultValues: {
+      title: "Murgir kala vuna",
+      servings: 5,
+      "nutritionFacts.calories": 7,
+      "nutritionFacts.protein": 10,
+      "nutritionFacts.fat": 12,
+      "nutritionFacts.carbohydrates": 20,
+    },
+  });
 
   const handleChange = (
     content: string,
@@ -82,7 +91,7 @@ const MyComponent = () => {
       setQuillError(null);
     }
 
-    const image = data.image;
+    const image = data.image[0];
 
     console.log(image);
 
@@ -113,7 +122,7 @@ const MyComponent = () => {
         "/recipe/create-recipe",
         {
           data: JSON.stringify(formDataForSubmit),
-        },
+        }
         // {
         //   headers: { "Content-Type": "multipart/form-data" },
         // }
@@ -178,6 +187,7 @@ const MyComponent = () => {
               {...register("servings", { required: "Servings are required" })}
               className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
               label="Servings"
+              max={30}
               placeholder="Number of servings"
               type="number"
             />
