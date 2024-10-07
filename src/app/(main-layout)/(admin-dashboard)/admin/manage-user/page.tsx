@@ -27,7 +27,7 @@ import { toast } from "sonner";
 import { SearchIcon } from "@/src/components/icons";
 import { nexiosInstance } from "@/src/config/axios.instance";
 
-import { columns, statusOptions } from "./_constants/manage-recipe.constant";
+import { columns, statusOptions } from "./_constants/manage-user.constant";
 
 const statusColorMap = {
   active: "success",
@@ -47,7 +47,7 @@ export function capitalize(str: any) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 export default function AdminManageRecipe() {
-  const [recipes, setRecipes] = useState<any[]>([]);
+  const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterValue, setFilterValue] = useState("");
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
@@ -73,31 +73,31 @@ export default function AdminManageRecipe() {
   }, [visibleColumns]);
 
   useEffect(() => {
-    const fetchRecipes = async () => {
+    const fetchusers = async () => {
       try {
-        const { data }: any = await nexiosInstance.get(`/recipe`);
+        const { data }: any = await nexiosInstance.get(`/auth/user`);
 
         if (data.success) {
           setLoading(false);
         }
         if (data && typeof data === "object" && "data" in data) {
-          setRecipes(data.data);
+          setUsers(data.data);
         } else {
-          setRecipes([]);
+          setUsers([]);
         }
       } catch (error: any) {
-        toast.error("Error fetching recipes:", error);
+        toast.error("Error fetching user:", error);
       }
     };
 
-    fetchRecipes();
+    fetchusers();
   }, [loading]);
 
   const filteredItems = useMemo(() => {
-    let filteredrecipes = [...recipes];
+    let filteredusers = [...users];
 
     if (hasSearchFilter) {
-      filteredrecipes = filteredrecipes.filter((recipe) =>
+      filteredusers = filteredusers.filter((recipe) =>
         recipe?.title?.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
@@ -105,13 +105,13 @@ export default function AdminManageRecipe() {
       statusFilter !== "all" &&
       Array.from(statusFilter).length !== statusOptions.length
     ) {
-      filteredrecipes = filteredrecipes.filter((recipe) =>
+      filteredusers = filteredusers.filter((recipe) =>
         Array.from(statusFilter).includes(recipe?.status)
       );
     }
 
-    return filteredrecipes;
-  }, [recipes, filterValue, statusFilter]);
+    return filteredusers;
+  }, [users, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -132,43 +132,43 @@ export default function AdminManageRecipe() {
     });
   }, [sortDescriptor, items]);
 
-  const handlePublish = useCallback((recipeId: string) => {
-    console.log("Publish recipe with _id:", recipeId);
-    nexiosInstance.put(`/recipe/status/${recipeId}?status=publish`, {});
+  const handleBlock = useCallback((userId: string) => {
+    console.log("Block recipe with _id:", userId);
+    nexiosInstance.put(`/user/update-user/${userId}`, { status: "blocked" });
 
     setLoading(true);
   }, []);
 
-  const handleUnpublish = useCallback((recipeId: string) => {
-    console.log("Unpublish recipe with _id:", recipeId);
-    nexiosInstance.put(`/recipe/status/${recipeId}?status=unpublish`, {});
+  const handleUnblock = useCallback((userId: string) => {
+    console.log("Unpublish recipe with _id:", userId);
+    nexiosInstance.put(`/user/update-user/${userId}`, { status: "active" });
 
     setLoading(true);
   }, []);
 
-  const handleDelete = useCallback((recipeId: string) => {
-    console.log("Delete recipe with _id:", recipeId);
-    nexiosInstance.put(`/recipe/status/${recipeId}?isDeleted=true`, {});
+  const handleDelete = useCallback((userId: string) => {
+    console.log("Delete recipe with _id:", userId);
+    nexiosInstance.put(`/user/update-user/${userId}`, { isDeleted: true });
 
     setLoading(true);
   }, []);
 
   const renderCell = useCallback(
-    (recipe: any, columnKey: any) => {
-      const cellValue = recipe[columnKey];
+    (user: any, columnKey: any) => {
+      const cellValue = user[columnKey];
 
       switch (columnKey) {
         case "name":
           return (
             <User
-              avatarProps={{ radius: "lg", src: recipe?.user?.avatar }}
-              description={recipe?.user?.email}
-              name={recipe?.user?.username}
+              avatarProps={{ radius: "lg", src: user?.profilePicture }}
+              description={user?.email}
+              name={user?.username}
             >
-              {recipe?.user?.email}
+              {user?.email}
             </User>
           );
-        case "recipe":
+
           return (
             <div>
               <h4>{recipe?.title}</h4>
@@ -177,17 +177,17 @@ export default function AdminManageRecipe() {
         case "isDeleted":
           return (
             <div>
-              {recipe?.isDeleted ? <p className="text-red-500">Yes</p> : "No"}
+              {user?.isDeleted ? <p className="text-red-500">Yes</p> : "No"}
             </div>
           );
         case "isPremium":
-          return <div>{recipe?.isPremium ? "Yes" : "No"}</div>;
+          return <div>{user?.isPremium ? "Yes" : "No"}</div>;
         case "role":
           return (
             <div className="flex flex-col">
               <p className="text-bold text-small capitalize">{cellValue}</p>
               <p className="text-bold text-tiny capitalize text-default-400">
-                {recipe?.user?.role}
+                {user?.user?.role}
               </p>
             </div>
           );
@@ -195,7 +195,7 @@ export default function AdminManageRecipe() {
           return (
             <Chip
               className="capitalize"
-              color={(statusColorMap as any)[recipe?.status]}
+              color={(statusColorMap as any)[user?.status]}
               size="sm"
               variant="flat"
             >
@@ -212,13 +212,13 @@ export default function AdminManageRecipe() {
                   </Button>
                 </DropdownTrigger>
                 <DropdownMenu>
-                  <DropdownItem onClick={() => handlePublish(recipe?._id)}>
-                    Publish
+                  <DropdownItem onClick={() => handleBlock(user?._id)}>
+                    Block
                   </DropdownItem>
-                  <DropdownItem onClick={() => handleUnpublish(recipe?._id)}>
-                    Unpublish
+                  <DropdownItem onClick={() => handleUnblock(user?._id)}>
+                    Unblock
                   </DropdownItem>
-                  <DropdownItem onClick={() => handleDelete(recipe?._id)}>
+                  <DropdownItem onClick={() => handleDelete(user?._id)}>
                     Delete
                   </DropdownItem>
                 </DropdownMenu>
@@ -229,7 +229,7 @@ export default function AdminManageRecipe() {
           return cellValue;
       }
     },
-    [handlePublish, handleUnpublish, handleDelete]
+    [handleBlock, handleUnblock, handleDelete]
   );
 
   const onNextPage = useCallback(() => {
@@ -336,7 +336,7 @@ export default function AdminManageRecipe() {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {recipes.length} recipes
+            Total {users.length} users
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -357,7 +357,7 @@ export default function AdminManageRecipe() {
     statusFilter,
     visibleColumns,
     onRowsPerPageChange,
-    recipes.length,
+    users.length,
     onSearchChange,
     hasSearchFilter,
   ]);
@@ -429,7 +429,7 @@ export default function AdminManageRecipe() {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"No recipes found"} items={sortedItems}>
+      <TableBody emptyContent={"No users found"} items={sortedItems}>
         {(item) => (
           <TableRow key={item._id}>
             {(columnKey) => (
