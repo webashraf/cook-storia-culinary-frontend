@@ -50,15 +50,13 @@ export default function MainLayout({ children }: { children: ReactNode }) {
               </div>
               <ScrollShadow
                 hideScrollBar
-                className="lg:ml-auto  lg:w-[100%] w-full h-screen "
+                className="lg:ml-auto pl-10  lg:w-[100%] w-full h-screen "
                 offset={0}
-                // ScrollShadowVisibility="none"
                 isEnabled={false}
               >
                 {children}
               </ScrollShadow>
 
-              {/* <SideMenuRight /> */}
             </div>
           </div>
           <Footer />

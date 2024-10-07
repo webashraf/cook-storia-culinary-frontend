@@ -14,7 +14,6 @@ import { loginUser } from "@/src/services/AuthService";
 
 import { useUser } from "../context/user.provider";
 
-
 const Login = () => {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -24,14 +23,20 @@ const Login = () => {
   const { setIsUserLoading } = useUser();
 
   const loginForm: SubmitHandler<any> = async (formData) => {
-    const res = await loginUser(formData);
+    try {
+      const res = await loginUser(formData);
 
-    if (res.success) {
-      setIsUserLoading(true);
-      toast.success("Login successful!!");
       router.push("/");
-    } else {
-      toast.error("Login failed");
+
+      console.log("Login page", res);
+      if (res.success) {
+        setIsUserLoading(true);
+        toast.success("Login successful!!");
+      } else {
+        toast.error("Login failed");
+      }
+    } catch (error: any) {
+      console.log("Error", error);
     }
   };
 

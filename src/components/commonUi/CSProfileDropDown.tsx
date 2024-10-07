@@ -25,7 +25,7 @@ export default function CSProfileDropDown() {
     if (!currentUser) {
       toast.success("Logged out!!");
     }
-    router.push("/");
+    router.push("/login");
   };
 
   return (

@@ -46,7 +46,7 @@ const INITIAL_VISIBLE_COLUMNS = [
 export function capitalize(str: any) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
-export default function AdminManageUserAccounts() {
+export default function AdminManageAdminAccounts() {
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterValue, setFilterValue] = useState("");
@@ -73,9 +73,9 @@ export default function AdminManageUserAccounts() {
   }, [visibleColumns]);
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchAdmin = async () => {
       try {
-        const { data }: any = await nexiosInstance.get(`/auth/user`);
+        const { data }: any = await nexiosInstance.get(`/auth/admin`);
 
         if (data.success) {
           setLoading(false);
@@ -90,7 +90,7 @@ export default function AdminManageUserAccounts() {
       }
     };
 
-    fetchUser();
+    fetchAdmin();
   }, [loading]);
 
   const filteredItems = useMemo(() => {
@@ -223,7 +223,7 @@ export default function AdminManageUserAccounts() {
                     Delete
                   </DropdownItem>
                   <DropdownItem onClick={() => handleRetrieve(user?._id)}>
-                    Retrieve user
+                    Retrieve Admin
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>

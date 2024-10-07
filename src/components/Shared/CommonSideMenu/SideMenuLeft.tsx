@@ -9,7 +9,6 @@ import { IoInformationCircle } from "react-icons/io5";
 import { LuBookOpen, LuHome, LuLogIn } from "react-icons/lu";
 import { MdOutlineDashboard, MdWorkspacePremium } from "react-icons/md";
 
-
 import UserCard from "@/src/app/(main-layout)/_components/UserCard/UserCard";
 import { nexiosInstance } from "@/src/config/axios.instance";
 import { useUser } from "@/src/context/user.provider";
@@ -70,25 +69,6 @@ const SideMenu = () => {
     <div className="w-[100%] lg:block h-[100vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10">
       {error && <div className="text-red-600">{error}</div>}
       <div>
-        {/* <User
-          isFocusable={true}
-          avatarProps={{
-            src: currentUser?.photo,
-          }}
-          description={
-            <Link
-              className="text-warning-500"
-              isExternal
-              href="https://twitter.com/jrgarciadev"
-              size="sm"
-            >
-              Pro
-            </Link>
-          }
-          name={`${currentUser?.name}`}
-          className=" uppercase"
-        /> */}
-
         {currentUser ? (
           <div className="flex gap-5">
             <Avatar
@@ -101,7 +81,11 @@ const SideMenu = () => {
               {currentUser.isPremium ? (
                 <p className="text-sm text-warning-600 ">Pro User</p>
               ) : (
-                <p className="text-sm text-default-400">Basic user</p>
+                <p className="text-sm text-default-400">
+                  {currentUser?.role == "user"
+                    ? "Basic User"
+                    : currentUser?.role}
+                </p>
               )}
             </div>
           </div>

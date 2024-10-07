@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { getCurrentUser } from "./services/AuthService";
+import { getCurrentUser } from "../services/AuthService";
 
 const AuthRoutes = ["/login", "/register"];
 
@@ -14,6 +14,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const user = await getCurrentUser();
 
+  console.log("first", user);
   if (pathname === "/recipe-feed" && "/recipe-feed".length === 12) {
     return NextResponse.next();
   }
@@ -21,11 +22,12 @@ export async function middleware(request: NextRequest) {
   if (!user) {
     if (AuthRoutes.includes(pathname)) {
       return NextResponse.next();
-    } else {
-      return NextResponse.redirect(
-        new URL(`/login?redirect=${pathname}`, request.url),
-      );
     }
+    //  else {
+    //   return NextResponse.redirect(
+    //     new URL(`/login?redirect=${pathname}`, request.url)
+    //   );
+    // }
   }
 
   if (user) {

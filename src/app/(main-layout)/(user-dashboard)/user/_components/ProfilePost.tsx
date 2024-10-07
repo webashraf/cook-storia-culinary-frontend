@@ -1,6 +1,5 @@
 "use client";
 
-import { revalidateTag } from "next/cache";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -14,7 +13,6 @@ const ProfilePosts = () => {
   const [loading, setLoading] = useState(true);
   const { user: currentUser } = useUser();
 
-  revalidateTag("comments");
   useEffect(() => {
     const fetchRecipes = async () => {
       try {

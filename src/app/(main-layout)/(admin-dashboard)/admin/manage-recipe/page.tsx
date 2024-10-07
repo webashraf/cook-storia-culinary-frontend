@@ -161,7 +161,7 @@ export default function AdminManageRecipe() {
         case "name":
           return (
             <User
-              avatarProps={{ radius: "lg", src: recipe?.user?.avatar }}
+              avatarProps={{ radius: "lg", src: recipe?.user?.profilePicture }}
               description={recipe?.user?.email}
               name={recipe?.user?.username}
             >
@@ -244,7 +244,7 @@ export default function AdminManageRecipe() {
     }
   }, [page]);
 
-  const onRowsPerPageChange = useCallback((e) => {
+  const onRowsPerPageChange = useCallback((e: any) => {
     setRowsPerPage(Number(e.target.value));
     setPage(1);
   }, []);

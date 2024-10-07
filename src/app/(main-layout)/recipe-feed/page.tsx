@@ -111,7 +111,7 @@ const RecipeFeed = () => {
 
   return (
     <>
-      <div className="lg:ml-10 ml-5">
+      <div className="">
         <CommonHero title="Recipe Feed" />
 
         <form onSubmit={handleSearchSubmit(onSearchSubmit)}>

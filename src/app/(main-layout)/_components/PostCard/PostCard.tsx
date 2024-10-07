@@ -19,7 +19,18 @@ const PostCard = ({ recipe }: any) => {
               {recipe?.user?.email}
             </Link>
           }
-          name={recipe?.user?.username}
+          name={
+            <h4 className="flex gap-1">
+              {recipe?.user?.username}
+              <span>
+                {recipe?.user?.isPremium ? (
+                  <p className="text-warning-500">(Pro)</p>
+                ) : (
+                  ""
+                )}
+              </span>
+            </h4>
+          }
         />
         <div className="flex gap- flex-col">
           <div className="space-y-3 ">
