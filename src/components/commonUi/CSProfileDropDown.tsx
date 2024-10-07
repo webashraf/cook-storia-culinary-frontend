@@ -1,6 +1,7 @@
 "use client";
 
 import { Avatar } from "@nextui-org/avatar";
+import { Button } from "@nextui-org/button";
 import {
   Dropdown,
   DropdownItem,
@@ -31,14 +32,20 @@ export default function CSProfileDropDown() {
   return (
     <div className="flex items-center gap-4">
       <Dropdown placement="bottom-start">
-        <DropdownTrigger>
-          <Avatar
-            isBordered
-            radius="sm"
-            size="sm"
-            src="https://i.pravatar.cc/150?u=a04258a2462d826712d"
-          />
-        </DropdownTrigger>
+        {currentUser ? (
+          <DropdownTrigger>
+            <Avatar
+              isBordered
+              radius="sm"
+              size="sm"
+              src="https://i.pravatar.cc/150?u=a04258a2462d826712d"
+            />
+          </DropdownTrigger>
+        ) : (
+          <Link href="/login">
+            <Button>Login</Button>
+          </Link>
+        )}
         <DropdownMenu aria-label="User Actions" variant="flat">
           <DropdownItem key="profile" className="h-14 gap-2">
             <p className="font-bold">Signed in as</p>
@@ -75,19 +82,9 @@ export default function CSProfileDropDown() {
             Recipe Feed
           </DropdownItem>
 
-          {currentUser ? (
-            <DropdownItem key="logout" color="danger">
-              <p onClick={() => handleLogout()}>Log Out</p>
-            </DropdownItem>
-          ) : (
-            <DropdownItem
-              key="Login"
-              color="success"
-              onClick={() => router.push("/login")}
-            >
-              <Link href="/login">Login</Link>
-            </DropdownItem>
-          )}
+          <DropdownItem key="logout" color="danger">
+            <p onClick={() => handleLogout()}>Log Out</p>
+          </DropdownItem>
         </DropdownMenu>
       </Dropdown>
     </div>

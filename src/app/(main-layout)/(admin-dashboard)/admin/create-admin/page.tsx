@@ -62,7 +62,7 @@ const CreateAdmin = () => {
   return (
     <div className="min-h-[90vh] flex items-center justify-center ">
       <form
-        className="border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg p-12 w-[400px] space-y-8"
+        className="border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg p-12 w-[500px] space-y-8"
         onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="text-3xl font-bold text-center text-default-800">

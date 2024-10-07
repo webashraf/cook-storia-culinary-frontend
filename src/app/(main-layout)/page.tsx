@@ -1,8 +1,8 @@
 import { nexiosInstance } from "@/src/config/axios.instance";
 
 import PostCard from "./_components/PostCard/PostCard";
+import RedirectLogin from "./_components/RedirectLogin/RedirectLogin";
 import Stories from "./_components/Stories/Stories";
-
 
 export default async function Home() {
   const { data } = await nexiosInstance.get("/recipe", {
@@ -18,6 +18,7 @@ export default async function Home() {
     <section className="flex">
       <div className="w-[90%] mx-auto">
         <Stories />
+        {/* <RedirectLogin /> */}
         <div className="flex gap-5 items-center flex-wrap justify-center">
           {recipes?.map((recipe: any) => (
             <div key={recipe._id} className="w-[48%]">

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaPhone, FaUser } from "react-icons/fa";
 import { IoInformationCircle } from "react-icons/io5";
-import { LuBookOpen, LuHome, LuLogIn } from "react-icons/lu";
+import { LuBookOpen, LuHome } from "react-icons/lu";
 import { MdOutlineDashboard, MdWorkspacePremium } from "react-icons/md";
 
 import UserCard from "@/src/app/(main-layout)/_components/UserCard/UserCard";
@@ -15,11 +15,11 @@ import { useUser } from "@/src/context/user.provider";
 
 import UserSkeleton from "../Loader/UserSkeleton";
 
-const pages = [
+const userPages = [
   { name: "Home", href: "/", icon: <LuHome className="h-5 w-5" /> },
   {
     name: "Dashboard",
-    href: "/user/settings",
+    href: "/user",
     icon: <MdOutlineDashboard className="h-5 w-5" />,
   },
   {
@@ -33,6 +33,40 @@ const pages = [
     icon: <LuBookOpen className="h-5 w-5" />,
   },
   { name: "Profile", href: "/user", icon: <FaUser className="h-5 w-5" /> },
+  {
+    name: "About Us",
+    href: "/about-us",
+    icon: <IoInformationCircle className="h-5 w-5" />,
+  },
+  {
+    name: "Contact Us",
+    href: "/contact-us",
+    icon: <FaPhone className="h-5 w-5" />,
+  },
+];
+
+const adminPages = [
+  { name: "Home", href: "/", icon: <LuHome className="h-5 w-5" /> },
+  {
+    name: "Admin Dashboard",
+    href: "/admin",
+    icon: <MdOutlineDashboard className="h-5 w-5" />,
+  },
+  {
+    name: "Create Admin",
+    href: "/admin/create-admin",
+    icon: <MdWorkspacePremium className="h-5 w-5" />,
+  },
+  {
+    name: "Manage Admin",
+    href: "/admin/manage-admin",
+    icon: <LuBookOpen className="h-5 w-5" />,
+  },
+  {
+    name: "Manage User",
+    href: "/admin/manage-user",
+    icon: <LuBookOpen className="h-5 w-5" />,
+  },
   {
     name: "About Us",
     href: "/about-us",
@@ -92,8 +126,10 @@ const SideMenu = () => {
         ) : (
           <UserSkeleton />
         )}
+        {/* Nav links */}
+        {/* User Navs */}
         <div className="mt-10 flex flex-col gap-2">
-          {pages.map((page) => (
+          {userPages.map((page) => (
             <div key={page.href}>
               <Link className="text-default-600" href={page.href}>
                 <span
@@ -105,16 +141,22 @@ const SideMenu = () => {
               </Link>
             </div>
           ))}
-          {!currentUser && (
-            <Link className="text-default-600" href="/login">
-              <span
-                className={`flex items-center text-default-800 text-left p-2 rounded-md`}
-              >
-                <LuLogIn className="h-5 w-5" />
-              </span>
-              <span className="ml-2">Login</span>
-            </Link>
-          )}
+        </div>
+
+        {/* Admin navs */}
+        <div className="mt-10 flex flex-col gap-2">
+          {adminPages.map((page) => (
+            <div key={page.href}>
+              <Link className="text-default-600" href={page.href}>
+                <span
+                  className={`flex items-center text-default-800 text-left p-2 rounded-md ${pathname === page.href ? " bg-primary-500 text-default-100" : ""}`}
+                >
+                  {page.icon}
+                </span>
+                <span className="ml-2">{page.name}</span>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
       <div className="flex flex-col gap-3 mt-10">
