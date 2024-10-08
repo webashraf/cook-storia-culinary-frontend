@@ -28,6 +28,16 @@ const userPages = [
     icon: <MdWorkspacePremium className="h-5 w-5" />,
   },
   {
+    name: "Add Recipe",
+    href: "/user/add-recipe",
+    icon: <MdWorkspacePremium className="h-5 w-5" />,
+  },
+  {
+    name: "Update Recipe",
+    href: "/user/update-recipe",
+    icon: <MdWorkspacePremium className="h-5 w-5" />,
+  },
+  {
     name: "Recipe Feed",
     href: "/recipe-feed",
     icon: <LuBookOpen className="h-5 w-5" />,
@@ -53,6 +63,16 @@ const adminPages = [
     icon: <MdOutlineDashboard className="h-5 w-5" />,
   },
   {
+    name: "Manage User",
+    href: "/admin/manage-user",
+    icon: <LuBookOpen className="h-5 w-5" />,
+  },
+  {
+    name: "Manage Recipes",
+    href: "/admin/manage-recipe",
+    icon: <LuBookOpen className="h-5 w-5" />,
+  },
+  {
     name: "Create Admin",
     href: "/admin/create-admin",
     icon: <MdWorkspacePremium className="h-5 w-5" />,
@@ -62,11 +82,7 @@ const adminPages = [
     href: "/admin/manage-admin",
     icon: <LuBookOpen className="h-5 w-5" />,
   },
-  {
-    name: "Manage User",
-    href: "/admin/manage-user",
-    icon: <LuBookOpen className="h-5 w-5" />,
-  },
+
   {
     name: "About Us",
     href: "/about-us",

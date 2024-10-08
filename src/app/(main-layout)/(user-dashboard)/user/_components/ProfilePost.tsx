@@ -8,6 +8,8 @@ import Loading from "@/src/components/UI/Loading/Loading";
 import { nexiosInstance } from "@/src/config/axios.instance";
 import { useUser } from "@/src/context/user.provider";
 
+import UpdateProfileModal from "./UpdateRecipeModal";
+
 const ProfilePosts = () => {
   const [recipes, setRecipes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -17,7 +19,7 @@ const ProfilePosts = () => {
     const fetchRecipes = async () => {
       try {
         const { data }: any = await nexiosInstance.get(
-          `/recipe?user=${currentUser?.id}`,
+          `/recipe?user=${currentUser?.id}`
         );
 
         if (data.success) {

@@ -14,37 +14,20 @@ import {
   recipeCategories,
   recipeCuisines,
   recipeTags,
+  timeMinutes,
 } from "@/src/constent/recipe.constant";
 import { toolbarOptions } from "@/src/constent/toolbarOptions.quil";
 import { useUser } from "@/src/context/user.provider";
+import { IRecipeFormData } from "@/src/types";
 import "react-quill/dist/quill.snow.css";
 import "./style/AddRecipe.css";
 
-interface FormData {
-  title: string;
-  ingredients: string[];
-  cookingTime: number;
-  preparationTime: number;
-  categories: string[];
-  tags: string[];
-  dietaryRestrictions: string[];
-  cuisine: string;
-  instructions: string;
-  image: string;
-  servings: number;
-  nutritionFacts: {
-    calories: number | any;
-    protein: number;
-    fat: number;
-    carbohydrates: number;
-  };
-}
-
-const MyComponent = () => {
+const CreateRecipe = () => {
   const [text, setText] = useState<string>("");
   const [quilData, setQuillData] = useState<any>({});
   const [quillError, setQuillError] = useState<string | null>(null);
   const { user: currentUser } = useUser();
+  const [updateLoading, setupUpdateLoading] = useState(false);
 
   const {
     register,
@@ -52,7 +35,7 @@ const MyComponent = () => {
     setValue,
     control,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<IRecipeFormData>({
     defaultValues: {
       title: "Murgir kala vuna",
       servings: 5,
@@ -78,7 +61,7 @@ const MyComponent = () => {
     setQuillData(quilEditorInfo);
   };
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: IRecipeFormData) => {
     const formData = new FormData();
     const editorContents = quilData.instructions;
 
@@ -120,7 +103,8 @@ const MyComponent = () => {
 
     formData.append("data", JSON.stringify(formDataForSubmit));
     formData.append("image", image);
-    console.log(formDataForSubmit);
+    // console.log(formDataForSubmit);
+    setupUpdateLoading(true);
     try {
       const response = await fetch(
         "http://localhost:5000/api/v1/recipe/create-recipe",
@@ -133,17 +117,23 @@ const MyComponent = () => {
 
       console.log(responseData);
       if (responseData.success) {
+        setupUpdateLoading(false);
         toast.success("Recipe created successfully!!");
       }
       if (!responseData.success) {
+        setupUpdateLoading(false);
         toast.error("Recipe Post failed!", responseData?.message);
       }
       if (!response.ok) {
+        setupUpdateLoading(false);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+      setupUpdateLoading(false);
 
       console.log("Response:", responseData);
     } catch (error) {
+      setupUpdateLoading(false);
+
       console.log("Error:", error);
     }
   };
@@ -212,7 +202,7 @@ const MyComponent = () => {
             )}
           </div>
 
-          <div className="w-[48%]">
+          {/* <div className="w-[48%]">
             <Controller
               control={control}
               name="preparationTime"
@@ -265,6 +255,66 @@ const MyComponent = () => {
               )}
               rules={{ required: "Cooking time is required" }}
             />
+            {errors.cookingTime && (
+              <span className="text-red-500 block w-full">
+                {errors.cookingTime.message}
+              </span>
+            )}
+          </div> */}
+          <div className="w-[48%]">
+            <Controller
+              control={control}
+              name="preparationTime"
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  className="w-full"
+                  defaultSelectedKeys={"10"}
+                  label="Preparation Time(as minutes)"
+                  placeholder="Select Preparation Time"
+                  selectionMode="single"
+                  onChange={field.onChange}
+                >
+                  {timeMinutes.map((time) => (
+                    <SelectItem key={time} value={time}>
+                      {time}
+                    </SelectItem>
+                  ))}
+                </Select>
+              )}
+              rules={{ required: "Preparation time is required" }}
+            />
+            {errors.preparationTime && (
+              <span className="text-red-500 block w-full">
+                {errors.preparationTime.message}
+              </span>
+            )}
+          </div>
+
+          <div className="w-[48%]">
+            <Controller
+              control={control}
+              name="cookingTime"
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  className="w-full"
+                  // defaultSelectedKeys={10}
+                  label="Cooking Time(as minutes)"
+                  placeholder="Select Cooking Time"
+                  // selectionMode="single"
+                  onChange={field.onChange}
+                >
+                  {timeMinutes.map((time) => (
+                    <SelectItem key={time} value={time}>
+                      {time}
+                    </SelectItem>
+                  ))}
+                </Select>
+              )}
+              rules={{ required: "Cooking time is required" }}
+            />
+
             {errors.cookingTime && (
               <span className="text-red-500 block w-full">
                 {errors.cookingTime.message}
@@ -415,7 +465,7 @@ const MyComponent = () => {
                 defaultSelectedKeys={recipeCategories}
                 label="Categories"
                 placeholder="Select categories"
-                selectionMode="multiple"
+                selectionMode="single"
                 onChange={field.onChange}
               >
                 {recipeCategories.map((category) => (
@@ -492,7 +542,7 @@ const MyComponent = () => {
                 defaultSelectedKeys={recipeCuisines}
                 label="Cuisine"
                 placeholder="Select recipe cuisine"
-                selectionMode="multiple"
+                selectionMode="single"
                 onChange={field.onChange}
               >
                 {recipeCuisines.map((restriction) => (
@@ -510,9 +560,8 @@ const MyComponent = () => {
           <legend className="text-2xl font-semibold mb-4">
             Recipe Instructions
           </legend>
-          <div className="quill-container mb-20">
+          <div className="quill-container mb-2">
             <ReactQuill
-              className=" h-[300px] "
               formats={formats}
               modules={modules}
               theme="snow"
@@ -525,10 +574,10 @@ const MyComponent = () => {
 
         <div className="w-full flex justify-center">
           <Button
-            className="w-full sm:w-auto"
-            size="lg"
+            className="w-full block"
+            isLoading={updateLoading}
             type="submit"
-            variant="solid"
+            variant="faded"
           >
             Submit Recipe
           </Button>
@@ -538,4 +587,4 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default CreateRecipe;

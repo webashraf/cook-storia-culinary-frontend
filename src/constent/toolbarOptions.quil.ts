@@ -8,12 +8,26 @@ export const toolbarOptions = [
   [{ indent: "-1" }, { indent: "+1" }],
   [{ direction: "rtl" }],
 
-  [{ size: ["small", false, "large", "huge"] }],
-  [{ header: [1, 2, 3, 4, 5, 6, false] }],
+  // [{ size: ["small", false, "large", "huge"] }],
+  // [{ header: [1, 2, 3, 4, 5, 6, false] }],
 
-  [{ color: [] }, { background: [] }],
-  [{ font: [] }],
-  [{ align: [] }],
+  // [{ color: [] }, { background: [] }],
+  // [{ font: [] }],
+  // [{ align: [] }],
 
-  ["clean"],
+  // ["clean"],
+];
+
+export const formats = [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
 ];
