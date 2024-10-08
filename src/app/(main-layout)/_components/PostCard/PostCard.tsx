@@ -82,11 +82,16 @@ const PostCard = ({ recipe }: any) => {
               className="w-full "
               height={250}
               isZoomed={true}
-              src="https://img.freepik.com/free-photo/side-view-pilaf-with-stewed-beef-meat-plate_141793-5057.jpg?t=st=1727686995~exp=1727690595~hmac=7df2c251d1c8d6a1e8986d1a088368ad053160feddf09b896449de00e02b7baf&w=1380"
+              src={recipe?.imageUrl}
               width="100%"
             />
           </div>
-          <PostComments postId={recipe._id} userId={recipe?.user?._id} />
+          <PostComments
+            isPremium={recipe?.isPremium}
+            isProUser={recipe?.user?.isPremium}
+            postId={recipe?._id}
+            userId={recipe?.user?._id}
+          />
         </div>
       </div>
     </>

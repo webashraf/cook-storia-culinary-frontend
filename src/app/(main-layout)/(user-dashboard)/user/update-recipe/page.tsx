@@ -20,7 +20,7 @@ import {
 } from "@nextui-org/table";
 import { User } from "@nextui-org/user";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { BsPlus, BsThreeDotsVertical } from "react-icons/bs";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoChevronDownCircleOutline } from "react-icons/io5";
 import { toast } from "sonner";
 
@@ -38,12 +38,20 @@ const statusColorMap = {
   vacation: "warning",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "recipe", "status", "update"];
+const INITIAL_VISIBLE_COLUMNS = [
+  "name",
+  "recipe",
+  "status",
+  "isDeleted",
+  "isPremium",
+  "update",
+  "actions",
+];
 
 export function capitalize(str: any) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
-export default function AdminManageRecipe() {
+export default function UpdateRecipePage() {
   const { user } = useUser();
   const [recipes, setRecipes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -146,6 +154,18 @@ export default function AdminManageRecipe() {
 
     setLoading(true);
   }, []);
+  const handleRecipePremium = useCallback((recipeId: string) => {
+    console.log("Unpublish recipe with _id:", recipeId);
+    nexiosInstance.put(`/recipe/status/${recipeId}?isPremium=${true}`, {});
+
+    setLoading(true);
+  }, []);
+  const handleRecipeFree = useCallback((recipeId: string) => {
+    console.log("Unpublish recipe with _id:", recipeId);
+    nexiosInstance.put(`/recipe/status/${recipeId}?isPremium=${false}`, {});
+
+    setLoading(true);
+  }, []);
 
   const handleDelete = useCallback((recipeId: string) => {
     console.log("Delete recipe with _id:", recipeId);
@@ -227,6 +247,14 @@ export default function AdminManageRecipe() {
                   <DropdownItem onClick={() => handleUnpublish(recipe?._id)}>
                     Unpublish
                   </DropdownItem>
+                  <DropdownItem
+                    onClick={() => handleRecipePremium(recipe?._id)}
+                  >
+                    Make it Premium
+                  </DropdownItem>
+                  <DropdownItem onClick={() => handleRecipeFree(recipe?._id)}>
+                    Make it Free
+                  </DropdownItem>
                   <DropdownItem onClick={() => handleDelete(recipe?._id)}>
                     Delete
                   </DropdownItem>
@@ -238,7 +266,13 @@ export default function AdminManageRecipe() {
           return cellValue;
       }
     },
-    [handlePublish, handleUnpublish, handleDelete]
+    [
+      handlePublish,
+      handleUnpublish,
+      handleRecipeFree,
+      handleRecipeFree,
+      handleDelete,
+    ]
   );
 
   const onNextPage = useCallback(() => {
@@ -294,32 +328,6 @@ export default function AdminManageRecipe() {
                   }
                   variant="flat"
                 >
-                  Status
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label="Table Columns"
-                closeOnSelect={false}
-                selectedKeys={statusFilter}
-                selectionMode="multiple"
-                onSelectionChange={setStatusFilter as any}
-              >
-                {statusOptions.map((status) => (
-                  <DropdownItem key={status.uid} className="capitalize">
-                    {capitalize(status.name)}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown>
-            <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button
-                  endContent={
-                    <IoChevronDownCircleOutline className="text-small" />
-                  }
-                  variant="flat"
-                >
                   Columns
                 </Button>
               </DropdownTrigger>
@@ -337,10 +345,7 @@ export default function AdminManageRecipe() {
                   </DropdownItem>
                 ))}
               </DropdownMenu>
-            </Dropdown>
-            <Button color="primary" endContent={<BsPlus />}>
-              Add New
-            </Button>
+            </Dropdown>{" "}
           </div>
         </div>
         <div className="flex justify-between items-center">

@@ -20,7 +20,7 @@ import {
 } from "@nextui-org/table";
 import { User } from "@nextui-org/user";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { BsPlus, BsThreeDotsVertical } from "react-icons/bs";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoChevronDownCircleOutline } from "react-icons/io5";
 import { toast } from "sonner";
 
@@ -281,32 +281,7 @@ export default function AdminManageAdminAccounts() {
             onValueChange={onSearchChange}
           />
           <div className="flex gap-3">
-            <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button
-                  endContent={
-                    <IoChevronDownCircleOutline className="text-small" />
-                  }
-                  variant="flat"
-                >
-                  Status
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label="Table Columns"
-                closeOnSelect={false}
-                selectedKeys={statusFilter}
-                selectionMode="multiple"
-                onSelectionChange={setStatusFilter as any}
-              >
-                {statusOptions.map((status) => (
-                  <DropdownItem key={status.uid} className="capitalize">
-                    {capitalize(status.name)}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown>
+
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
                 <Button
@@ -332,10 +307,7 @@ export default function AdminManageAdminAccounts() {
                   </DropdownItem>
                 ))}
               </DropdownMenu>
-            </Dropdown>
-            <Button color="primary" endContent={<BsPlus />}>
-              Add New
-            </Button>
+            </Dropdown>{" "}
           </div>
         </div>
         <div className="flex justify-between items-center">

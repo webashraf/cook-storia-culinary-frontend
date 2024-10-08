@@ -29,14 +29,17 @@ export interface IOpinions {
 interface IProps {
   postId: string;
   userId: string;
+  isPremium: boolean;
+  isProUser: boolean;
 }
 
-const PostComments = ({ postId, userId }: IProps) => {
+const PostComments = ({ postId, userId, isPremium, isProUser }: IProps) => {
   const [commentsData, setCommentsData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const [currentUser, setCurrentUser] = useState<any>(null);
 
+  console.log({ postId, userId, isPremium, isProUser });
   useEffect(() => {
     const fetchAndSetComments = async () => {
       setLoading(true);
@@ -203,11 +206,39 @@ const PostComments = ({ postId, userId }: IProps) => {
             </span>
           </Button>
         </div>
-        <Button fullWidth size="sm" variant="faded">
-          <Link className="text-white/70" href={`/recipe-feed/${postId}`}>
-            View Full Recipe
-          </Link>
-        </Button>
+
+        {isProUser ? (
+          <Button fullWidth size="sm" variant="faded">
+            <Link className="text-white/70" href={`/recipe-feed/${postId}`}>
+              View Full Recipe
+            </Link>
+          </Button>
+        ) : (
+          <div>
+            {isPremium ? (
+              <Button
+                fullWidth
+                className="bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 text-white font-bold border border-yellow-500 hover:from-yellow-500 hover:to-yellow-700 rounded-lg shadow-md hover:shadow-xl shadow-yellow-400/50 hover:scale-105 transform transition-all duration-300 ease-in-out"
+                color="warning"
+                size="sm"
+                variant="faded"
+              >
+                <Link
+                  className="text-white/90 font-medium tracking-wide uppercase"
+                  href="/user/membership"
+                >
+                  Get Membership
+                </Link>
+              </Button>
+            ) : (
+              <Button fullWidth size="sm" variant="faded">
+                <Link className="text-white/70" href={`/recipe-feed/${postId}`}>
+                  View Full Recipe
+                </Link>
+              </Button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

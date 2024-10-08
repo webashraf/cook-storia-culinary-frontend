@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@nextui-org/button";
+import { user } from "@nextui-org/theme";
 import {
   PaymentElement,
   useElements,
@@ -21,8 +22,12 @@ export default function CheckoutForm({ amount }: { amount: number }) {
   const { user: currentUser, setUser } = useUser();
 
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
+
+  console.log("fgsfdsgjgdfgr", user);
 
   useEffect(() => {
     async function fetchPaymentIntent() {
@@ -78,10 +83,16 @@ export default function CheckoutForm({ amount }: { amount: number }) {
       redirect: "if_required",
     });
 
+    console.log(error, paymentIntent);
     if (error) {
+      console.log(error.message);
       setErrorMessage(error.message || "An error occurred in payment.");
     } else {
       if (paymentIntent?.status) {
+        setSuccessMessage(
+          `Payment successful. your transactionId: ${paymentIntent?.id}`
+        );
+        setIsDisabled(true);
         const paymentInfo = {
           isPremium: true,
           paymentStatus: {
@@ -92,13 +103,14 @@ export default function CheckoutForm({ amount }: { amount: number }) {
           },
         };
 
-        const { data }: any = await nexiosInstance.post(
+        const { data }: any = await nexiosInstance.put(
           `/user/update-user/${currentUser?.id}`,
           paymentInfo
         );
 
-        if (data.success) {
-          setUser(data.data);
+        console.log("Data paymant", data.data);
+        if (data?.success) {
+          setUser(data?.data);
           toast.success(`Payment successful trID:${paymentIntent.id}`);
           router.push(
             `/user/membership/payment/success?transactionId=${paymentIntent.id}&amount=${paymentIntent.amount / 100}`
@@ -120,14 +132,27 @@ export default function CheckoutForm({ amount }: { amount: number }) {
         {clientSecret && <PaymentElement />}
         <Button
           className={`mt-5 w-full bg-black text-white`}
-          disabled={isLoading || !stripe || !elements}
+          disabled={
+            isDisabled ||
+            isLoading ||
+            !stripe ||
+            !elements ||
+            currentUser?.isPremium
+          }
           isLoading={isLoading || !stripe || !elements}
           type="submit"
         >
-          {isLoading ? `Processing...` : `Pay $${amount / 100}`}
+          {currentUser?.isPremium ? (
+            "You are premium"
+          ) : (
+            <>{isLoading ? `Processing...` : `Pay $${amount / 100}`}</>
+          )}
         </Button>
       </form>
       {errorMessage && <div className="mt-4 text-red-500">{errorMessage}</div>}
+      {successMessage && (
+        <div className="mt-4 text-green-500">{successMessage}</div>
+      )}
     </>
   );
 }

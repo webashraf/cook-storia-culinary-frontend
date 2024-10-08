@@ -1,40 +1,80 @@
 "use client";
 
+import { Button } from "@nextui-org/button";
 import { Image } from "@nextui-org/image";
 import { User } from "@nextui-org/user";
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 import { nexiosInstance } from "@/src/config/axios.instance";
+import { useUser } from "@/src/context/user.provider";
 
-const Rating = dynamic(
-  () => import("react-simple-star-rating").then((mod) => mod.Rating),
-  { ssr: false }
-);
-
-const Page = ({ params }: { params: { id: string } }) => {
+const RecipeDetailsPage = ({ params }: { params: { id: string } }) => {
   const [rating, setRating] = useState(0);
+  const { user } = useUser();
+  const [recipe, setRecipe] = useState<any>({});
+  const [userComments, setUserComments] = useState<any>({});
 
   // Catch Rating value
-  const handleRating = (rate: number) => {
-    setRating(rate);
-    console.log(rate);
-    // Other logic such as submitting rating to backend
+  const handleRating = async (rate: number) => {
+    try {
+      const { data }: any = await nexiosInstance.post("/user-opinion/create", {
+        postId: params.id,
+        userId: user?.id,
+        rate,
+      });
+
+      if (data?.success) {
+        setRating(rate);
+        toast.success("Rating successful");
+      }
+    } catch (err: any) {
+      toast.error("Error", err?.message);
+    }
   };
+
+  // // Calculate the average rating
+  // const calculateAverageRating = () => {
+  //   const totalRatings = userComments.data.reduce(
+  //     (total: number, comment: any) => total + (comment?.rate || 0),
+  //     0
+  //   );
+
+  //   const ratingsCount = userComments.data.filter(
+  //     (comment: any) => comment?.rate
+  //   ).length;
+
+  //   return ratingsCount > 0 ? (totalRatings / ratingsCount).toFixed(1) : 0;
+  // };
 
   useEffect(() => {
     const recipeFetch = async () => {
       try {
-        const { data } = await nexiosInstance.get(`/recipe?_id=${params.id}`);
+        const { data }: any = await nexiosInstance.get(
+          `/recipe?_id=${params.id}`
+        );
+        const { data: comments }: any = await nexiosInstance.get(
+          `/user-opinion/${params.id}`
+        );
 
-        console.log("recipe data", data);
+        console.log("Comment", comments.data[0].rate);
+
+        if (comments.success) {
+          setUserComments(comments.data[0]);
+          setRating(comments.data[0].rate);
+        }
+        console.log("recipe data", data.data);
+
+        if (data?.success) {
+          setRecipe(data.data[0]);
+        }
       } catch (error: any) {
         console.log("Error fetching recipe", error);
       }
     };
 
     recipeFetch();
-  }, [params.id]); // Add params.id as a dependency
+  }, [params.id, user, rating]); // Add params.id as a dependency
 
   console.log("Recipe Id", params.id);
 
@@ -43,10 +83,6 @@ const Page = ({ params }: { params: { id: string } }) => {
       <div className="mx-auto bg-default-100 rounded-xl shadow-2xl overflow-hidden">
         {/* Image Section */}
         <div className="relative">
-          <div className="absolute z-30 right-0 bg-black/30 top-5">
-            {/* Add handleRating function */}
-            <Rating ratingValue={rating} onClick={handleRating} />
-          </div>
           <Image
             isBlurred
             isZoomed
@@ -56,7 +92,7 @@ const Page = ({ params }: { params: { id: string } }) => {
             width={"100%"}
           />
           <h1 className="absolute bottom-0 left-0 bg-black bg-opacity-60 text-white text-4xl font-extrabold p-6 z-20 backdrop-blur-lg">
-            Chicken Alfredo
+            {recipe?.title}
           </h1>
         </div>
 
@@ -65,7 +101,7 @@ const Page = ({ params }: { params: { id: string } }) => {
           <div>
             <User
               avatarProps={{
-                src: "https://avatars.githubusercontent.com/u/30373425?v=4",
+                src: `${user?.photo}`,
               }}
               description={<p className="text-default-500">Date: 10-5-2024</p>}
               name="Junior Garcia"
@@ -77,11 +113,23 @@ const Page = ({ params }: { params: { id: string } }) => {
             fettuccine, and rich Alfredo sauce.
           </p>
           {/* Rating Section */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-0">
             <h2>Give ratings: &nbsp;</h2>
-            {/* Add handleRating function */}
-            <Rating ratingValue={rating} onClick={handleRating} />
+            {Array.from({ length: 5 }, (_, index) => index + 1).map(
+              (rating) => (
+                <Button
+                  key={rating}
+                  isIconOnly
+                  className="rounded-none text-xl"
+                  onClick={() => handleRating(rating)}
+                >
+                  ⭐
+                </Button>
+              )
+            )}
+            <p className="ml-2 text-xl">{rating} 🌟</p>
           </div>
+          {/* Nutrition Facts */}
           {/* Nutrition Facts */}
           <div className="grid lg:grid-cols-2 gap-6">
             <div className="bg-default-200/50 p-4 rounded-lg shadow-xl">
@@ -89,10 +137,18 @@ const Page = ({ params }: { params: { id: string } }) => {
                 Nutrition Facts
               </h2>
               <ul className="list-disc list-inside space-y-1 mt-2 text-default-600">
-                <li>Calories: 700 kcal</li>
-                <li>Protein: 35g</li>
-                <li>Fat: 40g</li>
-                <li>Carbohydrates: 50g</li>
+                {recipe?.nutritionFacts ? (
+                  <>
+                    <li>Calories: {recipe?.nutritionFacts.calories} kcal</li>
+                    <li>Protein: {recipe?.nutritionFacts.protein}g</li>
+                    <li>Fat: {recipe?.nutritionFacts.fat}g</li>
+                    <li>
+                      Carbohydrates: {recipe?.nutritionFacts.carbohydrates}g
+                    </li>
+                  </>
+                ) : (
+                  <li>Loading nutrition facts...</li>
+                )}
               </ul>
             </div>
 
@@ -101,61 +157,73 @@ const Page = ({ params }: { params: { id: string } }) => {
                 Dietary Restrictions
               </h2>
               <ul className="list-disc list-inside space-y-1 mt-2 text-default-600">
-                <li>Gluten-free</li>
+                {recipe?.dietaryRestrictions?.length > 0 ? (
+                  recipe?.dietaryRestrictions.map(
+                    (restriction: string, i: number) => (
+                      <li key={i}>{restriction}</li>
+                    )
+                  )
+                ) : (
+                  <li>No restrictions listed.</li>
+                )}
               </ul>
             </div>
           </div>
+
           {/* Ingredients */}
           <div className="bg-default-200/50 p-6 rounded-lg shadow-xl">
             <h2 className="text-2xl font-semibold text-default-800 mb-4">
               Ingredients
             </h2>
             <ul className="list-disc list-inside text-default-600 space-y-2">
-              <li>Fettuccine pasta</li>
-              <li>Chicken breast</li>
-              <li>Heavy cream</li>
-              <li>Parmesan cheese</li>
-              <li>Butter</li>
-              <li>Garlic</li>
-              <li>Black pepper</li>
+              {recipe?.ingredients?.length > 0 ? (
+                recipe?.ingredients.map((ingredient: string, i: number) => (
+                  <li key={i}>{ingredient}</li>
+                ))
+              ) : (
+                <li>Loading ingredients...</li>
+              )}
             </ul>
           </div>
+
           {/* Instructions */}
           <div className="bg-default-200/50 p-6 rounded-lg shadow-xl">
             <h2 className="text-2xl font-semibold text-default-800 mb-4">
               Instructions
             </h2>
             <p className="text-default-600 leading-relaxed whitespace-pre-wrap">
-              1. Cook fettuccine according to package instructions.
-              {"\n"}2. In a pan, cook chicken until browned.
-              {"\n"}3. In another pan, melt butter and sauté garlic.
-              {"\n"}4. Add cream and Parmesan to the garlic, stirring until
-              thickened.
-              {"\n"}5. Combine pasta, chicken, and sauce, mixing well. Serve
-              with pepper.
+              {recipe?.instructions || "Loading instructions..."}
             </p>
           </div>
+
           {/* Cooking and Prep Info */}
           <div className="grid lg:grid-cols-2 gap-6">
             <div className="bg-default-200/50 p-4 rounded-lg shadow-xl">
               <h2 className="text-2xl font-semibold text-default-800">
                 Preparation Time
               </h2>
-              <p className="text-default-600 mt-2">15 minutes</p>
+              <p className="text-default-600 mt-2">
+                {recipe?.preparationTime} minutes
+              </p>
             </div>
             <div className="bg-default-200/50 p-4 rounded-lg shadow-xl">
               <h2 className="text-2xl font-semibold text-default-800">
                 Cooking Time
               </h2>
-              <p className="text-default-600 mt-2">25 minutes</p>
+              <p className="text-default-600 mt-2">
+                {recipe?.cookingTime} minutes
+              </p>
             </div>
           </div>
+
           {/* Servings */}
           <div className="bg-default-200/50 p-4 rounded-lg shadow-xl">
             <h2 className="text-2xl font-semibold text-default-800">
               Servings
             </h2>
-            <p className="text-default-600 mt-2">Serves 4</p>
+            <p className="text-default-600 mt-2">
+              Serves {recipe?.servings || "..."}
+            </p>
           </div>
         </div>
       </div>
@@ -163,4 +231,4 @@ const Page = ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default Page;
+export default RecipeDetailsPage;
