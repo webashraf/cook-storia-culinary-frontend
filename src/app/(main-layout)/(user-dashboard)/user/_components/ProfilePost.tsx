@@ -3,12 +3,11 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import PostCard from "@/src/app/(main-layout)/_components/PostCard/PostCard";
 import Loading from "@/src/components/UI/Loading/Loading";
 import { nexiosInstance } from "@/src/config/axios.instance";
 import { useUser } from "@/src/context/user.provider";
 
-import UpdateProfileModal from "./UpdateRecipeModal";
+import PostCardProfile from "../../../_components/PostCard/PostCardProfile";
 
 const ProfilePosts = () => {
   const [recipes, setRecipes] = useState<any[]>([]);
@@ -47,7 +46,7 @@ const ProfilePosts = () => {
           <h2>My Post</h2>
           {recipes.length > 0 ? (
             recipes.map((post: any) => (
-              <PostCard key={post.title} recipe={post} />
+              <PostCardProfile key={post.title} recipe={post} />
             ))
           ) : (
             <p>No recipes found.</p>

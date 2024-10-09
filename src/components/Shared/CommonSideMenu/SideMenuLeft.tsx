@@ -2,6 +2,7 @@
 
 import { Avatar } from "@nextui-org/avatar";
 import { Link } from "@nextui-org/link";
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaPhone, FaUser } from "react-icons/fa";
@@ -116,7 +117,10 @@ const SideMenu = () => {
   }, []);
 
   return (
-    <div className="w-[100%] lg:block h-[100vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10">
+    <ScrollShadow
+      hideScrollBar
+      className="w-[100%] lg:block h-[100vh] overflow-y-scroll bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10"
+    >
       {error && <div className="text-red-600">{error}</div>}
       <div>
         {currentUser ? (
@@ -176,17 +180,15 @@ const SideMenu = () => {
         </div>
       </div>
       <div className="flex flex-col gap-3 mt-10">
-        {allUser?.data
-          ?.slice(0, 3)
-          .map((user: any) => (
-            <div key={user?._id}>
-              {user?._id !== currentUser?.id && (
-                <UserCard logedInUser={currentUser} user={user} />
-              )}
-            </div>
-          ))}
+        {allUser?.data?.map((user: any) => (
+          <div key={user?._id}>
+            {user?._id !== currentUser?.id && (
+              <UserCard logedInUser={currentUser} user={user} />
+            )}
+          </div>
+        ))}
       </div>
-    </div>
+    </ScrollShadow>
   );
 };
 
