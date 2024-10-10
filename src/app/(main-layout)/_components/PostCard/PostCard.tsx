@@ -8,7 +8,7 @@ import PostComments from "./PostComments";
 const PostCard = ({ recipe }: any) => {
   return (
     <>
-      <div className="min-h-[400px] min:w-[300px]   mx-aut border border-default-300 p-5 rounded-md md:w-full w-ful">
+      <div className="min-h-[400px] w-full  mx-aut border border-default-300 p-5 rounded-md md:w-full overflow-hidden">
         <User
           avatarProps={{
             src: recipe?.user?.profilePicture,
@@ -76,7 +76,7 @@ const PostCard = ({ recipe }: any) => {
 
             <div className="flex items-center w-full justify-between mt-10 gap-5" />
           </div>
-          <div className=" mt-5  space-y-3">
+          <div className=" mt-5 lg:w-[350px] md:w-[600px] w-[350px] space-y-3">
             <Image
               alt="NextUI hero Image with delay"
               className="w-full "

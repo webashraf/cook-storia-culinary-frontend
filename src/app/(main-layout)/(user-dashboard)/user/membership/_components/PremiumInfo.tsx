@@ -38,12 +38,12 @@ const PremiumInfo = () => {
   }
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen lg:p-6 px-3 overflow-y-scroll mt-10">
       {/* User Information */}
       <div className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-bold">
           Welcome, {user?.name || "Guest"}!{" "}
-          <span className="text-warning text-[12px] md:text-[14px] font-bold border border-warning rounded-full px-2 py-0.5 shadow-md">
+          <span className="text-warning  md:inline inline-block  text-[12px] md:text-[14px] font-bold border border-warning rounded-full px-2 py-0.5 shadow-md">
             Pro User
           </span>
         </h2>
@@ -67,7 +67,7 @@ const PremiumInfo = () => {
       <h1 className="text-3xl md:text-4xl font-bold text-center mt-12 mb-8">
         Payment Information
       </h1>
-      <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow">
+      <table className="lg:min-w-full w-[50% overflow-y-scroll bg-white border border-gray-200 rounded-lg shadow">
         <thead>
           <tr className="bg-black">
             <th className="py-2 px-4 border-b border-gray-200 text-left text-lg">

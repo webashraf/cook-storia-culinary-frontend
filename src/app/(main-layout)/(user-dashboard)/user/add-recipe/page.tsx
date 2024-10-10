@@ -5,7 +5,10 @@ import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
+import dynamic from "next/dynamic";
 import { toast } from "sonner";
 
 import {
@@ -36,10 +39,7 @@ const CreateRecipe = () => {
     control,
     formState: { errors },
   } = useForm<IRecipeFormData>({
-    defaultValues: {
-      title: "Murgir kala vuna",
-      servings: 5,
-    },
+    defaultValues: {},
   });
 
   const handleChange = (
@@ -107,7 +107,7 @@ const CreateRecipe = () => {
     setupUpdateLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:5000/api/v1/recipe/create-recipe",
+        "https://cook-storia-culinary-backend-project.vercel.app/api/v1/recipe/create-recipe",
         {
           method: "POST",
           body: formData,
@@ -115,7 +115,6 @@ const CreateRecipe = () => {
       );
       const responseData = await response.json();
 
-      console.log(responseData);
       if (responseData.success) {
         setupUpdateLoading(false);
         toast.success("Recipe created successfully!!");
@@ -129,12 +128,8 @@ const CreateRecipe = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       setupUpdateLoading(false);
-
-      console.log("Response:", responseData);
     } catch (error) {
       setupUpdateLoading(false);
-
-      console.log("Error:", error);
     }
   };
 
@@ -159,7 +154,7 @@ const CreateRecipe = () => {
   return (
     <div className="w-full h-[90vh] overflow-y-scroll my-auto">
       <form
-        className="border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg p-12 space-y-8"
+        className="border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg lg:p-12 p-5 space-y-8"
         onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="text-3xl font-bold text-center text-default-800">
@@ -171,7 +166,7 @@ const CreateRecipe = () => {
           <legend className="text-2xl font-semibold mb-4">
             Recipe Details
           </legend>
-          <div className="w-[48%]">
+          <div className="lg:w-[48%] w-full">
             <Input
               {...register("title", { required: "Title is required" })}
               className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
@@ -186,7 +181,7 @@ const CreateRecipe = () => {
             )}
           </div>
 
-          <div className="w-[48%]">
+          <div className="lg:w-[48%] w-full">
             <Input
               {...register("servings", { required: "Servings are required" })}
               className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
@@ -202,7 +197,7 @@ const CreateRecipe = () => {
             )}
           </div>
 
-          {/* <div className="w-[48%]">
+          <div className="lg:w-[48%] w-full">
             <Controller
               control={control}
               name="preparationTime"
@@ -210,66 +205,7 @@ const CreateRecipe = () => {
                 <Select
                   {...field}
                   className="w-full"
-                  label="Preparation Time (minutes)"
-                  placeholder="Select preparation time"
-                  onChange={field.onChange}
-                >
-                  {Array.from({ length: 26 }, (_, i) => (i + 1) * 5).map(
-                    (time) => (
-                      <SelectItem key={time} value={time}>
-                        {time} minutes
-                      </SelectItem>
-                    )
-                  )}
-                </Select>
-              )}
-              rules={{ required: "Preparation time is required" }}
-            />
-            {errors.preparationTime && (
-              <span className="text-red-500 block w-full">
-                {errors.preparationTime.message}
-              </span>
-            )}
-          </div>
-
-          <div className="w-[48%]">
-            <Controller
-              control={control}
-              name="cookingTime"
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  className="w-full"
-                  label="Cooking Time (minutes)"
-                  placeholder="Select cooking time"
-                  onChange={field.onChange}
-                >
-                  {Array.from({ length: 26 }, (_, i) => (i + 1) * 5).map(
-                    (time) => (
-                      <SelectItem key={time} value={time}>
-                        {time} minutes
-                      </SelectItem>
-                    )
-                  )}
-                </Select>
-              )}
-              rules={{ required: "Cooking time is required" }}
-            />
-            {errors.cookingTime && (
-              <span className="text-red-500 block w-full">
-                {errors.cookingTime.message}
-              </span>
-            )}
-          </div> */}
-          <div className="w-[48%]">
-            <Controller
-              control={control}
-              name="preparationTime"
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  className="w-full"
-                  defaultSelectedKeys={"10"}
+                  //defaultSelectedKeys={"10"}
                   label="Preparation Time(as minutes)"
                   placeholder="Select Preparation Time"
                   selectionMode="single"
@@ -291,7 +227,7 @@ const CreateRecipe = () => {
             )}
           </div>
 
-          <div className="w-[48%]">
+          <div className="lg:w-[48%] w-full">
             <Controller
               control={control}
               name="cookingTime"
@@ -299,7 +235,7 @@ const CreateRecipe = () => {
                 <Select
                   {...field}
                   className="w-full"
-                  // defaultSelectedKeys={10}
+                  // //defaultSelectedKeys={10}
                   label="Cooking Time(as minutes)"
                   placeholder="Select Cooking Time"
                   // selectionMode="single"
@@ -349,7 +285,7 @@ const CreateRecipe = () => {
                 <Select
                   {...field}
                   className="w-full"
-                  defaultSelectedKeys={ingredientsArr}
+                  //defaultSelectedKeys={ingredientsArr}
                   label="Ingredients"
                   placeholder="Select ingredients"
                   selectionMode="multiple"
@@ -374,7 +310,7 @@ const CreateRecipe = () => {
             <div className="w-full">
               <h3 className="text-xl font-semibold mb-4">Nutrition Facts</h3>
               <div className="flex flex-wrap gap-5">
-                <div className="w-[48%]">
+                <div className="lg:w-[48%] w-full">
                   <Input
                     {...register("nutritionFacts.calories", {
                       required: "Calories are required",
@@ -392,7 +328,7 @@ const CreateRecipe = () => {
                   )}
                 </div>
 
-                <div className="w-[48%]">
+                <div className="lg:w-[48%] w-full">
                   <Input
                     {...register("nutritionFacts.protein", {
                       required: "Protein is required",
@@ -410,7 +346,7 @@ const CreateRecipe = () => {
                   )}
                 </div>
 
-                <div className="w-[48%]">
+                <div className="lg:w-[48%] w-full">
                   <Input
                     {...register("nutritionFacts.fat", {
                       required: "Fat is required",
@@ -428,7 +364,7 @@ const CreateRecipe = () => {
                   )}
                 </div>
 
-                <div className="w-[48%]">
+                <div className="lg:w-[48%] w-full">
                   <Input
                     {...register("nutritionFacts.carbohydrates", {
                       required: "Carbohydrates are required",
@@ -462,7 +398,7 @@ const CreateRecipe = () => {
               <Select
                 {...field}
                 className="w-full"
-                defaultSelectedKeys={recipeCategories}
+                //defaultSelectedKeys={recipeCategories}
                 label="Categories"
                 placeholder="Select categories"
                 selectionMode="single"
@@ -490,7 +426,7 @@ const CreateRecipe = () => {
               <Select
                 {...field}
                 className="w-full"
-                defaultSelectedKeys={recipeTags}
+                //defaultSelectedKeys={recipeTags}
                 label="Tags"
                 placeholder="Select tags"
                 selectionMode="multiple"
@@ -518,7 +454,7 @@ const CreateRecipe = () => {
               <Select
                 {...field}
                 className="w-full"
-                defaultSelectedKeys={dietaryRestrictions}
+                //defaultSelectedKeys={dietaryRestrictions}
                 label="Dietary Restrictions"
                 placeholder="Select dietary restrictions"
                 selectionMode="multiple"
@@ -531,7 +467,13 @@ const CreateRecipe = () => {
                 ))}
               </Select>
             )}
+            rules={{ required: "Dietary Restrictions are required" }}
           />
+          {errors.dietaryRestrictions && (
+            <span className="text-red-500 block w-full">
+              {errors.dietaryRestrictions.message}
+            </span>
+          )}
           <Controller
             control={control}
             name="cuisine"
@@ -539,7 +481,7 @@ const CreateRecipe = () => {
               <Select
                 {...field}
                 className="w-full"
-                defaultSelectedKeys={recipeCuisines}
+                //defaultSelectedKeys={recipeCuisines}
                 label="Cuisine"
                 placeholder="Select recipe cuisine"
                 selectionMode="single"
@@ -552,7 +494,13 @@ const CreateRecipe = () => {
                 ))}
               </Select>
             )}
+            rules={{ required: "Cuisine are required" }}
           />
+          {errors.cuisine && (
+            <span className="text-red-500 block w-full">
+              {errors.cuisine.message}
+            </span>
+          )}
         </fieldset>
 
         {/* Part 4: Instructions */}

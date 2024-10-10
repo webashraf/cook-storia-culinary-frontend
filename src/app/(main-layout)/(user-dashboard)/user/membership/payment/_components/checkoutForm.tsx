@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@nextui-org/button";
-import { user } from "@nextui-org/theme";
 import {
   PaymentElement,
   useElements,
@@ -14,6 +13,7 @@ import { toast } from "sonner";
 import { nexiosInstance } from "@/src/config/axios.instance";
 import { useUser } from "@/src/context/user.provider";
 import convertToCurrency from "@/src/lib/convertToCurrency";
+import { logoutUser } from "@/src/services/AuthService";
 
 export default function CheckoutForm({ amount }: { amount: number }) {
   const stripe = useStripe();
@@ -26,8 +26,6 @@ export default function CheckoutForm({ amount }: { amount: number }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
-
-  console.log("fgsfdsgjgdfgr", user);
 
   useEffect(() => {
     async function fetchPaymentIntent() {
@@ -83,9 +81,7 @@ export default function CheckoutForm({ amount }: { amount: number }) {
       redirect: "if_required",
     });
 
-    console.log(error, paymentIntent);
     if (error) {
-      console.log(error.message);
       setErrorMessage(error.message || "An error occurred in payment.");
     } else {
       if (paymentIntent?.status) {
@@ -108,10 +104,10 @@ export default function CheckoutForm({ amount }: { amount: number }) {
           paymentInfo
         );
 
-        console.log("Data paymant", data.data);
         if (data?.success) {
           setUser(data?.data);
           toast.success(`Payment successful trID:${paymentIntent.id}`);
+          logoutUser();
           router.push(
             `/user/membership/payment/success?transactionId=${paymentIntent.id}&amount=${paymentIntent.amount / 100}`
           );

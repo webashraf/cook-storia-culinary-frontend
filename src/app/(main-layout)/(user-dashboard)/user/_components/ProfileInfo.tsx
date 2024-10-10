@@ -9,8 +9,8 @@ const ProfileInfo = () => {
         Turning Ingredients into Culinary Art
       </p>
 
-      <div className="w-full flex ">
-        <Link href="/">
+      <div className="w-full flex flex-wrap">
+        <Link href="/user/update-user-info">
           <Button radius="none">Edit Profile</Button>
         </Link>
         <Link href="/user/membership">
@@ -19,14 +19,11 @@ const ProfileInfo = () => {
         <Link href="/user/add-recipe">
           <Button radius="none">Add Recipe</Button>
         </Link>
+        <Link href="/user/update-recipe">
+          <Button radius="none">Update Recipe</Button>
+        </Link>
         <Link href="/user/change-password">
           <Button radius="none">Change Password</Button>
-        </Link>
-        <Link href="/">
-          <Button radius="none">Followers</Button>
-        </Link>
-        <Link href="/">
-          <Button radius="none">Following</Button>
         </Link>
       </div>
     </div>

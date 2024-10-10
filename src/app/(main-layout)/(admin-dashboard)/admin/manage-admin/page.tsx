@@ -133,27 +133,23 @@ export default function AdminManageAdminAccounts() {
   }, [sortDescriptor, items]);
 
   const handleBlock = useCallback((userId: string) => {
-    console.log("Block recipe with _id:", userId);
     nexiosInstance.put(`/user/update-user/${userId}`, { status: "blocked" });
 
     setLoading(true);
   }, []);
 
   const handleUnblock = useCallback((userId: string) => {
-    console.log("Unpublish recipe with _id:", userId);
     nexiosInstance.put(`/user/update-user/${userId}`, { status: "active" });
 
     setLoading(true);
   }, []);
 
   const handleDelete = useCallback((userId: string) => {
-    console.log("Delete recipe with _id:", userId);
     nexiosInstance.put(`/user/update-user/${userId}`, { isDeleted: true });
 
     setLoading(true);
   }, []);
   const handleRetrieve = useCallback((userId: string) => {
-    console.log("Delete recipe with _id:", userId);
     nexiosInstance.put(`/user/update-user/${userId}`, { isDeleted: false });
 
     setLoading(true);
@@ -270,6 +266,7 @@ export default function AdminManageAdminAccounts() {
   const topContent = useMemo(() => {
     return (
       <div className="flex flex-col gap-4 mt-20">
+        <h2>Manage admin</h2>
         <div className="flex justify-between gap-3 items-end">
           <Input
             isClearable
@@ -281,7 +278,6 @@ export default function AdminManageAdminAccounts() {
             onValueChange={onSearchChange}
           />
           <div className="flex gap-3">
-
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
                 <Button
@@ -301,7 +297,7 @@ export default function AdminManageAdminAccounts() {
                 selectionMode="multiple"
                 onSelectionChange={setVisibleColumns as any}
               >
-                {columns.map((column) => (
+                {columns?.map((column) => (
                   <DropdownItem key={column.uid} className="capitalize">
                     {capitalize(column.name)}
                   </DropdownItem>

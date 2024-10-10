@@ -17,7 +17,6 @@ import { logoutUser } from "@/src/services/AuthService";
 
 export default function CSProfileDropDown() {
   const router = useRouter();
-
   const { user: currentUser, setIsUserLoading } = useUser();
 
   const handleLogout = () => {
@@ -29,16 +28,119 @@ export default function CSProfileDropDown() {
     router.push("/login");
   };
 
+  const userPages = [
+    {
+      key: "home",
+      content: "Home",
+      action: () => router.push("/"),
+    },
+    {
+      key: "profile",
+      content: (
+        <>
+          <p className="font-bold">Signed in as</p>
+          <p className="font-bold">{currentUser?.email}</p>
+        </>
+      ),
+      action: null,
+      className: "h-14 gap-2",
+    },
+    {
+      key: "settings",
+      content: "My Profile",
+      action: () => router.push("/user"),
+    },
+    {
+      key: "add-recipe",
+      content: "Add Recipe",
+      action: () => router.push("/user/add-recipe"),
+    },
+    {
+      key: "profile_settings",
+      content: "Profile Settings",
+      action: () => router.push("/user/update-user-info"),
+    },
+    {
+      key: "change_password",
+      content: "Change Password",
+      action: () => router.push("/user/change-password"),
+    },
+    {
+      key: "my_recipes",
+      content: "My Recipes",
+      action: () => router.push("/user"),
+    },
+    {
+      key: "recipe_feed",
+      content: "Recipe Feed",
+      action: () => router.push("/recipe-feed"),
+    },
+    {
+      key: "logout",
+      content: <p onClick={handleLogout}>Log Out</p>,
+      action: null,
+      color: "danger",
+    },
+  ];
+  const adminPages = [
+    {
+      key: "home",
+      content: "Home",
+      action: () => router.push("/"),
+    },
+    {
+      key: "admin_dashboard",
+      content: "Admin Dashboard",
+      action: () => router.push("/admin"),
+    },
+    {
+      key: "manage_user",
+      content: "Manage User",
+      action: () => router.push("/admin/manage-user"),
+    },
+    {
+      key: "manage_recipes",
+      content: "Manage Recipes",
+      action: () => router.push("/admin/manage-recipe"),
+    },
+    {
+      key: "create_admin",
+      content: "Create Admin",
+      action: () => router.push("/admin/create-admin"),
+    },
+    {
+      key: "manage_admin",
+      content: "Manage Admin",
+      action: () => router.push("/admin/manage-admin"),
+    },
+    {
+      key: "about_us",
+      content: "About Us",
+      action: () => router.push("/about-us"),
+    },
+    {
+      key: "contact_us",
+      content: "Contact Us",
+      action: () => router.push("/contact-us"),
+    },
+    {
+      key: "logout",
+      content: <p onClick={handleLogout}>Log Out</p>,
+      action: null,
+      color: "danger",
+    },
+  ];
+
   return (
-    <div className="flex items-center gap-4">
-      <Dropdown placement="bottom-start">
+    <div className="flex items-center gap-4 h-[100vh]">
+      <Dropdown backdrop="blur" placement="bottom-start" size="lg">
         {currentUser ? (
           <DropdownTrigger>
             <Avatar
               isBordered
               radius="sm"
               size="sm"
-              src="https://i.pravatar.cc/150?u=a04258a2462d826712d"
+              src={`${currentUser.photo}`}
             />
           </DropdownTrigger>
         ) : (
@@ -46,46 +148,24 @@ export default function CSProfileDropDown() {
             <Button>Login</Button>
           </Link>
         )}
-        <DropdownMenu aria-label="User Actions" variant="flat">
-          <DropdownItem key="profile" className="h-14 gap-2">
-            <p className="font-bold">Signed in as</p>
-            <p className="font-bold">{currentUser?.email}</p>
-          </DropdownItem>
-          <DropdownItem key="settings" onClick={() => router.push("/user")}>
-            My Profile
-          </DropdownItem>
-          <DropdownItem
-            key="add-recipe"
-            onClick={() => router.push("/user/add-recipe")}
-          >
-            Add Recipe
-          </DropdownItem>
-          <DropdownItem
-            key="team_settings"
-            onClick={() => router.push("/user/settings")}
-          >
-            Profile Settings
-          </DropdownItem>
-          <DropdownItem
-            key="team_settings"
-            onClick={() => router.push("/user/change-password")}
-          >
-            Change Password
-          </DropdownItem>
-          <DropdownItem key="analytics" onClick={() => router.push("/user")}>
-            My Recipes
-          </DropdownItem>
-          <DropdownItem
-            key="analytics"
-            onClick={() => router.push("/recipe-feed")}
-          >
-            Recipe Feed
-          </DropdownItem>
-
-          <DropdownItem key="logout" color="danger">
-            <p onClick={() => handleLogout()}>Log Out</p>
-          </DropdownItem>
-        </DropdownMenu>
+        {currentUser?.role === "user" && (
+          <DropdownMenu aria-label="User Actions" variant="flat">
+            {userPages.map(({ key, content, action }: any) => (
+              <DropdownItem key={key} onClick={action}>
+                {content}
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
+        )}
+        {currentUser?.role === "admin" && (
+          <DropdownMenu aria-label="User Actions" variant="flat">
+            {adminPages.map(({ key, content, action }: any) => (
+              <DropdownItem key={key} onClick={action}>
+                {content}
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
+        )}
       </Dropdown>
     </div>
   );

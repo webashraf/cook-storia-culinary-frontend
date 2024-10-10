@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IoEyeOff, IoEyeSharp, IoMail } from "react-icons/io5";
 import { MdPassword } from "react-icons/md";
@@ -16,29 +16,37 @@ import { useUser } from "../context/user.provider";
 
 const Login = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   const defaultValues = { email: "ali@gmail.com", password: "123456" };
-  const { handleSubmit, register } = useForm({ defaultValues });
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({ defaultValues });
   const router = useRouter();
-  const { setIsUserLoading } = useUser();
+  const { user, setIsUserLoading } = useUser();
 
   const loginForm: SubmitHandler<any> = async (formData) => {
     try {
       const res = await loginUser(formData);
 
-      router.push("/");
-
-      console.log("Login page", res);
       if (res.success) {
         setIsUserLoading(true);
+        setLoading(true);
         toast.success("Login successful!!");
       } else {
-        toast.error("Login failed");
+        console.log(res);
+        toast.error(`Login failed :${res?.message}`);
       }
     } catch (error: any) {
-      console.log("Error", error);
+      console.log("Error", error?.message);
     }
   };
+
+  useEffect(() => {
+    router.push("/");
+  }, [user, loading]);
 
   return (
     <div className="min-h-[90vh] flex items-center justify-center ">
@@ -50,55 +58,91 @@ const Login = () => {
           Login
         </h2>
 
-        <Input
-          label="Email"
-          type="email"
-          {...register("email")}
-          className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
-          placeholder="you@example.com"
-          startContent={
-            <IoMail className="text-2xl text-gray-600 pointer-events-none flex-shrink-0" />
-          }
-        />
+        <div>
+          <Input
+            label="Email"
+            type="email"
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
+                message: "Enter a valid email address",
+              },
+            })}
+            className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
+            placeholder="you@example.com"
+            startContent={
+              <IoMail className="text-2xl text-gray-600 pointer-events-none flex-shrink-0" />
+            }
+          />
+          {errors.email && (
+            <span className="text-red-500 text-sm">{errors.email.message}</span>
+          )}
+        </div>
 
-        <Input
-          label="Password"
-          placeholder="Enter your password"
-          {...register("password")}
-          className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
-          endContent={
-            <button
-              aria-label="toggle password visibility"
-              className="focus:outline-none"
-              type="button"
-              onClick={toggleVisibility}
+        <div>
+          <Input
+            label="Password"
+            placeholder="Enter your password"
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters long",
+              },
+            })}
+            className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
+            endContent={
+              <button
+                aria-label="toggle password visibility"
+                className="focus:outline-none"
+                type="button"
+                onClick={toggleVisibility}
+              >
+                {isVisible ? (
+                  <IoEyeOff className="text-2xl text-gray-600 pointer-events-none" />
+                ) : (
+                  <IoEyeSharp className="text-2xl text-gray-600 pointer-events-none" />
+                )}
+              </button>
+            }
+            startContent={
+              <MdPassword className="text-2xl text-gray-600 pointer-events-none flex-shrink-0" />
+            }
+            type={isVisible ? "text" : "password"}
+          />
+          {errors.password && (
+            <span className="text-red-500 text-sm">
+              {errors.password.message}
+            </span>
+          )}
+        </div>
+
+        {!user ? (
+          <Button
+            className="w-full text-white bg-black hover:bg-gray-800 transition-colors duration-300"
+            color="primary"
+            type="submit"
+            variant="shadow"
+          >
+            Login
+          </Button>
+        ) : (
+          <Link href="/">
+            <Button
+              className="w-full text-white bg-black hover:bg-gray-800 transition-colors duration-300"
+              color="primary"
+              variant="shadow"
             >
-              {isVisible ? (
-                <IoEyeOff className="text-2xl text-gray-600 pointer-events-none" />
-              ) : (
-                <IoEyeSharp className="text-2xl text-gray-600 pointer-events-none" />
-              )}
-            </button>
-          }
-          startContent={
-            <MdPassword className="text-2xl text-gray-600 pointer-events-none flex-shrink-0" />
-          }
-          type={isVisible ? "text" : "password"}
-        />
-
-        <Button
-          className="w-full text-white bg-black hover:bg-gray-800 transition-colors duration-300"
-          color="primary"
-          type="submit"
-          variant="shadow"
-        >
-          Login
-        </Button>
+              Redirect to home
+            </Button>
+          </Link>
+        )}
 
         <div className="flex justify-between items-center">
           <Link
             className="text-sm text-blue-600 hover:underline focus:outline-none"
-            href="/forgat-password"
+            href="/forgot-password"
             type="button"
           >
             Forgot Password?
@@ -107,7 +151,7 @@ const Login = () => {
 
         <div className="text-center">
           <span className="text-sm text-gray-500">
-            Dont have an account?&nbsp;
+            Don't have an account?&nbsp;
           </span>
           <button
             className="text-sm text-blue-600 hover:underline focus:outline-none"

@@ -12,7 +12,10 @@ import { Select, SelectItem } from "@nextui-org/select";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { BsPencil } from "react-icons/bs";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
+import dynamic from "next/dynamic";
 import { toast } from "sonner";
 
 import {
@@ -26,6 +29,7 @@ import {
 import { formats, toolbarOptions } from "@/src/constent/toolbarOptions.quil";
 import { useUser } from "@/src/context/user.provider";
 import { IRecipeFormData } from "@/src/types";
+
 import "react-quill/dist/quill.snow.css";
 
 export default function UpdateProfileModal({
@@ -37,7 +41,6 @@ export default function UpdateProfileModal({
   const [size, setSize] = useState("4xl");
   const [updateLoading, setupUpdateLoading] = useState(false);
 
-  console.log("Modal Recipe", recipe);
   const handleOpen = () => {
     setSize("4xl");
     onOpen();
@@ -103,13 +106,12 @@ export default function UpdateProfileModal({
       ...quilData,
     };
 
-    console.log("formDataForSubmit", formDataForSubmit);
     setupUpdateLoading(true);
     formData.append("data", JSON.stringify(formDataForSubmit));
     formData.append("image", image);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/v1/recipe/update-recipe/${recipe._id}`,
+        `https://cook-storia-culinary-backend-project.vercel.app/api/v1/recipe/update-recipe/${recipe._id}`,
         {
           method: "PUT",
           body: formData,
@@ -117,7 +119,6 @@ export default function UpdateProfileModal({
       );
       const responseData = await response.json();
 
-      console.log(responseData);
       if (responseData.success) {
         setUpdateRecipeLoading(!updateRecipeLoading);
         setupUpdateLoading(false);
@@ -132,10 +133,8 @@ export default function UpdateProfileModal({
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       setupUpdateLoading(false);
-      console.log("Response:", responseData);
     } catch (error) {
       setupUpdateLoading(false);
-      console.log("Error:", error);
     }
   };
 
@@ -161,7 +160,7 @@ export default function UpdateProfileModal({
               <ModalBody>
                 <div className="w-full h-[60vh] overflow-y-scroll my-auto">
                   <form
-                    className="border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg p-12 space-y-8"
+                    className="border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg lg:p-12 p-5 space-y-8"
                     onSubmit={handleSubmit(onSubmit)}
                   >
                     {/* Part 1: Recipe Details */}
@@ -169,7 +168,7 @@ export default function UpdateProfileModal({
                       <legend className="text-2xl font-semibold mb-4">
                         Recipe Details
                       </legend>
-                      <div className="w-[48%]">
+                      <div className="lg:w-[48%] w-full">
                         <Input
                           {...register("title")}
                           className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
@@ -179,7 +178,7 @@ export default function UpdateProfileModal({
                         />
                       </div>
 
-                      <div className="w-[48%]">
+                      <div className="lg:w-[48%] w-full">
                         <Input
                           {...register("servings")}
                           className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
@@ -189,7 +188,7 @@ export default function UpdateProfileModal({
                         />
                       </div>
 
-                      <div className="w-[48%]">
+                      <div className="lg:w-[48%] w-full">
                         <Controller
                           control={control}
                           name="preparationTime"
@@ -202,8 +201,8 @@ export default function UpdateProfileModal({
                               selectionMode="single"
                               onChange={field.onChange}
                             >
-                              {timeMinutes.map((time) => (
-                                <SelectItem key={time} value={time}>
+                              {timeMinutes.map((time, timeIndex) => (
+                                <SelectItem key={timeIndex} value={time}>
                                   {time}
                                 </SelectItem>
                               ))}
@@ -212,7 +211,7 @@ export default function UpdateProfileModal({
                         />
                       </div>
 
-                      <div className="w-[48%]">
+                      <div className="lg:w-[48%] w-full">
                         <Controller
                           control={control}
                           name="cookingTime"
@@ -225,8 +224,8 @@ export default function UpdateProfileModal({
                               selectionMode="single"
                               onChange={field.onChange}
                             >
-                              {timeMinutes.map((time) => (
-                                <SelectItem key={time} value={time}>
+                              {timeMinutes.map((time, timeIndex) => (
+                                <SelectItem key={timeIndex} value={time}>
                                   {time}
                                 </SelectItem>
                               ))}
@@ -263,8 +262,8 @@ export default function UpdateProfileModal({
                               selectionMode="multiple"
                               onChange={field.onChange}
                             >
-                              {ingredientsArr.map((item) => (
-                                <SelectItem key={item} value={item}>
+                              {ingredientsArr.map((item, itemIndex) => (
+                                <SelectItem key={itemIndex} value={item}>
                                   {item}
                                 </SelectItem>
                               ))}
@@ -278,7 +277,7 @@ export default function UpdateProfileModal({
                             Nutrition Facts
                           </h3>
                           {/* <div className="flex flex-wrap gap-5">
-                            <div className="w-[48%]">
+                            <div className="lg:w-[48%] w-full">
                               <Input
                                 {...register("nutritionFacts.calories", {
                                   valueAsNumber: true,
@@ -291,7 +290,7 @@ export default function UpdateProfileModal({
                               />
                             </div>
 
-                            <div className="w-[48%]">
+                            <div className="lg:w-[48%] w-full">
                               <Input
                                 {...register("nutritionFacts.protein", {
                                   valueAsNumber: true,
@@ -304,7 +303,7 @@ export default function UpdateProfileModal({
                               />
                             </div>
 
-                            <div className="w-[48%]">
+                            <div className="lg:w-[48%] w-full">
                               <Input
                                 {...register("nutritionFacts.fat", {
                                   valueAsNumber: true,
@@ -316,7 +315,7 @@ export default function UpdateProfileModal({
                               />
                             </div>
 
-                            <div className="w-[48%]">
+                            <div className="lg:w-[48%] w-full">
                               <Input
                                 {...register("nutritionFacts.carbohydrates", {
                                   valueAsNumber: true,
@@ -329,7 +328,7 @@ export default function UpdateProfileModal({
                             </div>
                           </div> */}
                           <div className="flex flex-wrap gap-5">
-                            <div className="w-[48%]">
+                            <div className="lg:w-[48%] w-full">
                               <Input
                                 {...register("nutritionFacts.calories", {
                                   valueAsNumber: true,
@@ -351,7 +350,7 @@ export default function UpdateProfileModal({
                               )}
                             </div>
 
-                            <div className="w-[48%]">
+                            <div className="lg:w-[48%] w-full">
                               <Input
                                 {...register("nutritionFacts.protein", {
                                   valueAsNumber: true,
@@ -374,7 +373,7 @@ export default function UpdateProfileModal({
                               )}
                             </div>
 
-                            <div className="w-[48%]">
+                            <div className="lg:w-[48%] w-full">
                               <Input
                                 {...register("nutritionFacts.fat", {
                                   valueAsNumber: true,
@@ -393,7 +392,7 @@ export default function UpdateProfileModal({
                               )}
                             </div>
 
-                            <div className="w-[48%]">
+                            <div className="lg:w-[48%] w-full">
                               <Input
                                 {...register("nutritionFacts.carbohydrates", {
                                   valueAsNumber: true,

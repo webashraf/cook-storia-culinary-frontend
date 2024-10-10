@@ -9,7 +9,7 @@ import { useUser } from "@/src/context/user.provider";
 
 const ProfileHeader = () => {
   const { user } = useUser();
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [totalRecipes, setTotalRecipes] = useState<number>(0);
   const [myFollowers, setMyFollower] = useState<number>(0);
   const [myFollows, setMyFollows] = useState<number>(0);
@@ -33,7 +33,6 @@ const ProfileHeader = () => {
         const { data: followersDataForFollow }: any =
           await nexiosInstance.get(`/social/follow`);
 
-        console.log("followersDataForFollow", followersDataForFollow.data);
         if (followersData?.success) {
           setMyFollower(followersData?.data?.followers?.length || 0);
           let totalFollows = 0;
@@ -44,10 +43,9 @@ const ProfileHeader = () => {
             Array.isArray(followersDataForFollow.data)
           ) {
             followersDataForFollow?.data?.forEach((followersObject: any) => {
-              console.log("followersObject", followersObject.followers);
               if (Array.isArray(followersObject.followers)) {
                 const countInArray = followersObject.followers.filter(
-                  (item: string) => item._id === user?.id
+                  (item: any) => item._id === user?.id
                 ).length;
 
                 totalFollows += countInArray;
@@ -60,10 +58,10 @@ const ProfileHeader = () => {
           setMyFollower(0);
         }
 
-        setLoading(false);
+        // setLoading(false);
       } catch (error: any) {
         toast.error("Error fetching data:", error);
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -84,7 +82,20 @@ const ProfileHeader = () => {
           />
 
           <div className="ml-6">
-            <h1 className="text-2xl font-bold dark:text-white">{user?.name}</h1>
+            <div className="flex  items-center gap-2">
+              <h1 className="text-2xl font-bold dark:text-white">
+                {user?.name}
+                {user?.isPremium ? (
+                  <span className="text-warning inline-block text-[12px] md:text-[14px] font-bold  px-1 shadow-md rounded-sm">
+                    Pro
+                  </span>
+                ) : (
+                  <span className="text-sm text-default-400">
+                    {user?.role == "user" ? "Basic User" : user?.role}
+                  </span>
+                )}
+              </h1>{" "}
+            </div>
             <div className="flex space-x-4 text-gray-500 dark:text-gray-400 mt-2">
               <span>
                 <strong className="font-bold text-black dark:text-white">

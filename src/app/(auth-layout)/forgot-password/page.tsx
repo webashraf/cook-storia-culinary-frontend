@@ -37,7 +37,7 @@ const ForgatPassword = () => {
     try {
       const { data }: any = await nexiosInstance.post(
         "/auth/generate-new-password",
-        formData,
+        formData
       );
 
       if (data.success) {

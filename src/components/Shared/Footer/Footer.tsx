@@ -4,10 +4,10 @@ import Container from "../../UI/Container";
 
 const Footer = () => {
   return (
-    <footer className="bg-black glassy text-white py-12">
+    <footer className="bg-black glassy text-white lg:py-12 py-5 border-t-4 border-primary-400">
       <Container>
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-4 ">
+          <div className="grid lg:grid-cols-4 ">
             {/* Company Info Section */}
             <div className="mb-6 footer-item">
               <h3 className="text-lg font-semibold mb-2">Company Name</h3>
@@ -21,7 +21,7 @@ const Footer = () => {
             </div>
 
             {/* Quick Links Section */}
-            <div className="mb-6 pl-10 footer-item">
+            <div className="mb-6 lg:pl-10 footer-item">
               <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
               <ul className="space-y-2">
                 <li>
@@ -112,16 +112,16 @@ const Footer = () => {
               </p>
 
               {/* Social Icons Section */}
-              <div className="flex items-center gap-4 mt-10">
+              {/* <div className="flex items-center gap-4 mt-10">
                 <div className="social-button">
-                  <button className="relative w-12 h-12 rounded-full group">
+                  <button className="relative size-8 rounded-full group">
                     <div className="floater w-full h-full absolute top-0 left-0 bg-violet-400 rounded-full duration-300 group-hover:-top-8 group-hover:shadow-2xl" />
                     <div className="icon relative z-10 w-full h-full flex items-center justify-center border-2 border-violet-400 rounded-full">
                       <svg
                         fill="none"
-                        height="22"
+                        height="16"
                         viewBox="0 0 22 22"
-                        width="22"
+                        width="16"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
@@ -197,7 +197,7 @@ const Footer = () => {
                     </div>
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
             {/* Newsletter Section */}
             <div className="mb-6 footer-item mt-6">

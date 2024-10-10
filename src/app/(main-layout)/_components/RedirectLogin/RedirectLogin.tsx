@@ -9,7 +9,6 @@ const RedirectLogin = () => {
   const router = useRouter();
 
   if (!user) {
-    console.log("user not found", user);
     router.push("/login");
   }
 

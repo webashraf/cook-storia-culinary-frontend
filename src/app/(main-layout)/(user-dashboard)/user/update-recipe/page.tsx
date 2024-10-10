@@ -78,7 +78,6 @@ export default function UpdateRecipePage() {
     );
   }, [visibleColumns]);
 
-  console.log("User user", user);
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
@@ -142,33 +141,28 @@ export default function UpdateRecipePage() {
   }, [sortDescriptor, items]);
 
   const handlePublish = useCallback((recipeId: string) => {
-    console.log("Publish recipe with _id:", recipeId);
     nexiosInstance.put(`/recipe/status/${recipeId}?status=publish`, {});
 
     setLoading(true);
   }, []);
 
   const handleUnpublish = useCallback((recipeId: string) => {
-    console.log("Unpublish recipe with _id:", recipeId);
     nexiosInstance.put(`/recipe/status/${recipeId}?status=unpublish`, {});
 
     setLoading(true);
   }, []);
   const handleRecipePremium = useCallback((recipeId: string) => {
-    console.log("Unpublish recipe with _id:", recipeId);
     nexiosInstance.put(`/recipe/status/${recipeId}?isPremium=${true}`, {});
 
     setLoading(true);
   }, []);
   const handleRecipeFree = useCallback((recipeId: string) => {
-    console.log("Unpublish recipe with _id:", recipeId);
     nexiosInstance.put(`/recipe/status/${recipeId}?isPremium=${false}`, {});
 
     setLoading(true);
   }, []);
 
   const handleDelete = useCallback((recipeId: string) => {
-    console.log("Delete recipe with _id:", recipeId);
     nexiosInstance.put(`/recipe/status/${recipeId}?isDeleted=true`, {});
 
     setLoading(true);
@@ -309,6 +303,7 @@ export default function UpdateRecipePage() {
   const topContent = useMemo(() => {
     return (
       <div className="flex flex-col gap-4 mt-20">
+        <h2>Update Recipe</h2>
         <div className="flex justify-between gap-3 items-end">
           <Input
             isClearable

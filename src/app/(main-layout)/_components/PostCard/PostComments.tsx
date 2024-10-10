@@ -38,8 +38,8 @@ const PostComments = ({ postId, userId, isPremium, isProUser }: IProps) => {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const [currentUser, setCurrentUser] = useState<any>(null);
+  const [refetching, setRefetching] = useState(false);
 
-  console.log({ postId, userId, isPremium, isProUser });
   useEffect(() => {
     const fetchAndSetComments = async () => {
       setLoading(true);
@@ -59,7 +59,7 @@ const PostComments = ({ postId, userId, isPremium, isProUser }: IProps) => {
     };
 
     fetchAndSetComments();
-  }, [postId]);
+  }, [postId, refetching]);
 
   const handleLike = async () => {
     const opinions: IOpinions = {
@@ -75,7 +75,8 @@ const PostComments = ({ postId, userId, isPremium, isProUser }: IProps) => {
       );
 
       if (data?.success) {
-        toast.success(data?.message);
+        setRefetching(!refetching);
+        toast.success("UpVoted");
       }
 
       setCommentsData(await fetchComments(postId));
@@ -92,14 +93,18 @@ const PostComments = ({ postId, userId, isPremium, isProUser }: IProps) => {
     };
 
     try {
-      const { data } = await nexiosInstance.post(
+      const { data }: any = await nexiosInstance.post(
         "/user-opinion/create",
         opinions
       );
 
+      if (data?.success) {
+        setRefetching(!refetching);
+        toast.success("downVoted");
+      }
       setCommentsData(await fetchComments(postId));
-    } catch (err) {
-      // console.error("Error disliking the post:", err);
+    } catch (err: any) {
+      toast.error("Error", err?.message);
     }
   };
 
@@ -122,6 +127,7 @@ const PostComments = ({ postId, userId, isPremium, isProUser }: IProps) => {
         if (!data.success) {
           toast.error("Failed to comment");
         } else {
+          setRefetching(!refetching);
           toast.success("Comment created successfully");
         }
       } catch (err) {

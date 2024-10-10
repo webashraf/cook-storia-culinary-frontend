@@ -11,8 +11,8 @@ import { LuUserPlus } from "react-icons/lu";
 import { MdPassword } from "react-icons/md";
 import { toast } from "sonner";
 
-import { useUser } from "@/src/context/user.provider";
 import { nexiosInstance } from "@/src/config/axios.instance";
+import { useUser } from "@/src/context/user.provider";
 
 export interface IUserFormInfo {
   username: string;
@@ -37,7 +37,7 @@ const SignUp = () => {
       email: "aliashraf@gmail.com",
       password: "123456",
       profilePicture:
-        "https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg?t=st=1727979695~exp=1727983295~hmac=175f5b9229e80fb758ee5f0ec8cc665bf84af6260a74ab6a86f67dec799ad8ef&w=740",
+        "https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671122.jpg?t=st=1728475368~exp=1728478968~hmac=62789df160b00c4cb25a1e8c632f3fbcb154a5a5b2fdf8fff53037af9967688b&w=740",
     },
   });
   const router = useRouter();

@@ -133,21 +133,18 @@ export default function AdminManageRecipe() {
   }, [sortDescriptor, items]);
 
   const handlePublish = useCallback((recipeId: string) => {
-    console.log("Publish recipe with _id:", recipeId);
     nexiosInstance.put(`/recipe/status/${recipeId}?status=publish`, {});
 
     setLoading(true);
   }, []);
 
   const handleUnpublish = useCallback((recipeId: string) => {
-    console.log("Unpublish recipe with _id:", recipeId);
     nexiosInstance.put(`/recipe/status/${recipeId}?status=unpublish`, {});
 
     setLoading(true);
   }, []);
 
   const handleDelete = useCallback((recipeId: string) => {
-    console.log("Delete recipe with _id:", recipeId);
     nexiosInstance.put(`/recipe/status/${recipeId}?isDeleted=true`, {});
 
     setLoading(true);
@@ -266,6 +263,7 @@ export default function AdminManageRecipe() {
   const topContent = useMemo(() => {
     return (
       <div className="flex flex-col gap-4 mt-20">
+        <h2>Manage Recipe</h2>
         <div className="flex justify-between gap-3 items-end">
           <Input
             isClearable
@@ -277,7 +275,6 @@ export default function AdminManageRecipe() {
             onValueChange={onSearchChange}
           />
           <div className="flex gap-3">
-
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
                 <Button
@@ -297,7 +294,7 @@ export default function AdminManageRecipe() {
                 selectionMode="multiple"
                 onSelectionChange={setVisibleColumns as any}
               >
-                {columns.map((column) => (
+                {columns?.map((column) => (
                   <DropdownItem key={column.uid} className="capitalize">
                     {capitalize(column.name)}
                   </DropdownItem>
@@ -337,7 +334,7 @@ export default function AdminManageRecipe() {
   const bottomContent = useMemo(() => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
-        <span className="w-[30%] text-small text-default-400">
+        <span className="w-[30%] text-small hidden text-default-400">
           {(selectedKeys as any) === "all"
             ? "All items selected"
             : `${selectedKeys.size} of ${filteredItems.length} selected`}

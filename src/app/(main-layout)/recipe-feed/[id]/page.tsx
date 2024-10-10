@@ -33,37 +33,24 @@ const RecipeDetailsPage = ({ params }: { params: { id: string } }) => {
     }
   };
 
-  // // Calculate the average rating
-  // const calculateAverageRating = () => {
-  //   const totalRatings = userComments.data.reduce(
-  //     (total: number, comment: any) => total + (comment?.rate || 0),
-  //     0
-  //   );
-
-  //   const ratingsCount = userComments.data.filter(
-  //     (comment: any) => comment?.rate
-  //   ).length;
-
-  //   return ratingsCount > 0 ? (totalRatings / ratingsCount).toFixed(1) : 0;
-  // };
-
   useEffect(() => {
     const recipeFetch = async () => {
       try {
         const { data }: any = await nexiosInstance.get(
-          `/recipe?_id=${params.id}`
+          `/recipe?_id=${params.id}`,
+          {
+            cache: "no-store",
+          }
         );
         const { data: comments }: any = await nexiosInstance.get(
-          `/user-opinion/${params.id}`
+          `/user-opinion/${params.id}`,
+          { cache: "no-store" }
         );
-
-        console.log("Comment", comments.data[0].rate);
 
         if (comments.success) {
           setUserComments(comments.data[0]);
           setRating(comments.data[0].rate);
         }
-        console.log("recipe data", data.data);
 
         if (data?.success) {
           setRecipe(data.data[0]);
@@ -74,9 +61,7 @@ const RecipeDetailsPage = ({ params }: { params: { id: string } }) => {
     };
 
     recipeFetch();
-  }, [params.id, user, rating]); // Add params.id as a dependency
-
-  console.log("Recipe Id", params.id);
+  }, [params.id, user, rating]);
 
   return (
     <div className="bg-gradient-to-b min-h-screen p-6 text-default-900 w-full">
@@ -88,7 +73,7 @@ const RecipeDetailsPage = ({ params }: { params: { id: string } }) => {
             isZoomed
             alt="Chicken Alfredo"
             className="w-full h-96 object-cover rounded-t-xl"
-            src="https://img.freepik.com/free-photo/view-delicious-food-chinese-new-year-reunion-dinner_23-2151040712.jpg?t=st=1727720720~exp=1727724320~hmac=a8873c7d972ca68df3d3482eaa4c53d709c660cbfabf349c35a2737a4e34a80e&w=1380"
+            src={`${recipe?.imageUrl}`}
             width={"100%"}
           />
           <h1 className="absolute bottom-0 left-0 bg-black bg-opacity-60 text-white text-4xl font-extrabold p-6 z-20 backdrop-blur-lg">

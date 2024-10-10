@@ -5,7 +5,7 @@ const AdminDashboard = () => {
   const { user: currentUser } = useUser();
 
   return (
-    <div className="flex h-screen bg-black">
+    <div className="flex h-screen bg-black mt-10">
 
 
       {/* Main Content */}

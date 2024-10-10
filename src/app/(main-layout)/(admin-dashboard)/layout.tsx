@@ -16,7 +16,7 @@ export default function AdminDashboardLayout({
 }) {
   return (
     <>
-      <>{children}</>
+      <div className="lg:mx-5">{children}</div>
     </>
   );
 }

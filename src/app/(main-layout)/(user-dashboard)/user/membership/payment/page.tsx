@@ -8,13 +8,12 @@ import convertToCurrency from "@/src/lib/convertToCurrency";
 
 import CheckoutForm from "./_components/checkoutForm";
 
-
 if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
   throw new Error("Publish key is missing");
 }
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string,
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
 
 export default function App() {
@@ -36,7 +35,7 @@ export default function App() {
   };
 
   return (
-    <div className="app bg-white p-5 m-10 rounded-md shadow-xl shadow-primary-400/30 mt-20">
+    <div className="app bg-white p-5 md:m-10 rounded-md shadow-xl shadow-primary-400/30 mt-20">
       {clientSecret ? (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm amount={amount} />

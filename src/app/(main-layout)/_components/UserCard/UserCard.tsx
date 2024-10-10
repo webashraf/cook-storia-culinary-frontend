@@ -11,6 +11,7 @@ import { nexiosInstance } from "@/src/config/axios.instance";
 export default function UserCard({ user, logedInUser }: any) {
   const [followOfUser, setFollowOfUser] = useState<any[]>([]);
   const [isFollowedUser, setIsFollowedUser] = useState(false);
+  const [refetching, setRefetching] = useState(false);
 
   useEffect(() => {
     const fetchFollowers = async () => {
@@ -19,7 +20,7 @@ export default function UserCard({ user, logedInUser }: any) {
           `/social/follow/${user?._id}`,
           {
             cache: "no-store",
-          },
+          }
         );
 
         if (data.success) {
@@ -31,10 +32,10 @@ export default function UserCard({ user, logedInUser }: any) {
     };
 
     fetchFollowers();
-  }, [user._id]);
+  }, [user._id, refetching]);
 
   const isFollowed = followOfUser.some(
-    (follow: any) => follow?._id === logedInUser?.id,
+    (follow: any) => follow?._id === logedInUser?.id
   );
 
   const followUser = async (userId: string) => {
@@ -45,11 +46,12 @@ export default function UserCard({ user, logedInUser }: any) {
       };
       const { data }: any = await nexiosInstance.post(
         "/social/follow",
-        followOptions,
+        followOptions
       );
 
       setIsFollowedUser(true);
       if (data?.success) {
+        setRefetching(!refetching);
         toast.success("Followed");
         setFollowOfUser((prev) => {
           const newFollowers = data.data || [];
@@ -72,14 +74,15 @@ export default function UserCard({ user, logedInUser }: any) {
       };
       const { data }: any = await nexiosInstance.post(
         `/social/unfollow/${userId}`,
-        followOptions,
+        followOptions
       );
 
       setIsFollowedUser(false);
       if (data.success) {
+        setRefetching(!refetching);
         toast.success("Successfully unfollow");
         setFollowOfUser((prev) =>
-          prev.filter((fUser: any) => fUser.userId !== logedInUser?.id),
+          prev.filter((fUser: any) => fUser.userId !== logedInUser?.id)
         );
       }
     } catch (error) {

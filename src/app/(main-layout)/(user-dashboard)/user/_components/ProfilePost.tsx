@@ -45,8 +45,8 @@ const ProfilePosts = () => {
         <div className="grid grid-cols-1 gap-4">
           <h2>My Post</h2>
           {recipes.length > 0 ? (
-            recipes.map((post: any) => (
-              <PostCardProfile key={post.title} recipe={post} />
+            recipes?.map((post: any) => (
+              <PostCardProfile key={post?._id} recipe={post} />
             ))
           ) : (
             <p>No recipes found.</p>
