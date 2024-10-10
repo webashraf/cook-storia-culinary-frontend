@@ -8,7 +8,7 @@ import PostComments from "./PostComments";
 const PostCard = ({ recipe }: any) => {
   return (
     <>
-      <div className="min-h-[400px] w-full  mx-aut border border-default-300 p-5 rounded-md md:w-full overflow-hidden">
+      <div className="min-h-[400px] w-full  mx-aut border border-default-300 p-5 rounded-md md:w-full shadow-xl shadow-primary-100 overflow-hidden hover:shadow-2xl">
         <User
           avatarProps={{
             src: recipe?.user?.profilePicture,
@@ -90,6 +90,7 @@ const PostCard = ({ recipe }: any) => {
             isPremium={recipe?.isPremium}
             isProUser={recipe?.user?.isPremium}
             postId={recipe?._id}
+            recipe={recipe}
             userId={recipe?.user?._id}
           />
         </div>

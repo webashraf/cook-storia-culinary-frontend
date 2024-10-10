@@ -31,9 +31,16 @@ interface IProps {
   userId: string;
   isPremium: boolean;
   isProUser: boolean;
+  recipe: any;
 }
 
-const PostComments = ({ postId, userId, isPremium, isProUser }: IProps) => {
+const PostComments = ({
+  postId,
+  userId,
+  isPremium,
+  isProUser,
+  recipe,
+}: IProps) => {
   const [commentsData, setCommentsData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
@@ -189,7 +196,7 @@ const PostComments = ({ postId, userId, isPremium, isProUser }: IProps) => {
             <AiOutlineLike size={18} />
             <span className="text-[12px]">
               {commentsData?.data?.reduce(
-                (total: number, comment: any) => total + (comment?.upVote || 0),
+                (total: number, comment: any) => total + (recipe?.upVote || 0),
                 0
               )}
             </span>
