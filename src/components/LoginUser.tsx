@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IoEyeOff, IoEyeSharp, IoMail } from "react-icons/io5";
 import { MdPassword } from "react-icons/md";
@@ -34,6 +34,7 @@ const Login = () => {
       if (res.success) {
         setIsUserLoading(true);
         setLoading(true);
+        router.push("/");
         toast.success("Login successful!!");
       } else {
         console.log(res);
@@ -44,9 +45,9 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    router.push("/");
-  }, [user, loading]);
+  // useEffect(() => {
+  //   router.push("/");
+  // }, [user]);
 
   return (
     <div className="min-h-[90vh] flex items-center justify-center ">
@@ -118,26 +119,14 @@ const Login = () => {
           )}
         </div>
 
-        {!user ? (
-          <Button
-            className="w-full text-white bg-black hover:bg-gray-800 transition-colors duration-300"
-            color="primary"
-            type="submit"
-            variant="shadow"
-          >
-            Login
-          </Button>
-        ) : (
-          <Link href="/">
-            <Button
-              className="w-full text-white bg-black hover:bg-gray-800 transition-colors duration-300"
-              color="primary"
-              variant="shadow"
-            >
-              Redirect to home
-            </Button>
-          </Link>
-        )}
+        <Button
+          className="w-full text-white bg-black hover:bg-gray-800 transition-colors duration-300"
+          color="primary"
+          type="submit"
+          variant="shadow"
+        >
+          Login
+        </Button>
 
         <div className="flex justify-between items-center">
           <Link

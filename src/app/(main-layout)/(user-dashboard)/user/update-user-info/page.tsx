@@ -9,7 +9,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 import { toast } from "sonner";
 
-import { nexiosInstance } from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/axios.instance";
 import { useUser } from "@/src/context/user.provider";
 import { logoutUser } from "@/src/services/AuthService";
 
@@ -17,35 +17,42 @@ const SettingsPage = () => {
   const { user } = useUser();
   const [needLogin, setNeedLogin] = useState<boolean>(false);
 
-  // Initialize the useForm hook
+  console.log(user);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      username: user?.name || "",
-      email: user?.email || "",
-      profilePicture: user?.photo || "",
+      username: user?.name,
+      email: user?.email,
+      profilePicture: user?.photo,
     },
   });
 
-  // Handle form submission
   const onSubmit = async (formData: any) => {
-    console.log(formData);
+    const filteredFormData = Object.keys(formData).reduce((acc, key) => {
+      if (formData[key]) {
+        acc[key] = formData[key];
+      }
+
+      return acc;
+    }, {} as any);
+
+    console.log(filteredFormData);
 
     try {
       const { data }: any = await nexiosInstance.put(
         `/user/update-user-profile-info/${user?.id}`,
-        formData
+        filteredFormData
       );
 
-      console.log(data);
+      console.log("data", data);
 
       if (data.success) {
-        setNeedLogin(true);
-        logoutUser();
         toast.success("User updated successfully");
+        logoutUser();
+        setNeedLogin(true);
       }
     } catch (error: any) {
       toast.error("Failed to update info");
@@ -63,7 +70,7 @@ const SettingsPage = () => {
       ) : (
         <form
           className="border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg p-12 w-[500px] space-y-8"
-          onSubmit={handleSubmit(onSubmit)} // Attach the submit handler
+          onSubmit={handleSubmit(onSubmit)}
         >
           <h2 className="text-3xl font-bold text-center text-default-800">
             Update your profile
@@ -77,11 +84,8 @@ const SettingsPage = () => {
               <FaUserEdit className="text-2xl text-gray-600 pointer-events-none flex-shrink-0" />
             }
             type="text"
-            {...register("username", { required: true })}
+            {...register("username")}
           />
-          {errors.username && (
-            <p className="text-red-500">User Name is required</p>
-          )}
 
           <Input
             className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
@@ -91,9 +95,8 @@ const SettingsPage = () => {
               <IoMail className="text-2xl text-gray-600 pointer-events-none flex-shrink-0" />
             }
             type="email"
-            {...register("email", { required: true })}
+            {...register("email")}
           />
-          {errors.email && <p className="text-red-500">Email is required</p>}
 
           <Input
             className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
@@ -105,11 +108,8 @@ const SettingsPage = () => {
               </div>
             }
             type="url"
-            {...register("profilePicture", { required: true })}
+            {...register("profilePicture")}
           />
-          {(errors as any).photo && (
-            <p className="text-red-500">Profile URL is required</p>
-          )}
 
           <Button
             className="w-full text-white bg-black hover:bg-gray-800 transition-colors duration-300"

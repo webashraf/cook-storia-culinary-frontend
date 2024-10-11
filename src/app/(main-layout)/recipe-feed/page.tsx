@@ -9,7 +9,7 @@ import InfiniteScroll from "react-infinite-scroller";
 
 import { SearchIcon } from "@/src/components/icons";
 import CommonHero from "@/src/components/Shared/CommonHero/CommonHero";
-import { nexiosInstance } from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/axios.instance";
 
 import PostCard from "../_components/PostCard/PostCard";
 

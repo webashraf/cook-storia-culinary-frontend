@@ -12,7 +12,7 @@ import { LuBookOpen, LuHome } from "react-icons/lu";
 import { MdOutlineDashboard, MdWorkspacePremium } from "react-icons/md";
 
 import UserCard from "@/src/app/(main-layout)/_components/UserCard/UserCard";
-import { nexiosInstance } from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/axios.instance";
 import { useUser } from "@/src/context/user.provider";
 
 const allUserNavs = [

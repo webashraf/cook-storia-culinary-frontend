@@ -276,57 +276,7 @@ export default function UpdateProfileModal({
                           <h3 className="text-xl font-semibold mb-4">
                             Nutrition Facts
                           </h3>
-                          {/* <div className="flex flex-wrap gap-5">
-                            <div className="lg:w-[48%] w-full">
-                              <Input
-                                {...register("nutritionFacts.calories", {
-                                  valueAsNumber: true,
-                                  required: true,
-                                })}
-                                className="border-gray-300 rounded-lg"
-                                label="Calories (kcal)"
-                                placeholder="500"
-                                type="number"
-                              />
-                            </div>
-
-                            <div className="lg:w-[48%] w-full">
-                              <Input
-                                {...register("nutritionFacts.protein", {
-                                  valueAsNumber: true,
-                                  required: true,
-                                })}
-                                className="border-gray-300 rounded-lg"
-                                label="Protein (g)"
-                                placeholder="25"
-                                type="number"
-                              />
-                            </div>
-
-                            <div className="lg:w-[48%] w-full">
-                              <Input
-                                {...register("nutritionFacts.fat", {
-                                  valueAsNumber: true,
-                                })}
-                                className="border-gray-300 rounded-lg"
-                                label="Fat (g)"
-                                placeholder="20"
-                                type="number"
-                              />
-                            </div>
-
-                            <div className="lg:w-[48%] w-full">
-                              <Input
-                                {...register("nutritionFacts.carbohydrates", {
-                                  valueAsNumber: true,
-                                })}
-                                className="border-gray-300 rounded-lg"
-                                label="Carbohydrates (g)"
-                                placeholder="60"
-                                type="number"
-                              />
-                            </div>
-                          </div> */}
+              
                           <div className="flex flex-wrap gap-5">
                             <div className="lg:w-[48%] w-full">
                               <Input

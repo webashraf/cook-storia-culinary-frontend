@@ -9,8 +9,8 @@ import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import { toast } from "sonner";
 
-import { nexiosInstance } from "@/src/config/axios.instance";
-import { getCurrentUser } from "@/src/services/AuthService";
+import nexiosInstance from "@/src/config/axios.instance";
+import { useUser } from "@/src/context/user.provider";
 import { fetchComments } from "@/src/services/RecipeService";
 
 import PostModal from "./postModal";
@@ -44,19 +44,17 @@ const PostComments = ({
   const [commentsData, setCommentsData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  // const [currentUser, setCurrentUser] = useState<any>(null);
   const [refetching, setRefetching] = useState(false);
+  const { user: currentUser } = useUser();
 
   useEffect(() => {
     const fetchAndSetComments = async () => {
       setLoading(true);
       try {
-        const loggedInUser = await getCurrentUser();
-
-        setCurrentUser(loggedInUser);
-
         const fetchedComments = await fetchComments(postId);
 
+        console.log("fetchedComments", fetchedComments);
         setCommentsData(fetchedComments);
       } catch (err) {
         console.log(err);
@@ -71,7 +69,7 @@ const PostComments = ({
   const handleLike = async () => {
     const opinions: IOpinions = {
       postId,
-      userId: currentUser?.id,
+      userId: currentUser?.id as string,
       upVote: 1,
     };
 
@@ -82,11 +80,11 @@ const PostComments = ({
       );
 
       if (data?.success) {
-        setRefetching(!refetching);
+        const updatedComments = await fetchComments(postId);
+
+        setCommentsData(updatedComments);
         toast.success("UpVoted");
       }
-
-      setCommentsData(await fetchComments(postId));
     } catch (err: any) {
       toast.error("Error", err?.message);
     }
@@ -95,7 +93,7 @@ const PostComments = ({
   const handleDislike = async () => {
     const opinions: IOpinions = {
       postId,
-      userId: currentUser?.id,
+      userId: currentUser?.id as string,
       downVote: 1,
     };
 
@@ -119,7 +117,7 @@ const PostComments = ({
     if (data.comment.trim()) {
       const opinions: IOpinions = {
         postId,
-        userId: currentUser.id,
+        userId: currentUser?.id as string,
         comments: data.comment,
       };
 
@@ -129,37 +127,49 @@ const PostComments = ({
           opinions
         );
 
-        reset();
-        setCommentsData(await fetchComments(postId));
-        if (!data.success) {
-          toast.error("Failed to comment");
-        } else {
-          setRefetching(!refetching);
+        if (data.success) {
+          reset();
+          const updatedComments = await fetchComments(postId);
+
+          setCommentsData(updatedComments);
           toast.success("Comment created successfully");
+        } else {
+          toast.error("Failed to comment");
         }
       } catch (err) {
-        // console.error("Error submitting comment:", err);
+        console.error("Error submitting comment:", err);
       }
     }
   };
 
-  // Calculate the average rating
   const calculateAverageRating = () => {
-    if (!commentsData || !commentsData.data || commentsData.data.length === 0) {
+    if (
+      !commentsData ||
+      !commentsData?.data ||
+      commentsData?.data.length === 0
+    ) {
       return 0;
     }
 
-    const totalRatings = commentsData.data.reduce(
+    const totalRatings = commentsData?.data.reduce(
       (total: number, comment: any) => total + (comment?.rate || 0),
       0
     );
 
-    const ratingsCount = commentsData.data.filter(
+    const ratingsCount = commentsData?.data.filter(
       (comment: any) => comment?.rate
     ).length;
 
     return ratingsCount > 0 ? (totalRatings / ratingsCount).toFixed(1) : 0;
   };
+
+  if (!currentUser) {
+    return (
+      <div className="mt-5">
+        <Link href="/login">Login</Link> to see for info
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -182,7 +192,12 @@ const PostComments = ({
           <IoPaperPlaneOutline size={20} />
         </Button>
       </form>
-      <PostModal postId={postId} userId={currentUser?.id} />
+      <PostModal
+        commentsData={commentsData}
+        postId={postId}
+        setCommentsData={setCommentsData}
+        userId={currentUser?.id}
+      />
       <div />
       <div className="flex items-center gap-3 w-full">
         <div className="flex justify-between bg-default-40 gap-2 py-2 rounded-xl w-[100px]">
@@ -196,7 +211,7 @@ const PostComments = ({
             <AiOutlineLike size={18} />
             <span className="text-[12px]">
               {commentsData?.data?.reduce(
-                (total: number, comment: any) => total + (recipe?.upVote || 0),
+                (total: number, comment: any) => total + (comment?.upVote || 0),
                 0
               )}
             </span>

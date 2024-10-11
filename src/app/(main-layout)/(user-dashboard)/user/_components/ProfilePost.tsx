@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import Loading from "@/src/components/UI/Loading/Loading";
-import { nexiosInstance } from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/axios.instance";
 import { useUser } from "@/src/context/user.provider";
 
 import PostCardProfile from "../../../_components/PostCard/PostCardProfile";

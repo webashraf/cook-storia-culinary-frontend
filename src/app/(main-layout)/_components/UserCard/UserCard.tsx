@@ -6,7 +6,7 @@ import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import { nexiosInstance } from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/axios.instance";
 
 export default function UserCard({ user, logedInUser }: any) {
   const [followOfUser, setFollowOfUser] = useState<any[]>([]);

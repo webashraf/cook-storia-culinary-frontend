@@ -12,4 +12,20 @@ const defaultConfig: NexiosOptions = {
   timeout: 10000,
 };
 
-export const nexiosInstance = new Nexios(defaultConfig);
+const nexiosInstance = new Nexios(defaultConfig);
+
+// Add request interceptor
+// nexiosInstance.interceptors.request.use((config) => {
+//   const accessToken = cookies().get("accessToken")?.value;
+
+//   if (accessToken) {
+//     config.headers = {
+//       ...config.headers,
+//       Authorization: `Bearer ${accessToken}`,
+//     };
+//   }
+
+//   return config;
+// });
+
+export default nexiosInstance;

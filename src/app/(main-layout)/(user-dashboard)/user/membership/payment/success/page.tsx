@@ -14,7 +14,7 @@ const PaymentSuccess = async ({ searchParams }: any) => {
 
   if (!currentUser?.isPremium) {
     logoutUser();
-    router.push("/login");
+    // router.push("/login");
   }
 
   return (

@@ -3,7 +3,7 @@
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 
-import { nexiosInstance } from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/axios.instance";
 
 export const loginUser = async (userInfo: {
   email: string;
@@ -39,7 +39,7 @@ export const getCurrentUser = async () => {
   if (accessToken) {
     decodedToken = await jwtDecode(accessToken);
   }
-  console.log("Decoded token: ", decodedToken)
+  console.log("Decoded token: ", decodedToken);
 
   return decodedToken;
 };

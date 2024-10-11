@@ -10,7 +10,7 @@ import { IoEyeOff, IoEyeSharp, IoMail } from "react-icons/io5";
 import { MdPassword } from "react-icons/md";
 import { toast } from "sonner";
 
-import { nexiosInstance } from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/axios.instance";
 import { useUser } from "@/src/context/user.provider";
 
 interface IFormInfo {
