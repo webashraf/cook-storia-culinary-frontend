@@ -93,6 +93,7 @@ const PostCardProfile = ({ recipe }: any) => {
             isPremium={recipe?.isPremium}
             isProUser={recipe?.user?.isPremium}
             postId={recipe?._id}
+            recipe={recipe}
             userId={recipe?.user?._id}
           />
         </div>

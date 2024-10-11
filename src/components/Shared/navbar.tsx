@@ -48,7 +48,7 @@ export const Navbar = () => {
 
   return (
     <NextUINavbar
-      className="flex justify-between "
+      className="flex justify-between overflow-hidden"
       maxWidth="2xl"
       position="sticky"
     >

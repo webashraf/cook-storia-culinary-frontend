@@ -50,6 +50,7 @@ const RecipeFeed = () => {
     setQuerySearchFilter(queryString);
   };
   const handleClear = () => {
+    console.log("Clear");
     resetFilter();
     searchReset();
     setQuerySearchFilter("");
@@ -131,6 +132,7 @@ const RecipeFeed = () => {
         <div className="flex lg:flex-row flex-col-reverse gap-5 mt-5">
           <div>
             <InfiniteScroll
+              className="grid grid-cols-1 lg:grid-cols-2 gap-5"
               hasMore={hasMore && !loading}
               loadMore={fetchRecipes}
               loader={<Spinner color="warning" label="Loading..." />}

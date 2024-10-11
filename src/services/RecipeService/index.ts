@@ -4,6 +4,19 @@ import { toast } from "sonner";
 
 import { nexiosInstance } from "@/src/config/axios.instance";
 
+export const getRecipes = async (limit: number, page: number) => {
+  const res = await fetch(
+    `http://localhost:5000/api/v1/recipe?isDeleted=false&status=publish&limit=${limit}&page=${page}`,
+    {
+      next: {
+        tags: ["recipes"],
+      },
+    }
+  );
+
+  return res.json();
+};
+
 export const fetchComments = async (postId: string) => {
   try {
     const data = await nexiosInstance.get(`/user-opinion/${postId}`, {
@@ -29,4 +42,3 @@ export const getAllRecipeBySearchAndFilter = async () => {
     toast.error(`Error fetching recipe`);
   }
 };
-
