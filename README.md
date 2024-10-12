@@ -31,10 +31,10 @@ CookstoriaCulinary is a recipe-sharing platform built with Next.js. It offers us
 ## Tech Stack
 
 - **Framework:** [Next.js](https://nextjs.org/)
-- **Styling:** Tailwind CSS
+- **Styling:** Tailwind CSS, [NextUi](https://nextui.org/)
 - **Payments:** [Stripe](https://stripe.com/) for handling premium membership payments.
 - **Authentication:** Custom authentication for login, registration, and user management.
-- **Database:** TBD (Mention the database being used)
+- **Database:** Mongodb
 
 ## Installation
 
