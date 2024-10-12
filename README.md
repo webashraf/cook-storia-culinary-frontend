@@ -8,18 +8,28 @@ CookstoriaCulinary is a recipe-sharing platform built with Next.js. It offers us
   - Custom login, registration, change password, and reset password functionalities.
   - Update user information.
 
+- **Community Interaction:**
+  - Users can **upvote** and **downvote** recipes to provide feedback.
+  - Users can **comment** on recipes, encouraging discussions.
+  - Recipe **ratings** based on user votes help highlight popular recipes.
+  - Users can **follow** and **unfollow** other users to keep track of their favorite creators.
+
+
 - **Premium Membership:**
   - Integrated Stripe for premium membership purchases.
   - Premium recipes are protected from free users.
 
 - **Recipe Management:**
+
   - Users can create and update their own recipes.
   - Recipes include rich text formatting and image attachments.
 
 - **Advanced Search & Filtering:**
+
   - Search and filter recipes by multiple criteria, providing an enhanced user experience.
 
 - **Protected Routes:**
+
   - Premium recipes are only accessible by users with a premium membership, utilizing protected routes with Next.js.
 
 - **Admin Dashboard:**
@@ -39,31 +49,33 @@ CookstoriaCulinary is a recipe-sharing platform built with Next.js. It offers us
 ## Installation
 
 1. Clone the repository:
-    ```bash
-    git clone https://github.com/yourusername/cookstoriaCulinary.git
-    ```
+
+   ```bash
+   git clone https://github.com/webashraf/cook-storia-culinary-frontend
+   ```
 
 2. Navigate to the project directory:
-    ```bash
-    cd cookstoriaCulinary
-    ```
+
+   ```bash
+   cd cook-storia-culinary-frontend
+   ```
 
 3. Install the dependencies:
-    ```bash
-    npm install
-    ```
 
-4. Set up environment variables for Stripe and your database in a `.env` file:
+   ```bash
+   npm install
+   ```
+
+4. Set up the environment variables in a `.env` file:
     ```bash
-    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
-    STRIPE_SECRET_KEY=your_stripe_secret_key
-    NEXT_PUBLIC_DATABASE_URL=your_database_url
+    # Provided all required environment variables
     ```
 
 5. Run the development server:
-    ```bash
-    npm run dev
-    ```
+
+   ```bash
+   npm run dev
+   ```
 
 6. Open your browser and visit [http://localhost:3000](http://localhost:3000) to view the app.
 
