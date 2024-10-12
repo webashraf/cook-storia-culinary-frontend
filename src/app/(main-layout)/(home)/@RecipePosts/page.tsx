@@ -38,19 +38,19 @@ const RecipePosts = () => {
 
   return (
     <div className="flex flex-col justify-center">
-      {isLoading ? (
+      {/* {isLoading ? (
         <div className="flex justify-center items-center h-32">
           <div className="loader">Loading...</div>
         </div>
-      ) : (
-        <div className="flex gap-5 items-center flex-wrap justify-center">
-          {recipes?.map((recipe: any) => (
-            <div key={recipe?._id} className="lg:w-[48%]">
-              <PostCard recipe={recipe} />
-            </div>
-          ))}
-        </div>
-      )}
+      ) : ( */}
+      <div className="flex gap-5 items-center flex-wrap justify-center">
+        {recipes?.map((recipe: any) => (
+          <div key={recipe?._id} className="lg:w-[48%]">
+            <PostCard recipe={recipe} />
+          </div>
+        ))}
+      </div>
+      {/* )} */}
 
       <Pagination
         isCompact

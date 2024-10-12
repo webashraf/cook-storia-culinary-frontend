@@ -79,7 +79,7 @@ export const Navbar = () => {
             </CSBadge>
           </NavbarItem>
         )}
-        <NavbarItem className="flex gap-3">
+        <NavbarItem className="flex gap-3 justify-end items-center h-full">
           <ThemeSwitch />
           <CSProfileDropDown />
         </NavbarItem>

@@ -132,7 +132,7 @@ export default function CSProfileDropDown() {
   ];
 
   return (
-    <div className="flex items-center gap-4 h-[100vh]">
+    <div className="flex items-center gap-4 h-[100vh] z-50">
       <Dropdown backdrop="blur" placement="bottom-start" size="lg">
         {currentUser ? (
           <DropdownTrigger>

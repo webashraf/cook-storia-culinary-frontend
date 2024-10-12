@@ -44,9 +44,10 @@ const PostComments = ({
   const [commentsData, setCommentsData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
-  // const [currentUser, setCurrentUser] = useState<any>(null);
   const [refetching, setRefetching] = useState(false);
   const { user: currentUser } = useUser();
+  const [isDisabledUpVote, setIsDisabledUpVote] = useState(false);
+  const [isDisabledDownVote, setIsDisabledDownVote] = useState(false);
 
   useEffect(() => {
     const fetchAndSetComments = async () => {
@@ -83,6 +84,9 @@ const PostComments = ({
         const updatedComments = await fetchComments(postId);
 
         setCommentsData(updatedComments);
+        setIsDisabledDownVote(false);
+        setIsDisabledUpVote(true);
+
         toast.success("UpVoted");
       }
     } catch (err: any) {
@@ -105,6 +109,8 @@ const PostComments = ({
 
       if (data?.success) {
         setRefetching(!refetching);
+        setIsDisabledUpVote(false);
+        setIsDisabledDownVote(true);
         toast.success("downVoted");
       }
       setCommentsData(await fetchComments(postId));
@@ -170,6 +176,7 @@ const PostComments = ({
       </div>
     );
   }
+  commentsData?.data?.find((comment: any) => console.log(comment));
 
   return (
     <div>
@@ -203,7 +210,27 @@ const PostComments = ({
         <div className="flex justify-between bg-default-40 gap-2 py-2 rounded-xl w-[100px]">
           <Button
             className="text-sm flex w-[50%] gap-1"
-            disabled={loading}
+            color={
+              isDisabledUpVote ||
+              commentsData?.data?.find(
+                (comment: any) =>
+                  comment?.userId?._id === currentUser?.id &&
+                  comment?.upVote === 1
+              )
+                ? "primary"
+                : "default"
+            }
+            disabled={
+              loading ||
+              isDisabledUpVote ||
+              commentsData?.data?.find(
+                (comment: any) =>
+                  comment?.userId?._id === currentUser?.id &&
+                  comment?.upVote === 1
+              )
+                ? true
+                : false
+            }
             isIconOnly={true}
             size="sm"
             onPress={handleLike}
@@ -218,8 +245,36 @@ const PostComments = ({
           </Button>
 
           <Button
-            className="text-sm flex w-[50%] gap-1"
-            disabled={loading}
+            className={`text-sm flex w-[50%] gap-1 ${
+              loading ||
+              isDisabledDownVote ||
+              (commentsData?.data?.find(
+                (comment: any) =>
+                  comment?.userId?._id === currentUser?.id &&
+                  comment?.downVote === 1
+              ) &&
+                "pointer-events-none")
+            }`}
+            color={
+              isDisabledDownVote ||
+              commentsData?.data?.find(
+                (comment: any) =>
+                  comment?.userId?._id === currentUser?.id &&
+                  comment?.downVote === 1
+              )
+                ? "danger"
+                : "default"
+            }
+            disabled={
+              loading ||
+              isDisabledDownVote ||
+              (commentsData?.data?.find(
+                (comment: any) =>
+                  comment?.userId?._id === currentUser?.id &&
+                  comment?.downVote === 1
+              ) &&
+                true)
+            }
             isIconOnly={true}
             size="sm"
             onPress={handleDislike}

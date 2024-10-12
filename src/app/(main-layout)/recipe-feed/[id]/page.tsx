@@ -47,9 +47,14 @@ const RecipeDetailsPage = ({ params }: { params: { id: string } }) => {
           { cache: "no-store" }
         );
 
+        console.log("first comment", comments);
         if (comments.success) {
           setUserComments(comments.data[0]);
-          setRating(comments.data[0].rate);
+          const myRatings = comments.data.find(
+            (comment: any) => comment?.userId?._id === user?.id
+          );
+
+          setRating(myRatings.rate);
         }
 
         if (data?.success) {
@@ -64,7 +69,7 @@ const RecipeDetailsPage = ({ params }: { params: { id: string } }) => {
   }, [params.id, user, rating]);
 
   return (
-    <div className="bg-gradient-to-b min-h-screen p-6 text-default-900 w-full">
+    <div className="bg-gradient-to-b min-h-screen lg:p-6 text-default-900 w-full">
       <div className="mx-auto bg-default-100 rounded-xl shadow-2xl overflow-hidden">
         {/* Image Section */}
         <div className="relative">
