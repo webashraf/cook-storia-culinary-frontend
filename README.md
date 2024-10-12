@@ -69,7 +69,7 @@ CookstoriaCulinary is a recipe-sharing platform built with Next.js. It offers us
    npm install
    ```
 
-4. Set up the environment variables in a `.env` file:
+4. Set up the environment variables in a `.env.local` file:
 
    ```bash
    # Provided all required environment variables
