@@ -5,17 +5,19 @@ CookstoriaCulinary is a recipe-sharing platform built with Next.js. It offers us
 ## Features
 
 - **User Authentication:**
+
   - Custom login, registration, change password, and reset password functionalities.
   - Update user information.
 
 - **Community Interaction:**
+
   - Users can **upvote** and **downvote** recipes to provide feedback.
   - Users can **comment** on recipes, encouraging discussions.
   - Recipe **ratings** based on user votes help highlight popular recipes.
   - Users can **follow** and **unfollow** other users to keep track of their favorite creators.
 
-
 - **Premium Membership:**
+
   - Integrated Stripe for premium membership purchases.
   - Premium recipes are protected from free users.
 
@@ -31,6 +33,7 @@ CookstoriaCulinary is a recipe-sharing platform built with Next.js. It offers us
 - **Protected Routes:**
 
   - Premium recipes are only accessible by users with a premium membership, utilizing protected routes with Next.js.
+  - User can't access admin routes, and admin can't access user routes.
 
 - **Admin Dashboard:**
   - Admins can manage:
@@ -67,9 +70,10 @@ CookstoriaCulinary is a recipe-sharing platform built with Next.js. It offers us
    ```
 
 4. Set up the environment variables in a `.env` file:
-    ```bash
-    # Provided all required environment variables
-    ```
+
+   ```bash
+   # Provided all required environment variables
+   ```
 
 5. Run the development server:
 
