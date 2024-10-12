@@ -16,7 +16,7 @@ export default function UserDashboardLayout({
 }) {
   return (
     <>
-      <>{children}</>
+      <div className="lg:px-0 px-5">{children}</div>
     </>
   );
 }

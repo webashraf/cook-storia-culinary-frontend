@@ -30,11 +30,6 @@ export default function CSProfileDropDown() {
 
   const userPages = [
     {
-      key: "home",
-      content: "Home",
-      action: () => router.push("/"),
-    },
-    {
       key: "profile",
       content: (
         <>
@@ -44,6 +39,11 @@ export default function CSProfileDropDown() {
       ),
       action: null,
       className: "h-14 gap-2",
+    },
+    {
+      key: "home",
+      content: "Home",
+      action: () => router.push("/"),
     },
     {
       key: "settings",
@@ -135,11 +135,11 @@ export default function CSProfileDropDown() {
     <div className="flex items-center gap-4 h-[100vh] z-50">
       <Dropdown backdrop="blur" placement="bottom-start" size="lg">
         {currentUser ? (
-          <DropdownTrigger>
+          <DropdownTrigger className="size-14">
             <Avatar
               isBordered
               radius="sm"
-              size="sm"
+              size="md"
               src={`${currentUser.photo}`}
             />
           </DropdownTrigger>
@@ -151,7 +151,7 @@ export default function CSProfileDropDown() {
         {currentUser?.role === "user" && (
           <DropdownMenu aria-label="User Actions" variant="flat">
             {userPages.map(({ key, content, action }: any) => (
-              <DropdownItem key={key} onClick={action}>
+              <DropdownItem key={key} textValue={key} onClick={action}>
                 {content}
               </DropdownItem>
             ))}
@@ -160,7 +160,7 @@ export default function CSProfileDropDown() {
         {currentUser?.role === "admin" && (
           <DropdownMenu aria-label="User Actions" variant="flat">
             {adminPages.map(({ key, content, action }: any) => (
-              <DropdownItem key={key} onClick={action}>
+              <DropdownItem key={key} textValue={key} onClick={action}>
                 {content}
               </DropdownItem>
             ))}

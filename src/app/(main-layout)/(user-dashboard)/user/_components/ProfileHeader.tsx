@@ -86,7 +86,7 @@ const ProfileHeader = () => {
               <h1 className="text-2xl font-bold dark:text-white">
                 {user?.name}
                 {user?.isPremium ? (
-                  <span className="text-warning inline-block text-[12px] md:text-[14px] font-bold  px-1 shadow-md rounded-sm">
+                  <span className="ml-2 text-warning inline-block text-[12px] md:text-[14px] font-bold  px-1 shadow-md rounded-sm">
                     Pro
                   </span>
                 ) : (

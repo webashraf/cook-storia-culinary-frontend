@@ -42,15 +42,17 @@ const ProfilePosts = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="grid grid-cols-1 gap-4">
-          <h2>My Post</h2>
-          {recipes.length > 0 ? (
-            recipes?.map((post: any) => (
-              <PostCardProfile key={post?._id} recipe={post} />
-            ))
-          ) : (
-            <p>No recipes found.</p>
-          )}
+        <div>
+          <h2 className="mb-3">My Post</h2>
+          <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
+            {recipes.length > 0 ? (
+              recipes?.map((post: any) => (
+                <PostCardProfile key={post?._id} recipe={post} />
+              ))
+            ) : (
+              <p>No recipes found.</p>
+            )}
+          </div>
         </div>
       )}
     </div>

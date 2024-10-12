@@ -17,7 +17,6 @@ const SettingsPage = () => {
   const { user } = useUser();
   const [needLogin, setNeedLogin] = useState<boolean>(false);
 
-  console.log(user);
   const {
     register,
     handleSubmit,
@@ -39,7 +38,6 @@ const SettingsPage = () => {
       return acc;
     }, {} as any);
 
-    console.log(filteredFormData);
 
     try {
       const { data }: any = await nexiosInstance.put(
@@ -47,7 +45,6 @@ const SettingsPage = () => {
         filteredFormData
       );
 
-      console.log("data", data);
 
       if (data.success) {
         toast.success("User updated successfully");

@@ -47,7 +47,7 @@ const RecipeDetailsPage = ({ params }: { params: { id: string } }) => {
           { cache: "no-store" }
         );
 
-        console.log("first comment", comments);
+       
         if (comments.success) {
           setUserComments(comments.data[0]);
           const myRatings = comments.data.find(

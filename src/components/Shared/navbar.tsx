@@ -43,9 +43,6 @@ export const Navbar = () => {
     />
   );
 
-  // if (condition) {
-  // }
-
   return (
     <NextUINavbar
       className="flex justify-between overflow-hidden"

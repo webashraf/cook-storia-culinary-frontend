@@ -6,7 +6,7 @@ import nexiosInstance from "@/src/config/axios.instance";
 
 export const getRecipes = async (limit: number, page: number) => {
   const res = await fetch(
-    `http://localhost:5000/api/v1/recipe?isDeleted=false&status=publish&limit=${limit}&page=${page}`,
+    `https://cook-storia-culinary-backend-project.vercel.app/api/v1/recipe?isDeleted=false&status=publish&limit=${limit}&page=${page}`,
     {
       next: {
         tags: ["recipes"],

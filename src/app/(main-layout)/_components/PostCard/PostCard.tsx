@@ -8,7 +8,7 @@ import PostComments from "./PostComments";
 const PostCard = ({ recipe }: any) => {
   return (
     <>
-      <div className="min-h-[400px] w-full  mx-aut border border-default-300 p-5 rounded-md md:w-full shadow-xl shadow-primary-100 overflow-hidden hover:shadow-2xl">
+      <div className="min-h-[400px] lg:w-[500px] sm:w-full md:w-[600px]  mx-aut border border-default-300 p-5 rounded-md  shadow-xl shadow-primary-100 overflow-hidden hover:shadow-2xl">
         <User
           avatarProps={{
             src: recipe?.user?.profilePicture,
@@ -32,7 +32,7 @@ const PostCard = ({ recipe }: any) => {
             </h4>
           }
         />
-        <div className="flex gap- flex-col">
+        <div className="flex gap- flex-col w-full">
           <div className="space-y-3 ">
             <div className="">
               <h3 className="text-xl">{recipe?.title}</h3>
@@ -76,10 +76,10 @@ const PostCard = ({ recipe }: any) => {
 
             <div className="flex items-center w-full justify-between mt-10 gap-5" />
           </div>
-          <div className=" mt-5 lg:w-[350px] md:w-[600px] w-[350px] space-y-3">
+          <div className=" mt-5 md:w-full w-[100%] space-y-3">
             <Image
               alt="NextUI hero Image with delay"
-              className="w-full "
+              className="w-ful"
               height={250}
               isZoomed={true}
               src={recipe?.imageUrl}

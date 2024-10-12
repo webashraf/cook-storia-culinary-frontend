@@ -38,7 +38,6 @@ export default function PostModal({
     try {
       const updatedComments = await fetchComments(postId);
 
-      console.log("updatedComments", refetchComments);
       setCommentsData(updatedComments);
     } catch (err) {
       console.error("Error fetching updated comments:", err);
@@ -64,7 +63,6 @@ export default function PostModal({
         await refetchComments();
         reset();
         setEditState((prev) => ({ ...prev, [commentId]: false }));
-        console.log("first", editState);
         toast.success("Comment updated successfully");
         setLoading(true);
       }
@@ -87,8 +85,7 @@ export default function PostModal({
         const fetchedComments = await fetchComments(postId);
 
         setCommentsData(fetchedComments);
-        console.log("fetchedComments", fetchedComments);
-        console.log("CommentsData", commentsData);
+
         setLoading(true);
       } catch (err: any) {
         console.error("Error fetching comments:", err);

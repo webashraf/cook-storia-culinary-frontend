@@ -136,7 +136,7 @@ const SideMenu = () => {
   return (
     <ScrollShadow
       hideScrollBar
-      className="w-[100%] lg:block h-[100vh] overflow-y-scroll bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10"
+      className="w-[100%] lg:block h-[90vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10"
     >
       {/* {error && <div className="text-red-600">{error}</div>} */}
       <div>
@@ -221,15 +221,20 @@ const SideMenu = () => {
       </div>
 
       {currentUser && (
-        <div className="flex flex-col gap-3 mt-10">
-          {allUser?.data?.map((user: any) => (
-            <div key={user?._id}>
-              {user?._id !== currentUser?.id && (
-                <UserCard logedInUser={currentUser} user={user} />
-              )}
-            </div>
-          ))}
-        </div>
+        <ScrollShadow
+          hideScrollBar
+          className="w-[300px] h-[40vh] overflow-y-scroll"
+        >
+          <div className="flex flex-col gap-3   mt-10">
+            {allUser?.data?.map((user: any) => (
+              <div key={user?._id}>
+                {user?._id !== currentUser?.id && (
+                  <UserCard logedInUser={currentUser} user={user} />
+                )}
+              </div>
+            ))}
+          </div>
+        </ScrollShadow>
       )}
     </ScrollShadow>
   );

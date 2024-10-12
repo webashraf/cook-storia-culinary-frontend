@@ -37,7 +37,6 @@ const Login = () => {
         router.push("/");
         toast.success("Login successful!!");
       } else {
-        console.log(res);
         toast.error(`Login failed :${res?.message}`);
       }
     } catch (error: any) {

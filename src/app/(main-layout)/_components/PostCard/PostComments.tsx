@@ -55,7 +55,6 @@ const PostComments = ({
       try {
         const fetchedComments = await fetchComments(postId);
 
-        console.log("fetchedComments", fetchedComments);
         setCommentsData(fetchedComments);
       } catch (err) {
         console.log(err);
@@ -176,7 +175,7 @@ const PostComments = ({
       </div>
     );
   }
-  commentsData?.data?.find((comment: any) => console.log(comment));
+  // commentsData?.data?.find((comment: any) => console.log(comment));
 
   return (
     <div>
@@ -292,7 +291,10 @@ const PostComments = ({
 
         {currentUser?.isPremium ? (
           <Button fullWidth size="sm" variant="faded">
-            <Link className="text-white/70" href={`/recipe-feed/${postId}`}>
+            <Link
+              className="text-default-900/70"
+              href={`/recipe-feed/${postId}`}
+            >
               View Full Recipe
             </Link>
           </Button>

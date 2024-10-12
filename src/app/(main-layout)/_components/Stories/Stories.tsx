@@ -4,14 +4,14 @@ import { Image } from "@nextui-org/image";
 export default function Stories() {
   return (
     <>
-      <div className="flex lg:flex-nowrap flex-wrap gap-5 mb-10 mt-5 ">
+      <div className="flex lg:flex-nowrap flex-wrap gap-5 mb-10 mt-5 justify-between">
         <Card className=" lg:w-[300px] w-[47%] h-[300px]">
           <CardHeader className="absolute z-10 top-1 flex-col !items-start">
             <p className="text-tiny text-white/60 uppercase font-bold">
-              What to watch
+              Featured Recipe
             </p>
             <h4 className="text-white font-medium text-large">
-              Stream the Acme event
+              Delicious Vegan Dishes
             </h4>
           </CardHeader>
           <Image
@@ -24,10 +24,10 @@ export default function Stories() {
         <Card className=" lg:w-[300px] w-[47%] h-[300px]">
           <CardHeader className="absolute z-10 top-1 flex-col !items-start">
             <p className="text-tiny text-white/60 uppercase font-bold">
-              Plant a tree
+              Health Tips
             </p>
             <h4 className="text-white font-medium text-large">
-              Contribute to the planet
+              Boost Your Immune System
             </h4>
           </CardHeader>
           <Image
@@ -40,10 +40,10 @@ export default function Stories() {
         <Card className=" lg:w-[300px] w-[47%] hidden lg:block h-[300px]">
           <CardHeader className="absolute z-10 top-1 flex-col !items-start">
             <p className="text-tiny text-white/60 uppercase font-bold">
-              Supercharged
+              Cooking Hacks
             </p>
             <h4 className="text-white font-medium text-large">
-              Creates beauty like a beast
+              Time-Saving Kitchen Tips
             </h4>
           </CardHeader>
           <Image
@@ -56,21 +56,20 @@ export default function Stories() {
         <Card className=" lg:w-[300px] w-[47%] hidden lg:block h-[300px]">
           <CardHeader className="absolute z-10 top-1 flex-col !items-start">
             <p className="text-tiny text-white/60 uppercase font-bold">
-              Supercharged
+              Chef’s Corner
             </p>
             <h4 className="text-white font-medium text-large">
-              Creates beauty like a beast
+              Meet the Master Chefs
             </h4>
           </CardHeader>
           <Image
             removeWrapper
             alt="Card background"
             className="z-0 w-full h-full object-cover"
-            src="https://nextui.org/images/card-example-2.jpeg"
+            src="https://images.pexels.com/photos/9979277/pexels-photo-9979277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           />
         </Card>
       </div>
-      {/* ---------------- */}
     </>
   );
 }

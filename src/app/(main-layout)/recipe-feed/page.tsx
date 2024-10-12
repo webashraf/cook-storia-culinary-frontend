@@ -50,17 +50,11 @@ const RecipeFeed = () => {
     setQuerySearchFilter(queryString);
   };
   const handleClear = () => {
-    console.log("Clear");
     resetFilter();
     searchReset();
     setQuerySearchFilter("");
   };
   const fetchRecipes = async () => {
-    console.log(
-      "querySearchFilter",
-      querySearchFilter,
-      `/recipe?isDeleted=false&status=publish&${querySearchFilter}`
-    );
     setLoading(true);
     try {
       const { data }: any = await nexiosInstance.get(
@@ -69,7 +63,6 @@ const RecipeFeed = () => {
 
       if (data.success) {
         setRecipeData(data?.data);
-        console.log("Data", data?.data, { recipeData });
       }
       if (data.data.length === 0) {
         setHasMore(false);
@@ -86,11 +79,11 @@ const RecipeFeed = () => {
   }, [querySearchFilter]);
 
   return (
-    <>
-      <div className="">
-        <CommonHero title="Recipe Feed" />
+    <div className="">
+      <CommonHero title="Recipe Feed" />
 
-        <div className="py-5 flex justify-between">
+      <div className="lg:px-0 px-5">
+        <div className="py-5 flex justify-between flex-wrap gap-5 ">
           <form onSubmit={handleSearchSubmit(onSearchSubmit)}>
             <div className="w-52 ">
               <Controller
@@ -132,7 +125,7 @@ const RecipeFeed = () => {
         <div className="flex lg:flex-row flex-col-reverse gap-5 mt-5">
           <div>
             <InfiniteScroll
-              className="grid grid-cols-1 lg:grid-cols-2 gap-5"
+              className="flex flex-wrap gap-5 justify-center"
               hasMore={hasMore && !loading}
               loadMore={fetchRecipes}
               loader={<Spinner color="warning" label="Loading..." />}
@@ -145,7 +138,7 @@ const RecipeFeed = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

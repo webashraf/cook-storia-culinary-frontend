@@ -1,53 +1,72 @@
-# Next.js & NextUI Template
+# CookstoriaCulinary
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
+CookstoriaCulinary is a recipe-sharing platform built with Next.js. It offers users the ability to register, manage their profiles, create and update recipes, and purchase premium memberships for exclusive access to premium content. The platform features advanced search and filtering, secure authentication, and an admin dashboard for managing users and content.
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+## Features
 
-## Technologies Used
+- **User Authentication:**
+  - Custom login, registration, change password, and reset password functionalities.
+  - Update user information.
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [NextUI v2](https://nextui.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+- **Premium Membership:**
+  - Integrated Stripe for premium membership purchases.
+  - Premium recipes are protected from free users.
 
-## How to Use
+- **Recipe Management:**
+  - Users can create and update their own recipes.
+  - Recipes include rich text formatting and image attachments.
 
-### Use the template with create-next-app
+- **Advanced Search & Filtering:**
+  - Search and filter recipes by multiple criteria, providing an enhanced user experience.
 
-To create a new project based on this template using `create-next-app`, run the following command:
+- **Protected Routes:**
+  - Premium recipes are only accessible by users with a premium membership, utilizing protected routes with Next.js.
 
-```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
-```
+- **Admin Dashboard:**
+  - Admins can manage:
+    - Recipes
+    - Users
+    - Other admin accounts
 
-### Install dependencies
+## Tech Stack
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+- **Framework:** [Next.js](https://nextjs.org/)
+- **Styling:** Tailwind CSS
+- **Payments:** [Stripe](https://stripe.com/) for handling premium membership payments.
+- **Authentication:** Custom authentication for login, registration, and user management.
+- **Database:** TBD (Mention the database being used)
 
-```bash
-npm install
-```
+## Installation
 
-### Run the development server
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/cookstoriaCulinary.git
+    ```
 
-```bash
-npm run dev
-```
+2. Navigate to the project directory:
+    ```bash
+    cd cookstoriaCulinary
+    ```
 
-### Setup pnpm (optional)
+3. Install the dependencies:
+    ```bash
+    npm install
+    ```
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+4. Set up environment variables for Stripe and your database in a `.env` file:
+    ```bash
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+    STRIPE_SECRET_KEY=your_stripe_secret_key
+    NEXT_PUBLIC_DATABASE_URL=your_database_url
+    ```
 
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
+5. Run the development server:
+    ```bash
+    npm run dev
+    ```
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+6. Open your browser and visit [http://localhost:3000](http://localhost:3000) to view the app.
 
-## License
+## Live Demo
 
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+Check out the live version of the app here: [CookstoriaCulinary Live](https://cook-storia-culinary-frontend.vercel.app/)

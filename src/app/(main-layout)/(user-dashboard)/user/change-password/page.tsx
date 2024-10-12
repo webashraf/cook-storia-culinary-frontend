@@ -17,7 +17,6 @@ const PasswordChange = () => {
   const { user } = useUser();
   // Form submit handler
   const onSubmit = async (formData: any) => {
-    console.log(formData);
 
     try {
       const { data }: any = await nexiosInstance.put(
@@ -30,7 +29,6 @@ const PasswordChange = () => {
       } else {
         toast.error("Password changed failed");
       }
-      console.log("Response data", data);
     } catch (error: any) {
       console.log(error.message);
     }

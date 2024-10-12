@@ -5,7 +5,7 @@ import ProfilePosts from "./_components/ProfilePost";
 const ProfilePage = () => {
   return (
     <div className="min-h-screen ">
-      <div className="lg:pl-20 mx-auto">
+      <div className=" mx-auto lg:ml-auto">
         <ProfileHeader />
         <ProfileInfo />
         <ProfilePosts />

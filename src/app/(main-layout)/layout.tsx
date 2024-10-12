@@ -50,7 +50,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
               </div>
               <ScrollShadow
                 hideScrollBar
-                className="lg:ml-auto lg:pl-10  lg:w-[100%] w-full h-screen px-5 pb-10"
+                className="lg:ml-auto lg:pl-10  lg:w-[100%] w-full h-screen lg:pl-5 pb-10"
                 isEnabled={false}
                 offset={0}
               >
