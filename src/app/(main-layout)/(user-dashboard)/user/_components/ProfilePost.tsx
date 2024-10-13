@@ -18,7 +18,7 @@ const ProfilePosts = () => {
     const fetchRecipes = async () => {
       try {
         const { data }: any = await nexiosInstance.get(
-          `/recipe?user=${currentUser?.id}`
+          `/recipe?isDeleted=false&status=publish&user=${currentUser?.id}`
         );
 
         if (data.success) {

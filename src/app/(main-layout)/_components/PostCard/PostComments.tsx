@@ -294,52 +294,52 @@ const PostComments = ({
         </div>
 
         {currentUser?.isPremium ? (
-          <Button
-            fullWidth
-            className="flex transition ease-in-out duration-300 transform "
-            size="sm"
-            variant="faded"
+          <Link
+            className="text-default-900/70 w-full"
+            href={`/recipe-feed/${postId}`}
           >
-            <Link
-              className="text-default-900/70 "
-              href={`/recipe-feed/${postId}`}
+            <Button
+              fullWidth
+              className="flex transition ease-in-out duration-300 transform "
+              size="sm"
+              variant="faded"
             >
               View Full Recipe
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         ) : (
           <div className="w-full">
             {currentUser && currentUser?.role ? (
               <>
                 {isPremium ? (
-                  <Button
-                    fullWidth
-                    className="bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 text-white font-bold border border-yellow-500 hover:from-yellow-500 hover:to-yellow-700 rounded-lg shadow-md hover:shadow-xl shadow-yellow-400/50 hover:scale-105 transform transition-all duration-300 ease-in-out"
-                    color="warning"
-                    size="sm"
-                    variant="faded"
+                  <Link
+                    className="text-white/90 font-medium tracking-wide uppercase w-full"
+                    href="/user/membership"
                   >
-                    <Link
-                      className="text-white/90 font-medium tracking-wide uppercase"
-                      href="/user/membership"
+                    <Button
+                      fullWidth
+                      className="bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 text-white font-bold border border-yellow-500 hover:from-yellow-500 hover:to-yellow-700 rounded-lg shadow-md hover:shadow-xl shadow-yellow-400/50 hover:scale-105 transform transition-all duration-300 ease-in-out"
+                      color="warning"
+                      size="sm"
+                      variant="faded"
                     >
                       Get Membership
-                    </Link>
-                  </Button>
+                    </Button>
+                  </Link>
                 ) : (
-                  <Button
-                    fullWidth
-                    className="flex transition ease-in-out duration-300 transform"
-                    size="sm"
-                    variant="faded"
+                  <Link
+                    className="text-default-900/70 w-full"
+                    href={`/recipe-feed/${postId}`}
                   >
-                    <Link
-                      className="text-default-900/70 "
-                      href={`/recipe-feed/${postId}`}
+                    <Button
+                      fullWidth
+                      className="flex transition ease-in-out duration-300 transform"
+                      size="sm"
+                      variant="faded"
                     >
                       View Full Recipe
-                    </Link>
-                  </Button>
+                    </Button>
+                  </Link>
                 )}
               </>
             ) : (

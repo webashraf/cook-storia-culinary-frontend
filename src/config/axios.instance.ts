@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { getNewAccessToken } from "../services/AuthService";
 
 const axiosInstance = axios.create({
-  baseURL: `http://localhost:5000/api/v1`,
+  baseURL: `https://cook-storia-culinary-backend-project.vercel.app/api/v1`,
 });
 
 axiosInstance.interceptors.request.use(
