@@ -90,8 +90,12 @@ export default function UpdateProfileModal({
     const formDataForSubmit = {
       ...data,
       user: currentUser?.id,
-      cookingTime: Number(data.cookingTime),
-      preparationTime: Number(data.preparationTime),
+      cookingTime: isNaN(Number(data.cookingTime))
+        ? undefined
+        : Number(data.cookingTime),
+      preparationTime: isNaN(Number(data.preparationTime))
+        ? undefined
+        : Number(data.preparationTime),
       servings: Number(data.servings),
       ingredients: (data?.ingredients as any)
         ?.split(",")
@@ -196,13 +200,16 @@ export default function UpdateProfileModal({
                             <Select
                               {...field}
                               className="w-full"
+                              defaultSelectedKeys={[
+                                String(recipe?.preparationTime),
+                              ]}
                               label="Preparation Time(as minutes)"
                               placeholder="Select Preparation Time"
                               selectionMode="single"
                               onChange={field.onChange}
                             >
-                              {timeMinutes.map((time, timeIndex) => (
-                                <SelectItem key={timeIndex} value={time}>
+                              {timeMinutes.map((time) => (
+                                <SelectItem key={time} value={time}>
                                   {time}
                                 </SelectItem>
                               ))}
@@ -219,13 +226,16 @@ export default function UpdateProfileModal({
                             <Select
                               {...field}
                               className="w-full"
+                              defaultSelectedKeys={[
+                                String(recipe?.cookingTime),
+                              ]}
                               label="Cooking Time(as minutes)"
                               placeholder="Select Cooking Time"
                               selectionMode="single"
                               onChange={field.onChange}
                             >
-                              {timeMinutes.map((time, timeIndex) => (
-                                <SelectItem key={timeIndex} value={time}>
+                              {timeMinutes.map((time) => (
+                                <SelectItem key={time} value={time}>
                                   {time}
                                 </SelectItem>
                               ))}
@@ -262,8 +272,8 @@ export default function UpdateProfileModal({
                               selectionMode="multiple"
                               onChange={field.onChange}
                             >
-                              {ingredientsArr.map((item, itemIndex) => (
-                                <SelectItem key={itemIndex} value={item}>
+                              {ingredientsArr.map((item) => (
+                                <SelectItem key={item} value={item}>
                                   {item}
                                 </SelectItem>
                               ))}
@@ -276,7 +286,7 @@ export default function UpdateProfileModal({
                           <h3 className="text-xl font-semibold mb-4">
                             Nutrition Facts
                           </h3>
-              
+
                           <div className="flex flex-wrap gap-5">
                             <div className="lg:w-[48%] w-full">
                               <Input
@@ -449,7 +459,7 @@ export default function UpdateProfileModal({
                           <Select
                             {...field}
                             className="w-full"
-                            defaultSelectedKeys={recipe?.cuisine}
+                            defaultSelectedKeys={[recipe?.cuisine]}
                             label="Cuisine"
                             placeholder="Select cuisine"
                             selectionMode="single"

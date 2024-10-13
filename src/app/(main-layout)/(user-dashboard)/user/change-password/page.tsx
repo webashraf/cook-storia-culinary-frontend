@@ -7,7 +7,7 @@ import { IoEyeOff, IoEyeSharp } from "react-icons/io5";
 import { MdPassword } from "react-icons/md";
 import { toast } from "sonner";
 
-import nexiosInstance from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 
 const PasswordChange = () => {
@@ -17,7 +17,6 @@ const PasswordChange = () => {
   const { user } = useUser();
   // Form submit handler
   const onSubmit = async (formData: any) => {
-
     try {
       const { data }: any = await nexiosInstance.put(
         `/auth/change-password/${user?.id}`,

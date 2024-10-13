@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "@/src/components/UI/Loading/Loading";
+import Loading from "@/src/components/Shared/Loader/Loading/Loading";
 import { useUser } from "@/src/context/user.provider";
 
 import PlanAds from "./_components/PlanAds";

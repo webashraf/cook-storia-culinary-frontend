@@ -72,7 +72,8 @@ CookstoriaCulinary is a recipe-sharing platform built with Next.js. It offers us
 4. Set up the environment variables in a `.env.local` file:
 
    ```bash
-   # Provided all required environment variables
+   # NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your-stripe-publishable-key
+   # NEXT_PUBLIC_STRIPE_SECRETE_KEY=your-stripe-secrete-key
    ```
 
 5. Run the development server:

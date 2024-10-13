@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 import { LuPencil } from "react-icons/lu";
 import { toast } from "sonner";
 
-import nexiosInstance from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/nexios.instance";
 import { getCurrentUser } from "@/src/services/AuthService";
 import { fetchComments } from "@/src/services/RecipeService";
 

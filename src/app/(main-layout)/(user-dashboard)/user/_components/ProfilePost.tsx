@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import Loading from "@/src/components/UI/Loading/Loading";
-import nexiosInstance from "@/src/config/axios.instance";
+import CardSkeleton from "@/src/components/Shared/Loader/CardSkeleton";
+import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 
 import PostCardProfile from "../../../_components/PostCard/PostCardProfile";
@@ -40,7 +40,7 @@ const ProfilePosts = () => {
   return (
     <div className="pt-5 w-full">
       {loading ? (
-        <Loading />
+        <CardSkeleton />
       ) : (
         <div>
           <h2 className="mb-3">My Post</h2>

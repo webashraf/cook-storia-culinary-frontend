@@ -4,15 +4,19 @@ import { Avatar } from "@nextui-org/avatar";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import nexiosInstance from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
+
+import FollowersModal from "./Followers";
 
 const ProfileHeader = () => {
   const { user } = useUser();
   // const [loading, setLoading] = useState(true);
   const [totalRecipes, setTotalRecipes] = useState<number>(0);
-  const [myFollowers, setMyFollower] = useState<number>(0);
   const [myFollows, setMyFollows] = useState<number>(0);
+  const [myFollowers, setMyFollower] = useState<number>(0);
+  const [allFollows, setAllFollows] = useState<any>(null);
+  const [allFollowers, setSetAllFollowers] = useState<any>(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -30,10 +34,12 @@ const ProfileHeader = () => {
         const { data: followersData }: any = await nexiosInstance.get(
           `/social/follow/${user?.id}`
         );
+
         const { data: followersDataForFollow }: any =
           await nexiosInstance.get(`/social/follow`);
 
         if (followersData?.success) {
+          setSetAllFollowers(followersData);
           setMyFollower(followersData?.data?.followers?.length || 0);
           let totalFollows = 0;
 
@@ -44,13 +50,31 @@ const ProfileHeader = () => {
           ) {
             followersDataForFollow?.data?.forEach((followersObject: any) => {
               if (Array.isArray(followersObject.followers)) {
-                const countInArray = followersObject.followers.filter(
+                const currentUserFollows = followersObject.followers.filter(
                   (item: any) => item._id === user?.id
-                ).length;
+                );
 
-                totalFollows += countInArray;
+                // setAllFollows(currentUserFollows);
+                totalFollows += currentUserFollows.length;
               }
             });
+
+            let totalFollowsArray: any[] = []; // Initialize an empty array to store all follows
+
+            followersDataForFollow?.data?.map((followersObject: any) => {
+              if (Array.isArray(followersObject.followers)) {
+                const currentUserFollows = followersObject.followers.filter(
+                  (item: any) => item._id === user?.id && followersObject
+                );
+
+                totalFollowsArray = [
+                  // ...totalFollowsArray,
+                  ...currentUserFollows,
+                ]; // Spread and add to the total array
+              }
+            });
+
+            setAllFollows(totalFollowsArray);
           }
 
           setMyFollows(totalFollows);
@@ -104,16 +128,18 @@ const ProfileHeader = () => {
                 posts
               </span>
               <span>
-                <strong className="font-bold text-black dark:text-white">
+                {/* <strong className="font-bold text-black dark:text-white">
                   {myFollowers}
                 </strong>{" "}
-                followers
+                followers */}
+                <FollowersModal allFollowers={allFollowers} />
               </span>
               <span>
                 <strong className="font-bold text-black dark:text-white">
                   {myFollows}
                 </strong>{" "}
                 following
+                {/* <FollowModal /> */}
               </span>
             </div>
           </div>

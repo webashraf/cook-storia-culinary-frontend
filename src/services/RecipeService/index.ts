@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 
-import nexiosInstance from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/nexios.instance";
 
 export const getRecipes = async (limit: number, page: number) => {
   const res = await fetch(

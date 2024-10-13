@@ -1,31 +1,49 @@
-import { Nexios } from "nexios-http";
-import { NexiosOptions } from "nexios-http/types/interfaces";
-//`https://cook-storia-culinary-backend-project.vercel.app/api/v1`
-//`http://localhost:5000/api/v1`
-const defaultConfig: NexiosOptions = {
-  baseURL: `https://cook-storia-culinary-backend-project.vercel.app/api/v1`,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
+import axios from "axios";
+import { cookies } from "next/headers";
+
+import { getNewAccessToken } from "../services/AuthService";
+
+const axiosInstance = axios.create({
+  baseURL: `http://localhost:5000/api/v1`,
+});
+
+axiosInstance.interceptors.request.use(
+  function (config: any) {
+    const cookieStore = cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
+    if (accessToken) {
+      config.headers.Authorization = accessToken;
+    }
+
+    return config;
   },
-  credentials: "include",
-  timeout: 10000,
-};
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
-const nexiosInstance = new Nexios(defaultConfig);
+axiosInstance.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  async function (error) {
+    const config = error.config;
 
-// Add request interceptor
-// nexiosInstance.interceptors.request.use((config) => {
-//   const accessToken = cookies().get("accessToken")?.value;
+    if (error?.response?.status === 401 && !config?.sent) {
+      config.sent = true;
+      const res = await getNewAccessToken();
+      const accessToken = res.data.accessToken;
 
-//   if (accessToken) {
-//     config.headers = {
-//       ...config.headers,
-//       Authorization: `Bearer ${accessToken}`,
-//     };
-//   }
+      config.headers["Authorization"] = accessToken;
+      cookies().set("accessToken", accessToken);
+      console.log("Access token", accessToken);
 
-//   return config;
-// });
+      return axiosInstance(config);
+    } else {
+      return Promise.reject(error);
+    }
+  }
+);
 
-export default nexiosInstance;
+export default axiosInstance;

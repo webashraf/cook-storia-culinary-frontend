@@ -9,7 +9,8 @@ import InfiniteScroll from "react-infinite-scroller";
 
 import { SearchIcon } from "@/src/components/icons";
 import CommonHero from "@/src/components/Shared/CommonHero/CommonHero";
-import nexiosInstance from "@/src/config/axios.instance";
+import CardSkeleton from "@/src/components/Shared/Loader/CardSkeleton";
+import nexiosInstance from "@/src/config/nexios.instance";
 
 import PostCard from "../_components/PostCard/PostCard";
 
@@ -78,6 +79,10 @@ const RecipeFeed = () => {
     fetchRecipes();
   }, [querySearchFilter]);
 
+  if (!recipeData) {
+    return <CardSkeleton />;
+  }
+
   return (
     <div className="">
       <CommonHero title="Recipe Feed" />
@@ -128,7 +133,11 @@ const RecipeFeed = () => {
               className="flex flex-wrap gap-5 justify-center"
               hasMore={hasMore && !loading}
               loadMore={fetchRecipes}
-              loader={<Spinner color="warning" label="Loading..." />}
+              loader={
+                <div className="flex justify-center items-center">
+                  <Spinner color="primary" label="Loading..." />
+                </div>
+              }
               pageStart={0}
             >
               {recipeData?.map((recipe: any) => (

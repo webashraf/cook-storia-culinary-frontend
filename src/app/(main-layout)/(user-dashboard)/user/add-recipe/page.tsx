@@ -103,7 +103,6 @@ const CreateRecipe = () => {
 
     formData.append("data", JSON.stringify(formDataForSubmit));
     formData.append("image", image);
-    // console.log(formDataForSubmit);
     setupUpdateLoading(true);
     try {
       const response = await fetch(
@@ -186,7 +185,6 @@ const CreateRecipe = () => {
               {...register("servings", { required: "Servings are required" })}
               className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
               label="Servings"
-              max={30}
               placeholder="Number of servings"
               type="number"
             />

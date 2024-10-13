@@ -114,6 +114,11 @@ export default function CSProfileDropDown() {
       action: () => router.push("/admin/manage-admin"),
     },
     {
+      key: "recipe_feed",
+      content: "Recipe Feed",
+      action: () => router.push("/recipe-feed"),
+    },
+    {
       key: "about_us",
       content: "About Us",
       action: () => router.push("/about-us"),

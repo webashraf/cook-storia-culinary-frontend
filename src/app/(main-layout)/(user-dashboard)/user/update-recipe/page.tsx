@@ -25,7 +25,7 @@ import { IoChevronDownCircleOutline } from "react-icons/io5";
 import { toast } from "sonner";
 
 import { SearchIcon } from "@/src/components/icons";
-import nexiosInstance from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 
 import UpdateProfileModal from "../_components/UpdateRecipeModal";

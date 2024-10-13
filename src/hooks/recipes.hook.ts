@@ -1,4 +1,4 @@
-import nexiosInstance from "../config/axios.instance";
+import nexiosInstance from "../config/nexios.instance";
 
 export const useGetAllRecipes = async () => {
   const { data } = await nexiosInstance.get("/recipe", {

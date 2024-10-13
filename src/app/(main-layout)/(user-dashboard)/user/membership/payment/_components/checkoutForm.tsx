@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import nexiosInstance from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 import convertToCurrency from "@/src/lib/convertToCurrency";
 import { logoutUser } from "@/src/services/AuthService";

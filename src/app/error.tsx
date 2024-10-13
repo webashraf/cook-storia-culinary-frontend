@@ -1,27 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
-
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error;
-  reset: () => void;
-}) {
-  useEffect(() => {
-    // Log the error to an error reporting service
-    /* eslint-disable no-console */
-  }, [error]);
-
+export default function Error({ reset }: { error: Error; reset: () => void }) {
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center">
       <h2>Something went wrong!</h2>
       <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
+        className="inline-block bg-white text-black px-4 py-2 rounded-md hover:bg-gray-300 transition duration-300"
+        onClick={() => reset()}
       >
         Try again
       </button>

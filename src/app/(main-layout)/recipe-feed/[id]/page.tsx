@@ -6,7 +6,7 @@ import { User } from "@nextui-org/user";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import nexiosInstance from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 
 const RecipeDetailsPage = ({ params }: { params: { id: string } }) => {
@@ -47,18 +47,17 @@ const RecipeDetailsPage = ({ params }: { params: { id: string } }) => {
           { cache: "no-store" }
         );
 
-       
-        if (comments.success) {
-          setUserComments(comments.data[0]);
-          const myRatings = comments.data.find(
+        if (comments?.success) {
+          setUserComments(comments?.data[0]);
+          const myRatings = comments?.data?.find(
             (comment: any) => comment?.userId?._id === user?.id
           );
 
-          setRating(myRatings.rate);
+          setRating(myRatings?.rate);
         }
 
         if (data?.success) {
-          setRecipe(data.data[0]);
+          setRecipe(data?.data[0]);
         }
       } catch (error: any) {
         console.log("Error fetching recipe", error);
@@ -66,7 +65,7 @@ const RecipeDetailsPage = ({ params }: { params: { id: string } }) => {
     };
 
     recipeFetch();
-  }, [params.id, user, rating]);
+  }, [params?.id, user, rating]);
 
   return (
     <div className="bg-gradient-to-b min-h-screen lg:p-6 text-default-900 w-full">

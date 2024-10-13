@@ -23,6 +23,7 @@ const RecipeFilter = ({
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const onFilterSubmit = (data: Record<string, any>) => {
+    console.log("filter data", data);
     const queryString = Object.keys(data)
       .filter(
         (key) =>
@@ -44,6 +45,7 @@ const RecipeFilter = ({
       })
       .join("&");
 
+    console.log("filter data", data, queryString);
     setQuerySearchFilter(queryString);
     // resetFilter();
   };
@@ -144,69 +146,70 @@ const RecipeFilter = ({
                       </div>
                     </div>
 
-                    <h4 className="capitalize">Other filter options</h4>
-                    <div className="flex lg:flex-col gap-5">
-                      <div className="lg:w-full w-[33%]">
-                        <Controller
-                          control={filterControl}
-                          name="category"
-                          render={({ field }) => (
-                            <Select
-                              {...field}
-                              className="max-w-xs"
-                              label="Filter by category"
-                              selectionMode="multiple"
-                            >
-                              {recipeCategories.map((item) => (
-                                <SelectItem key={item}>{item}</SelectItem>
-                              ))}
-                            </Select>
-                          )}
-                        />
-                      </div>
+                    <div>
+                      <h4 className="capitalize">Other filter options</h4>
+                      <div className="flex lg:flex-col gap-5">
+                        <div className="lg:w-full w-[33%]">
+                          <Controller
+                            control={filterControl}
+                            name="categories"
+                            render={({ field }) => (
+                              <Select
+                                {...field}
+                                className="max-w-xs"
+                                label="Filter by category"
+                                selectionMode="multiple"
+                              >
+                                {recipeCategories.map((item) => (
+                                  <SelectItem key={item}>{item}</SelectItem>
+                                ))}
+                              </Select>
+                            )}
+                          />
+                        </div>
 
-                      <div className="lg:w-full w-[33%]">
-                        {/* <h4 className="capitalize mb-2">Filter by cuisine</h4> */}
-                        <Controller
-                          control={filterControl}
-                          name="cuisine"
-                          render={({ field }) => (
-                            <Select
-                              {...field}
-                              className="max-w-xs"
-                              label="Filter by cuisine"
-                              selectionMode="multiple"
-                              onChange={field.onChange}
-                            >
-                              {recipeCuisines.map((item) => (
-                                <SelectItem key={item}>{item}</SelectItem>
-                              ))}
-                            </Select>
-                          )}
-                        />
-                      </div>
-                      <div className="lg:w-full w-[33%]">
-                        {/* <h4 className="capitalize mb-2">Filter by tags</h4> */}
-                        <Controller
-                          control={filterControl}
-                          name="tags"
-                          render={({ field }) => (
-                            <Select
-                              {...field}
-                              className="max-w-xs"
-                              label="Filter by tags"
-                              selectionMode="multiple"
-                              onChange={field.onChange}
-                            >
-                              {recipeTags.map((item) => (
-                                <SelectItem key={item}>{item}</SelectItem>
-                              ))}
-                            </Select>
-                          )}
-                        />
+                        <div className="lg:w-full w-[33%]">
+                          {/* <h4 className="capitalize mb-2">Filter by cuisine</h4> */}
+                          <Controller
+                            control={filterControl}
+                            name="cuisine"
+                            render={({ field }) => (
+                              <Select
+                                {...field}
+                                className="max-w-xs"
+                                label="Filter by cuisine"
+                                selectionMode="multiple"
+                                onChange={field.onChange}
+                              >
+                                {recipeCuisines.map((item) => (
+                                  <SelectItem key={item}>{item}</SelectItem>
+                                ))}
+                              </Select>
+                            )}
+                          />
+                        </div>
+                        <div className="lg:w-full w-[33%]">
+                          {/* <h4 className="capitalize mb-2">Filter by tags</h4> */}
+                          <Controller
+                            control={filterControl}
+                            name="tags"
+                            render={({ field }) => (
+                              <Select
+                                {...field}
+                                className="max-w-xs"
+                                label="Filter by tags"
+                                selectionMode="multiple"
+                                onChange={field.onChange}
+                              >
+                                {recipeTags.map((item) => (
+                                  <SelectItem key={item}>{item}</SelectItem>
+                                ))}
+                              </Select>
+                            )}
+                          />
+                        </div>
                       </div>
                     </div>
-
                     <div className="mt-4">
                       <Button
                         className=" text-white py-2 px-4 rounded-md"

@@ -9,7 +9,7 @@ import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import { toast } from "sonner";
 
-import nexiosInstance from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 import { fetchComments } from "@/src/services/RecipeService";
 
@@ -175,7 +175,6 @@ const PostComments = ({
       </div>
     );
   }
-  // commentsData?.data?.find((comment: any) => console.log(comment));
 
   return (
     <div>
@@ -194,7 +193,12 @@ const PostComments = ({
           {...register("comment", { required: true })}
         />
 
-        <Button className="p-1" disabled={loading} type="submit">
+        <Button
+          className="p-1 flex transition ease-in-out duration-300 transform hover:scale-110"
+          color="primary"
+          disabled={loading}
+          type="submit"
+        >
           <IoPaperPlaneOutline size={20} />
         </Button>
       </form>
@@ -208,7 +212,7 @@ const PostComments = ({
       <div className="flex items-center gap-3 w-full">
         <div className="flex justify-between bg-default-40 gap-2 py-2 rounded-xl w-[100px]">
           <Button
-            className="text-sm flex w-[50%] gap-1"
+            className="text-sm flex w-[50%] gap-1 transition ease-in-out duration-300 transform hover:scale-110"
             color={
               isDisabledUpVote ||
               commentsData?.data?.find(
@@ -244,7 +248,7 @@ const PostComments = ({
           </Button>
 
           <Button
-            className={`text-sm flex w-[50%] gap-1 ${
+            className={`text-sm flex w-[50%] gap-1 transition ease-in-out duration-300 transform hover:scale-110 ${
               loading ||
               isDisabledDownVote ||
               (commentsData?.data?.find(
@@ -290,16 +294,21 @@ const PostComments = ({
         </div>
 
         {currentUser?.isPremium ? (
-          <Button fullWidth size="sm" variant="faded">
+          <Button
+            fullWidth
+            className="flex transition ease-in-out duration-300 transform "
+            size="sm"
+            variant="faded"
+          >
             <Link
-              className="text-default-900/70"
+              className="text-default-900/70 "
               href={`/recipe-feed/${postId}`}
             >
               View Full Recipe
             </Link>
           </Button>
         ) : (
-          <div>
+          <div className="w-full">
             {currentUser && currentUser?.role ? (
               <>
                 {isPremium ? (
@@ -318,9 +327,14 @@ const PostComments = ({
                     </Link>
                   </Button>
                 ) : (
-                  <Button fullWidth size="sm" variant="faded">
+                  <Button
+                    fullWidth
+                    className="flex transition ease-in-out duration-300 transform"
+                    size="sm"
+                    variant="faded"
+                  >
                     <Link
-                      className="text-white/70"
+                      className="text-default-900/70 "
                       href={`/recipe-feed/${postId}`}
                     >
                       View Full Recipe

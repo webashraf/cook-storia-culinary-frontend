@@ -4,6 +4,7 @@
 import { Pagination } from "@nextui-org/pagination";
 import { useEffect, useState } from "react";
 
+import CardSkeleton from "@/src/components/Shared/Loader/CardSkeleton";
 import { getRecipes } from "@/src/services/RecipeService";
 
 import PostCard from "../../_components/PostCard/PostCard";
@@ -39,11 +40,12 @@ const RecipePosts = () => {
   return (
     <div className="flex flex-col justify-center">
       {isLoading ? (
-        <div className="flex justify-center items-center h-32">
-          <div className="loader">Loading...</div>
+        <div className="">
+          {" "}
+          <CardSkeleton />
         </div>
       ) : (
-        <div className="grid lg:grid-cols-2 items-center justify-center gap-5 px-5">
+        <div className="grid lg:grid-cols-2 items-center justify-center gap-5 px-5 lg:mx-5 mx-0">
           {recipes?.map((recipe: any) => (
             <div key={recipe?._id} className="lg:w-[48%]">
               <PostCard recipe={recipe} />

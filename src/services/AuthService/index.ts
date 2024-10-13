@@ -3,7 +3,8 @@
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 
-import nexiosInstance from "@/src/config/axios.instance";
+import axiosInstance from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/nexios.instance";
 
 export const loginUser = async (userInfo: {
   email: string;
@@ -41,4 +42,55 @@ export const getCurrentUser = async () => {
   }
 
   return decodedToken;
+};
+
+export const reGenerateNewAccessToken = async () => {
+  try {
+    const refreshToken = cookies().get("refreshToken")?.value;
+
+    if (!refreshToken) {
+      throw new Error("No refresh token found");
+    }
+
+    const res = await fetch(
+      `https://cook-storia-culinary-backend-project.vercel.app/api/v1/auth/refresh-token`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${refreshToken}`,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to refresh access token");
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to generate accessToken");
+  }
+};
+
+export const getNewAccessToken = async () => {
+  try {
+    const refreshToken = cookies().get("refreshToken")?.value;
+
+    const res = await axiosInstance({
+      url: "/auth/refresh-token",
+      method: "POST",
+      withCredentials: true,
+      headers: {
+        cookie: `refreshToken=${refreshToken}`,
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to get new access token");
+  }
 };

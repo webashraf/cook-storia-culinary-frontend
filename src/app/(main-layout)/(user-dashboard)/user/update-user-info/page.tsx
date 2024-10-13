@@ -9,7 +9,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 import { toast } from "sonner";
 
-import nexiosInstance from "@/src/config/axios.instance";
+import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 import { logoutUser } from "@/src/services/AuthService";
 
@@ -38,13 +38,11 @@ const SettingsPage = () => {
       return acc;
     }, {} as any);
 
-
     try {
       const { data }: any = await nexiosInstance.put(
         `/user/update-user-profile-info/${user?.id}`,
         filteredFormData
       );
-
 
       if (data.success) {
         toast.success("User updated successfully");
