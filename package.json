@@ -9,6 +9,7 @@
 		"lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
 	},
 	"dependencies": {
+		"@emailjs/browser": "^4.4.1",
 		"@heroicons/react": "^2.1.5",
 		"@nextui-org/avatar": "^2.0.33",
 		"@nextui-org/badge": "^2.0.32",

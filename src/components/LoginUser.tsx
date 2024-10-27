@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IoEyeOff, IoEyeSharp, IoMail } from "react-icons/io5";
 import { MdPassword } from "react-icons/md";
@@ -13,17 +13,33 @@ import { toast } from "sonner";
 import { loginUser } from "@/src/services/AuthService";
 
 import { useUser } from "../context/user.provider";
+type TLoginFormInputs = {
+  email: string;
+  password: string;
+};
 
 const Login = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loginCredentials, setLoginCredentials] = useState<TLoginFormInputs>({
+    email: "",
+    password: "",
+  });
   const toggleVisibility = () => setIsVisible(!isVisible);
-  const defaultValues = { email: "ali@gmail.com", password: "123456" };
+  // const defaultValues = { email: "ali@gmail.com", password: "123456" };
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
-  } = useForm({ defaultValues });
+  } = useForm<TLoginFormInputs>({
+    defaultValues: loginCredentials,
+  });
+
+  useEffect(() => {
+    reset(loginCredentials);
+  }, [loginCredentials, reset]);
+
   const router = useRouter();
   const { user, setIsUserLoading } = useUser();
 
@@ -57,7 +73,32 @@ const Login = () => {
         <h2 className="text-3xl font-bold text-center text-default-800">
           Login
         </h2>
-
+        <span className="flex gap-2">
+          <Button
+            className=" rounded-lg text-sm py-1 h-7"
+            variant={"bordered"}
+            onClick={() =>
+              setLoginCredentials({
+                email: "ali@gmail.com",
+                password: "123456",
+              })
+            }
+          >
+            User Credentials
+          </Button>
+          <Button
+            className=" rounded-lg text-sm py-1 h-7"
+            variant={"bordered"}
+            onClick={() =>
+              setLoginCredentials({
+                email: "supperadmin@gmail.com",
+                password: "123456",
+              })
+            }
+          >
+            Admin Credentials
+          </Button>
+        </span>
         <div>
           <Input
             label="Email"

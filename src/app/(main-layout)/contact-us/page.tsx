@@ -65,32 +65,7 @@ const ContactUs = () => {
             <h3 className="text-xl lg:text-2xl font-semibold text-white mb-4">
               Follow Us:
             </h3>
-            {/* <div className="flex gap-3 flex-wrap">
-              <a
-                className="text-gray-400 hover:text-white"
-                href="https://www.facebook.com"
-              >
-                Facebook
-              </a>
-              <a
-                className="text-gray-400 hover:text-white"
-                href="https://www.twitter.com"
-              >
-                Twitter
-              </a>
-              <a
-                className="text-gray-400 hover:text-white"
-                href="https://www.instagram.com"
-              >
-                Instagram
-              </a>
-              <a
-                className="text-gray-400 hover:text-white"
-                href="https://www.linkedin.com"
-              >
-                LinkedIn
-              </a>
-            </div> */}
+
 
             <div className="flex gap-3 h-full flex-wrap">
               <button

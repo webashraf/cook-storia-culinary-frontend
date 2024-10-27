@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head />
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased max-w-[1500px] mx-auto",
+          "min-h-screen bg-background font-sans antialiased ",
           fontSans.variable
         )}
       >

@@ -35,7 +35,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
     <div className="">
       <div
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased ",
+          "min-h-screen bg-background font-sans antialiased max-w-[1500px] mx-auto",
           fontSans.variable
         )}
       >
@@ -58,9 +58,9 @@ export default function MainLayout({ children }: { children: ReactNode }) {
               </ScrollShadow>
             </div>
           </div>
-          <Footer />
         </>
       </div>
+      <Footer />
     </div>
   );
 }
