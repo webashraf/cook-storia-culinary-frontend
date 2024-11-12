@@ -19,8 +19,8 @@ import { toast } from "sonner";
 import nexiosInstance from "@/src/config/nexios.instance";
 import { getCurrentUser } from "@/src/services/AuthService";
 import { fetchComments } from "@/src/services/RecipeService";
+import { IOpinions } from "@/src/types";
 
-import { IOpinions } from "./PostComments";
 
 export default function PostModal({
   postId,

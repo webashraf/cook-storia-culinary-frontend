@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IoEyeOff, IoEyeSharp, IoMail } from "react-icons/io5";
 import { MdPassword } from "react-icons/md";
@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { loginUser } from "@/src/services/AuthService";
 
 import { useUser } from "../context/user.provider";
+
 type TLoginFormInputs = {
   email: string;
   password: string;
@@ -21,29 +22,23 @@ type TLoginFormInputs = {
 const Login = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [loginCredentials, setLoginCredentials] = useState<TLoginFormInputs>({
-    email: "",
-    password: "",
-  });
   const toggleVisibility = () => setIsVisible(!isVisible);
-  // const defaultValues = { email: "ali@gmail.com", password: "123456" };
+
   const {
     handleSubmit,
     register,
     reset,
     formState: { errors },
-  } = useForm<TLoginFormInputs>({
-    defaultValues: loginCredentials,
-  });
-
-  useEffect(() => {
-    reset(loginCredentials);
-  }, [loginCredentials, reset]);
+  } = useForm<TLoginFormInputs>();
 
   const router = useRouter();
   const { user, setIsUserLoading } = useUser();
 
-  const loginForm: SubmitHandler<any> = async (formData) => {
+  const setCredentials = (email: string, password: string) => {
+    reset({ email, password });
+  };
+
+  const loginForm: SubmitHandler<TLoginFormInputs> = async (formData) => {
     try {
       const res = await loginUser(formData);
 
@@ -52,17 +47,14 @@ const Login = () => {
         setLoading(true);
         router.push("/");
         toast.success("Login successful!!");
+        reset(); // Reset only after successful login
       } else {
-        toast.error(`Login failed :${res?.message}`);
+        toast.error(`Login failed: ${res?.message}`);
       }
     } catch (error: any) {
       console.log("Error", error?.message);
     }
   };
-
-  // useEffect(() => {
-  //   router.push("/");
-  // }, [user]);
 
   return (
     <div className="min-h-[90vh] flex items-center justify-center ">
@@ -74,30 +66,28 @@ const Login = () => {
           Login
         </h2>
         <span className="flex gap-2">
-          <Button
-            className=" rounded-lg text-sm py-1 h-7"
-            variant={"bordered"}
-            onClick={() =>
-              setLoginCredentials({
-                email: "ali@gmail.com",
-                password: "123456",
-              })
-            }
+          <div
+            className=" rounded-lg text-sm p-1 border"
+            onClick={() => setCredentials("ali@gmail.com", "123456")}
           >
             User Credentials
-          </Button>
-          <Button
-            className=" rounded-lg text-sm py-1 h-7"
-            variant={"bordered"}
-            onClick={() =>
-              setLoginCredentials({
-                email: "supperadmin@gmail.com",
-                password: "123456",
-              })
-            }
+            <span>
+              <br /> email: ali@gmail.com
+              <br />
+              pas: 123456
+            </span>
+          </div>
+          <div
+            className=" rounded-lg text-sm p-1 border"
+            onClick={() => setCredentials("supperadmin@gmail.com", "123456")}
           >
             Admin Credentials
-          </Button>
+            <span>
+              <br /> email: supperadmin@gmail.com
+              <br />
+              pas: 123456
+            </span>
+          </div>
         </span>
         <div>
           <Input

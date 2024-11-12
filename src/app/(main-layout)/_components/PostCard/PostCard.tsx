@@ -1,9 +1,9 @@
 import { Chip } from "@nextui-org/chip";
 import { Image } from "@nextui-org/image";
-import { Link } from "@nextui-org/link";
 import { User } from "@nextui-org/user";
 
-import PostComments from "./PostComments";
+import PostCommentsSection from "./PostCommentsSection";
+import moment from "moment";
 
 const PostCard = ({ recipe }: any) => {
   return (
@@ -14,11 +14,7 @@ const PostCard = ({ recipe }: any) => {
             src: recipe?.user?.profilePicture,
           }}
           className="mb-3"
-          description={
-            <Link isExternal href={`mailto:${recipe?.user?.email}`} size="sm">
-              {recipe?.user?.email}
-            </Link>
-          }
+          description={moment(recipe?.createdAt).format("MMM YYYY  h:mm a")}
           name={
             <h4 className="flex gap-1">
               {recipe?.user?.username}
@@ -36,7 +32,7 @@ const PostCard = ({ recipe }: any) => {
           <div className="space-y-3 ">
             <div className="">
               <h3 className="text-xl">{recipe?.title}</h3>
-              <p className="text-default-500 text-sm">
+              <p className=" text-sm text-[#9acd32]">
                 #cuisine - {recipe?.cuisine}
               </p>
               <p className="text-[12px]">{recipe?.shortDescription}</p>
@@ -86,7 +82,7 @@ const PostCard = ({ recipe }: any) => {
               width="100%"
             />
           </div>
-          <PostComments
+          <PostCommentsSection
             isPremium={recipe?.isPremium}
             isProUser={recipe?.user?.isPremium}
             postId={recipe?._id}

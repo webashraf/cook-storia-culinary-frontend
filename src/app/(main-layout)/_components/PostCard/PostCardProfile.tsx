@@ -3,7 +3,7 @@ import { Image } from "@nextui-org/image";
 import { Link } from "@nextui-org/link";
 import { User } from "@nextui-org/user";
 
-import PostComments from "./PostComments";
+import PostCommentsSection from "./PostCommentsSection";
 
 const PostCardProfile = ({ recipe }: any) => {
   return (
@@ -89,7 +89,7 @@ const PostCardProfile = ({ recipe }: any) => {
               width="100%"
             />
           </div>
-          <PostComments
+          <PostCommentsSection
             isPremium={recipe?.isPremium}
             isProUser={recipe?.user?.isPremium}
             postId={recipe?._id}

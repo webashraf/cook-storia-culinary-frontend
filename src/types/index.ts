@@ -24,7 +24,6 @@ export interface ILogInUser {
   role: "user" | "admin";
 }
 
-
 export interface IRecipeFormData {
   title: string;
   ingredients: string[];
@@ -43,4 +42,15 @@ export interface IRecipeFormData {
     fat: number;
     carbohydrates: number;
   };
+}
+
+export interface IOpinions {
+  _id?: string;
+  postId: string;
+  userId: string;
+  comments?: string;
+  rate?: number;
+  upVote?: number;
+  downVote?: number;
+  createdAt?: string;
 }

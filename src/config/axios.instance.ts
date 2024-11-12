@@ -3,8 +3,10 @@ import { cookies } from "next/headers";
 
 import { getNewAccessToken } from "../services/AuthService";
 
+// https://cook-storia-culinary-backend-project.vercel.app/api/v1
+
 const axiosInstance = axios.create({
-  baseURL: `https://cook-storia-culinary-backend-project.vercel.app/api/v1`,
+  baseURL: `http://localhost:5000`,
 });
 
 axiosInstance.interceptors.request.use(
