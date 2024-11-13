@@ -107,7 +107,7 @@ const PostCommentsSection = ({ postId, isPremium }: IProps) => {
   }
 
   return (
-    <div>
+    <div className="relative">
       <p className="text-[12px] mt-1 pt-3">
         Average Rating: {calculateAverageRating()} ⭐
       </p>
@@ -133,12 +133,14 @@ const PostCommentsSection = ({ postId, isPremium }: IProps) => {
         </Button>
       </form>
 
-      <UserComments
-        commentsData={commentsData}
-        postId={postId}
-        setCommentsData={setCommentsData}
-        userId={currentUser?.id}
-      />
+      <div className=" bg-black w-full z-20">
+        <UserComments
+          commentsData={commentsData}
+          postId={postId}
+          setCommentsData={setCommentsData}
+          userId={currentUser?.id}
+        />
+      </div>
     </div>
   );
 };

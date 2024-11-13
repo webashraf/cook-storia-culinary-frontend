@@ -125,7 +125,7 @@ export default function UserComments({
               >
                 {comment.comments && (
                   <div className="flex flex-col items-start gap-2 pb-2 -mt-2">
-                    <div className="flex items-center gap-4 w-full">
+                    <div className="">
                       {comment?.userId?.email !== currentUser?.email ? (
                         <div className="w-full pt-1 block">
                           <p className="text-sm">{comment.comments}</p>
@@ -141,7 +141,6 @@ export default function UserComments({
                       >
                         {comment?.userId?.email === currentUser?.email && (
                           <div className="w-full flex items-center gap-2">
-                           
                             <Input
                               className=" text-blue-600"
                               color="default"
