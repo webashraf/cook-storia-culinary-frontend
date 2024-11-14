@@ -54,3 +54,21 @@ export interface IOpinions {
   downVote?: number;
   createdAt?: string;
 }
+
+export interface IUserPopulates {
+  _id: string;
+  email: string;
+  isDeleted: boolean;
+  isPremium: boolean;
+  needsPasswordChange: boolean;
+  paymentStatus: {
+    success: boolean;
+    transaction: string;
+    amount: number;
+  };
+  profilePicture: string;
+  role: "user" | "admin";
+  status: "active" | "block";
+  username: string;
+  __v: number;
+}
