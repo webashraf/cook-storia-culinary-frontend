@@ -27,6 +27,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { IUserPopulates } from "@/src/types";
 
 import AddStory from "./AddStory";
+import { AnimatedModalDemo } from "./ModalBody";
 
 export interface IStoryReels {
   _id: string;
@@ -185,21 +186,13 @@ export default function ReelStories() {
                       Modal Title
                     </ModalHeader>
                     <ModalBody>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          width: "100%",
-                          marginBottom: "16px",
-                        }}
-                      >
-                        <Stories
-                          height="600px"
-                          pauseStoryWhenInActiveWindow={true}
-                          stories={story.images}
-                          width="400px"
-                        />
-                      </div>
+                      <Stories
+                        // key={story?._id}
+                        height="600px"
+                        pauseStoryWhenInActiveWindow={true}
+                        stories={story.images}
+                        width="400px"
+                      />
                     </ModalBody>
                   </ModalContent>
                 </Modal>
@@ -208,6 +201,33 @@ export default function ReelStories() {
           </Swiper>
         </div>
       )}
+      <AnimatedModalDemo />
+      <div>
+        {result.slice(0, 1).map((story) => (
+          <div key={story?._id}>
+            <Button onPress={onOpen}>Open Modal</Button>
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+              <ModalContent>
+                <>
+                  <ModalHeader className="flex flex-col gap-1">
+                    Modal Title
+                  </ModalHeader>
+                  <ModalBody>
+                    <div>
+                      <Stories
+                        height="600px"
+                        pauseStoryWhenInActiveWindow={true}
+                        stories={story.images}
+                        width="400px"
+                      />
+                    </div>
+                  </ModalBody>
+                </>
+              </ModalContent>
+            </Modal>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
