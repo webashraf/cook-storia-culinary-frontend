@@ -103,6 +103,11 @@ export const ModalBody = ({
           initial={{
             opacity: 0,
           }}
+          // style={{
+          //   minWidth: "400px",
+          //   maxWidth: "400px",
+          //   margin: "0px auto",
+          // }}
         >
           <Overlay />
 

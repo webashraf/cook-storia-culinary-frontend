@@ -72,3 +72,29 @@ export interface IUserPopulates {
   username: string;
   __v: number;
 }
+
+export interface IStoryReels {
+  _id: string;
+  user: IUserPopulates;
+  images: Array<string>;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  isDelete: boolean;
+}
+
+export interface ICarouselProps {
+  _id: string;
+  user: IUserPopulates;
+  images: [
+    {
+      url: string;
+      type: string;
+      duration: number;
+    },
+  ];
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  isDelete: boolean;
+}
