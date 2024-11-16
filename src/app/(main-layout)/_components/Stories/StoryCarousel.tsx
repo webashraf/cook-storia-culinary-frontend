@@ -11,8 +11,10 @@ import { Card, Carousel } from "./StoryCarouselGenaretor";
 export function StoryCarousel() {
   const [storiesData, setStoriesData] = useState<IStoryReels[] | []>([]);
   const [loading, setLoading] = useState(true);
+  const [refacing, setRefacing] = useState(false);
 
   useEffect(() => {
+    setRefacing(false);
     const fetchStoriesData = async () => {
       setLoading(true);
       try {
@@ -30,7 +32,7 @@ export function StoryCarousel() {
     };
 
     fetchStoriesData();
-  }, []);
+  }, [refacing]);
 
   const storyData = storiesData.map((item) => ({
     ...item,
@@ -57,9 +59,11 @@ export function StoryCarousel() {
   return (
     <div className="w-full h-auto pb-5 flex flex-row">
       <div className="">
-        <AddStory />
+        <AddStory setRefacing={setRefacing} />
       </div>
-      <Carousel items={cards} />
+      <div className="w-[80%]">
+        <Carousel items={cards} />
+      </div>
     </div>
   );
 }
