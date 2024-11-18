@@ -258,7 +258,7 @@ export const Card = ({
                   }
                 />
               </div>
-              <div className="py-10">
+              <div className="py-5">
                 <Stories
                   height="600px"
                   pauseStoryWhenInActiveWindow={true}

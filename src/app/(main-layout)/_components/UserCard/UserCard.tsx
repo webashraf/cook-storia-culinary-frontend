@@ -109,6 +109,7 @@ export default function UserCard({ user, logedInUser }: any) {
         </div>
         {isFollowed || isFollowedUser ? (
           <Button
+            className="border-[#95c731] text-[#95c731]"
             color="primary"
             radius="full"
             size="sm"
@@ -121,7 +122,8 @@ export default function UserCard({ user, logedInUser }: any) {
           </Button>
         ) : (
           <Button
-            color="primary"
+            // color="primary"
+            className="bg-[#88b72b]"
             radius="full"
             size="sm"
             variant="solid"

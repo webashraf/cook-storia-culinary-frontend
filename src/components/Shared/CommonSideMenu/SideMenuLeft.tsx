@@ -173,7 +173,7 @@ const SideMenu = () => {
               <div key={page.href}>
                 <Link className="text-default-600" href={page.href}>
                   <span
-                    className={`flex items-center text-default-800 text-left p-2 rounded-md ${pathname === page.href ? " bg-primary-500 text-default-100" : ""}`}
+                    className={`flex items-center text-default-800 text-left p-2 rounded-md ${pathname === page.href ? " bg-primary text-default-100" : ""}`}
                   >
                     {page.icon}
                   </span>
@@ -190,7 +190,7 @@ const SideMenu = () => {
               <div key={page.href}>
                 <Link className="text-default-600" href={page.href}>
                   <span
-                    className={`flex items-center text-default-800 text-left p-2 rounded-md ${pathname === page.href ? " bg-primary-500 text-default-100" : ""}`}
+                    className={`flex items-center text-default-800 text-left p-2 rounded-md ${pathname === page.href ? " bg-primary text-default-100" : ""}`}
                   >
                     {page.icon}
                   </span>
@@ -208,7 +208,7 @@ const SideMenu = () => {
               <div key={page.href}>
                 <Link className="text-default-600" href={page.href}>
                   <span
-                    className={`flex items-center text-default-800 text-left p-2 rounded-md ${pathname === page.href ? " bg-primary-500 text-default-100" : ""}`}
+                    className={`flex items-center text-default-800 text-left p-2 rounded-md ${pathname === page.href ? " bg-primary text-default-100" : ""}`}
                   >
                     {page.icon}
                   </span>

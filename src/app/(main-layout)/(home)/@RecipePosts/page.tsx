@@ -57,7 +57,7 @@ const RecipePosts = () => {
       <Pagination
         isCompact
         showControls
-        className="mx-auto mt-5"
+        className="mx-auto mt-5 "
         initialPage={1}
         isDisabled={isLoading}
         total={Math.ceil(pageNumber / limit)}
