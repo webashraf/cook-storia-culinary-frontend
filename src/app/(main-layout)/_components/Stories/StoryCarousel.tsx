@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import nexiosInstance from "@/src/config/nexios.instance";
+import { useUser } from "@/src/context/user.provider";
 import { IStoryReels } from "@/src/types";
 
 import AddStory from "./AddStory";
@@ -12,6 +13,7 @@ export function StoryCarousel() {
   const [storiesData, setStoriesData] = useState<IStoryReels[] | []>([]);
   const [loading, setLoading] = useState(true);
   const [refacing, setRefacing] = useState(false);
+  const { user } = useUser();
 
   useEffect(() => {
     setRefacing(false);
@@ -57,11 +59,13 @@ export function StoryCarousel() {
   ));
 
   return (
-    <div className="w-full h-auto pb-5 flex flex-row">
-      <div className="">
-        <AddStory setRefacing={setRefacing} />
-      </div>
-      <div className="w-[80%]">
+    <div className="w-full overflow-hidden h-auto pb-5 flex flex-row">
+      {user && (
+        <div className="">
+          <AddStory setRefacing={setRefacing} />
+        </div>
+      )}
+      <div className={`${user ? "lg:w-[80%] w-full" : "w-full"}`}>
         <Carousel items={cards} />
       </div>
     </div>

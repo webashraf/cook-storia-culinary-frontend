@@ -115,7 +115,7 @@ export default function UpdateProfileModal({
     formData.append("image", image);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/v1/recipe/update-recipe/${recipe._id}`,
+        `https://cook-storia-culinary-backend-project.vercel.app/api/v1/recipe/update-recipe/${recipe._id}`,
         {
           method: "PUT",
           body: formData,

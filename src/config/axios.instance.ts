@@ -6,7 +6,7 @@ import { getNewAccessToken } from "../services/AuthService";
 // https://cook-storia-culinary-backend-project.vercel.app/api/v1
 
 const axiosInstance = axios.create({
-  baseURL: `http://localhost:5000`,
+  baseURL: `https://cook-storia-culinary-backend-project.vercel.app/api/v1`,
 });
 
 axiosInstance.interceptors.request.use(

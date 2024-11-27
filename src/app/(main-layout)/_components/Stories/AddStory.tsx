@@ -22,7 +22,7 @@ const AddStory = ({ setRefacing }: any) => {
         try {
           setIsUploading(true);
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_API}/story/create`,
+            `https://cook-storia-culinary-backend-project.vercel.app/api/v1/story/create`,
             {
               method: "POST",
               body: formData,
@@ -47,23 +47,26 @@ const AddStory = ({ setRefacing }: any) => {
 
   return (
     <div className="md:flex w-full h-full">
-      <div className="w-full h-full">
-        <div className="relative h-full min-w-[250px] max-w-[260px] rounded-lg border-2 border-blue-500 bg-gray-50 flex justify-center items-center shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+      <div className="w-full h-full flex items-center">
+        <div className="relative px-5 mx-5 h-full min-w-[150px] min-h-[150px] max-h-[150px] max-w-[150px] rounded-full border-2 border-slate-200 bg-default-50 flex justify-center items-center shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
           <div className="absolute flex flex-col items-center">
             <Image
               alt="File Icon"
               className="mb-3"
-              src="https://img.icons8.com/dusk/64/000000/file.png"
+              height={70}
+              src="https://res.cloudinary.com/da5dhxzen/image/upload/v1731992298/image-_ctitmd.png"
+              width={70}
             />
             <span className="block text-gray-500 font-semibold">
-              {isUploading ? "Uploading..." : "Drag & drop your files here"}
+              {/* {isUploading ? "Uploading..." : "Drag & drop your files here"}
             </span>
             <span className="block text-gray-400 font-normal mt-1">
-              {isUploading ? "" : "or click to upload"}
+              {isUploading ? "" : "or click to upload"} */}
+              {/* upload your image here */}
             </span>
           </div>
           <input
-            className="h-full w-full opacity-0 cursor-pointer"
+            className="h-full w-full bg-red-500 opacity-0 cursor-pointer relative z-10"
             type="file"
             onChange={handleFileChange}
           />

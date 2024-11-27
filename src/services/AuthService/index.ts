@@ -52,13 +52,16 @@ export const reGenerateNewAccessToken = async () => {
       throw new Error("No refresh token found");
     }
 
-    const res = await fetch(`http://localhost:5000/api/v1/auth/refresh-token`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${refreshToken}`,
-      },
-    });
+    const res = await fetch(
+      `https://cook-storia-culinary-backend-project.vercel.app/api/v1/auth/refresh-token`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${refreshToken}`,
+        },
+      }
+    );
 
     if (!res.ok) {
       throw new Error("Failed to refresh access token");
