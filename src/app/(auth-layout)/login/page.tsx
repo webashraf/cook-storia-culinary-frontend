@@ -4,7 +4,7 @@ const LoginPage = () => {
   return (
     <div className="flex items-center justify-center h-screen px-5 lg-px-0 ">
       <div
-        className="shadow-2xl shadow-[#95c731]/40 bg-cover bg-center rounded-2xl "
+        className="shadow-2xl shadow-[#95c731]/40 bg-cover bg-center rounded-2xl w-full"
         style={{
           backgroundImage:
             "url('https://images.pexels.com/photos/5785545/pexels-photo-5785545.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",

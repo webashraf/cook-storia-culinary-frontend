@@ -57,7 +57,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center p-10 lg:rounded-2xl bg-black/60">
+    <div className="flex items-center justify-center lg:p-10 p-7 rounded-2xl bg-black/60">
       <form className="space-y-5" onSubmit={handleSubmit(loginUserHandler)}>
         <h2 className="">
           <span className="flex justify-center items-center gap-1 text-xl">
@@ -65,7 +65,6 @@ const Login = () => {
             CookstoriaCulinary
           </span>
         </h2>
-
         <div>
           <Input
             label="Email"
