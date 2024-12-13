@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-async-client-component */
 
 import { Pagination } from "@nextui-org/pagination";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import CardSkeleton from "@/src/components/Shared/Loader/CardSkeleton";
@@ -41,7 +42,6 @@ const RecipePosts = () => {
     <div className="flex flex-col justify-center">
       {isLoading ? (
         <div className="">
-          {" "}
           <CardSkeleton />
         </div>
       ) : (

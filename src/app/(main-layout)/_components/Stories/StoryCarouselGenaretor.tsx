@@ -49,7 +49,6 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [canScrollRight, setCanScrollRight] = React.useState(true);
 
-  console.log(items);
   useEffect(() => {
     if (carouselRef.current) {
       carouselRef.current.scrollLeft = initialScroll;

@@ -6,13 +6,15 @@ import { Link } from "@nextui-org/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { FaUserSecret, FaUserTie } from "react-icons/fa";
 import { IoEyeOff, IoEyeSharp, IoMail } from "react-icons/io5";
+import { LuChefHat } from "react-icons/lu";
 import { MdPassword } from "react-icons/md";
 import { toast } from "sonner";
 
 import { loginUser } from "@/src/services/AuthService";
 
-import { useUser } from "../context/user.provider";
+import { useUser } from "../../../../context/user.provider";
 
 type TLoginFormInputs = {
   email: string;
@@ -34,11 +36,9 @@ const Login = () => {
   const router = useRouter();
   const { user, setIsUserLoading } = useUser();
 
-  const setCredentials = (email: string, password: string) => {
-    reset({ email, password });
-  };
-
-  const loginForm: SubmitHandler<TLoginFormInputs> = async (formData) => {
+  const loginUserHandler: SubmitHandler<TLoginFormInputs> = async (
+    formData
+  ) => {
     try {
       const res = await loginUser(formData);
 
@@ -47,7 +47,7 @@ const Login = () => {
         setLoading(true);
         router.push("/");
         toast.success("Login successful!!");
-        reset(); // Reset only after successful login
+        reset();
       } else {
         toast.error(`Login failed: ${res?.message}`);
       }
@@ -57,38 +57,15 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-[90vh] flex items-center justify-center ">
-      <form
-        className=" border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg p-12 w-[400px] space-y-8"
-        onSubmit={handleSubmit(loginForm)}
-      >
-        <h2 className="text-3xl font-bold text-center text-default-800">
-          Login
+    <div className="flex items-center justify-center p-10 lg:rounded-2xl bg-black/60">
+      <form className="space-y-5" onSubmit={handleSubmit(loginUserHandler)}>
+        <h2 className="">
+          <span className="flex justify-center items-center gap-1 text-xl">
+            <LuChefHat size={22} />
+            CookstoriaCulinary
+          </span>
         </h2>
-        <span className="flex gap-2">
-          <div
-            className=" rounded-lg text-sm p-1 border"
-            onClick={() => setCredentials("ali@gmail.com", "123456")}
-          >
-            User Credentials
-            <span>
-              <br /> email: ali@gmail.com
-              <br />
-              pas: 123456
-            </span>
-          </div>
-          <div
-            className=" rounded-lg text-sm p-1 border"
-            onClick={() => setCredentials("supperadmin@gmail.com", "123456")}
-          >
-            Admin Credentials
-            <span>
-              <br /> email: supperadmin@gmail.com
-              <br />
-              pas: 123456
-            </span>
-          </div>
-        </span>
+
         <div>
           <Input
             label="Email"
@@ -157,6 +134,37 @@ const Login = () => {
         >
           Login
         </Button>
+
+        <div className="flex justify-center gap-5">
+          <Button
+            className=" text-white bg-black hover:bg-gray-800 transition-colors duration-300"
+            color="primary"
+            variant="shadow"
+            onClick={() =>
+              loginUserHandler({
+                email: "user@gmail.com",
+                password: "123456",
+              })
+            }
+          >
+            <FaUserTie />
+            Login As User
+          </Button>
+          <Button
+            className=" text-white bg-black hover:bg-gray-800 transition-colors duration-300"
+            color="primary"
+            variant="shadow"
+            onClick={() =>
+              loginUserHandler({
+                email: "supperadmin@gmail.com",
+                password: "123456",
+              })
+            }
+          >
+            <FaUserSecret />
+            Login As Admin
+          </Button>
+        </div>
 
         <div className="flex justify-between items-center">
           <Link

@@ -9,8 +9,6 @@ const AddStory = ({ setRefacing }: any) => {
   const [isUploading, setIsUploading] = useState(false);
   const { user } = useUser();
 
-  console.log("user", user?.id, process.env.NEXT_PUBLIC_BASE_API);
-
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (user) {
       if (e.target.files && e.target.files.length > 0) {

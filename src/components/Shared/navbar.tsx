@@ -59,17 +59,7 @@ export const Navbar = () => {
         className="sm:hidde fle basis-1/5 sm:basis-full  w-[50%]"
         justify="end"
       >
-        {/* <NavbarItem className="hidden lg:block">{searchInput}</NavbarItem> */}
-        {/* {user && (
-          <NavbarItem className="sm:hidde flex gap-2">
-            <CSBadge>
-              <AiFillMessage className="text-default-600" size={16} />
-            </CSBadge>
-            <CSBadge>
-              <RiNotification3Fill className="text-default-600" size={16} />
-            </CSBadge>
-          </NavbarItem>
-        )} */}
+
         <NavbarItem className="flex gap-3 justify-end items-center h-full">
           <ThemeSwitch />
           <CSProfileDropDown />
