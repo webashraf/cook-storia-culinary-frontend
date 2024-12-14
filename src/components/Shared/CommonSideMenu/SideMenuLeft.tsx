@@ -11,7 +11,6 @@ import { IoInformationCircle } from "react-icons/io5";
 import { LuBookOpen, LuHome } from "react-icons/lu";
 import { MdOutlineDashboard, MdWorkspacePremium } from "react-icons/md";
 
-import UserCard from "@/src/app/(main-layout)/_components/UserCard/UserCard";
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 
@@ -221,7 +220,7 @@ const SideMenu = () => {
           </div>
         )}
       </div>
-
+      {/* 
       {currentUser && (
         <ScrollShadow
           hideScrollBar
@@ -237,7 +236,7 @@ const SideMenu = () => {
             ))}
           </div>
         </ScrollShadow>
-      )}
+      )} */}
     </ScrollShadow>
   );
 };

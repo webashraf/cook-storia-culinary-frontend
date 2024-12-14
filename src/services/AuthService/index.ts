@@ -94,3 +94,13 @@ export const getNewAccessToken = async () => {
     throw new Error("Failed to get new access token");
   }
 };
+
+export const getAllUser = async () => {
+  try {
+    const { data } = await nexiosInstance.get("/auth/user");
+
+    return data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};

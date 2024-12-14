@@ -12,6 +12,8 @@ import SideMenu from "@/src/components/Shared/CommonSideMenu/SideMenuLeft";
 
 import { ReactNode } from "react";
 
+import SideMenuRight from "@/src/components/Shared/CommonSideMenu/SideMenuRight";
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -56,6 +58,9 @@ export default function MainLayout({ children }: { children: ReactNode }) {
               >
                 {children}
               </ScrollShadow>
+              <div className="lg:w-[30%] lg:block hidden">
+                <SideMenuRight />
+              </div>
             </div>
           </div>
         </>

@@ -45,7 +45,7 @@ const RecipePosts = () => {
           <CardSkeleton />
         </div>
       ) : (
-        <div className="grid lg:grid-cols-2 items-center justify-center gap-5 px-5 lg:mx-5 mx-0">
+        <div className="grid lg:grid-cols-1 items-center justify-center gap-5 px-5 lg:mx-5 mx-0">
           {recipes?.map((recipe: any) => (
             <div key={recipe?._id} className="lg:w-[48%]">
               <PostCard recipe={recipe} />
