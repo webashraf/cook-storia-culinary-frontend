@@ -46,22 +46,16 @@ const AddStory = ({ setRefacing }: any) => {
   return (
     <div className="md:flex w-full h-full">
       <div className="w-full h-full flex items-center">
-        <div className="relative px-5 mx-5 h-full min-w-[150px] min-h-[150px] max-h-[150px] max-w-[150px] rounded-full border-2 border-slate-200 bg-default-50 flex justify-center items-center shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+        <div className="relative px-5 mx-5 h-full min-w-[100px] min-h-[100px] max-h-[110px] max-w-[110px] rounded-full border-2 border-slate-200 bg-default-50 flex justify-center items-center shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
           <div className="absolute flex flex-col items-center">
             <Image
               alt="File Icon"
               className="mb-3"
-              height={70}
+              height={50}
               src="https://res.cloudinary.com/da5dhxzen/image/upload/v1731992298/image-_ctitmd.png"
-              width={70}
+              width={50}
             />
-            <span className="block text-gray-500 font-semibold">
-              {/* {isUploading ? "Uploading..." : "Drag & drop your files here"}
-            </span>
-            <span className="block text-gray-400 font-normal mt-1">
-              {isUploading ? "" : "or click to upload"} */}
-              {/* upload your image here */}
-            </span>
+            <span className="block text-gray-500 font-semibold" />
           </div>
           <input
             className="h-full w-full bg-red-500 opacity-0 cursor-pointer relative z-10"

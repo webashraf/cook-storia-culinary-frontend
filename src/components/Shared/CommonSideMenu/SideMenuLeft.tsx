@@ -148,7 +148,9 @@ const SideMenu = () => {
               src={currentUser?.photo}
             />
             <div className="relative">
-              <h4 className="uppercase">{currentUser?.name}</h4>
+              <Link href="/user">
+                <h4 className="uppercase">{currentUser?.name}</h4>
+              </Link>
               {currentUser.isPremium ? (
                 <span className="text-warning inline-block text-[12px] md:text-[14px] font-bold border border-warning rounded-full px-2 py-0.5 shadow-md">
                   Pro User

@@ -57,8 +57,11 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center lg:p-10 p-7 rounded-2xl bg-black/60">
-      <form className="space-y-5" onSubmit={handleSubmit(loginUserHandler)}>
+    <div className="flex items-center justify-center lg:p-10 p-5 rounded-2xl bg-black/60 w-full">
+      <form
+        className="space-y-5 w-full"
+        onSubmit={handleSubmit(loginUserHandler)}
+      >
         <h2 className="">
           <span className="flex justify-center items-center gap-1 text-xl">
             <LuChefHat size={22} />
@@ -76,7 +79,7 @@ const Login = () => {
                 message: "Enter a valid email address",
               },
             })}
-            className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
+            className="border-gray-300 rounded-lg focus:border-black focus:ring-2  focus:ring-black"
             placeholder="you@example.com"
             startContent={
               <IoMail className="text-2xl text-gray-600 pointer-events-none flex-shrink-0" />

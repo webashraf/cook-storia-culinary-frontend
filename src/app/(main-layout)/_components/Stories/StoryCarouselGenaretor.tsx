@@ -269,7 +269,7 @@ export const Card = ({
         )}
       </AnimatePresence>
       <motion.button
-        className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-80 w-56 md:h-[20rem] md:w- overflow-hidden flex flex-col items-start justify-start relative z-10"
+        className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-64 w-44 md:h-[15rem] md:w- overflow-hidden flex flex-col items-start justify-start relative z-10"
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}
       >
