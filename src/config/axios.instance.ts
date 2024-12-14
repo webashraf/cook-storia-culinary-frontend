@@ -39,7 +39,6 @@ axiosInstance.interceptors.response.use(
 
       config.headers["Authorization"] = accessToken;
       cookies().set("accessToken", accessToken);
-      console.log("Access token", accessToken);
 
       return axiosInstance(config);
     } else {

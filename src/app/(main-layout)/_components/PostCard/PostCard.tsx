@@ -11,7 +11,7 @@ const PostCard = ({ recipe }: any) => {
     <>
       <div className="min-h-[400px] lg:w-[750px] mx-auto w-full sm:w-full md:w-[600px]  mx-aut border border-default-300 p-5 rounded-md  shadow-xl shadow-primary-100 overflow-hidden transition ease-in-out duration-300 transform hover:shadow-2xl ">
         <div className="flex gap- flex-col w-full">
-          <div className="flex items-center gap-5">
+          <div className="flex lg:items-center lg:flex-row flex-col gap-5 lg:mb-0 pb-3">
             <div className="space-y-3 bg-whit lg:w-1/2">
               <User
                 avatarProps={{
@@ -79,7 +79,7 @@ const PostCard = ({ recipe }: any) => {
 
               <div className="flex items-center w-full justify-between mt-10 gap-5" />
             </div>
-            <div className=" mt-5 lg:w-1/2 md:w-full w-full space-y-3">
+            <div className="lg:w-1/2 md:w-full w-full space-y-3">
               <Image
                 alt="NextUI hero Image with delay"
                 className="w-ful"

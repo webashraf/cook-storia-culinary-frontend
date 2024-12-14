@@ -23,7 +23,6 @@ const RecipeFilter = ({
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const onFilterSubmit = (data: Record<string, any>) => {
-    console.log("filter data", data);
     const queryString = Object.keys(data)
       .filter(
         (key) =>
@@ -45,7 +44,6 @@ const RecipeFilter = ({
       })
       .join("&");
 
-    console.log("filter data", data, queryString);
     setQuerySearchFilter(queryString);
     // resetFilter();
   };
