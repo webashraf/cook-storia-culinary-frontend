@@ -2,7 +2,6 @@
 /* eslint-disable @next/next/no-async-client-component */
 
 import { Pagination } from "@nextui-org/pagination";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import CardSkeleton from "@/src/components/Shared/Loader/CardSkeleton";
@@ -47,7 +46,7 @@ const RecipePosts = () => {
       ) : (
         <div className="grid lg:grid-cols-1 items-center justify-center gap-5 px-5 lg:mx-5 mx-0">
           {recipes?.map((recipe: any) => (
-            <div key={recipe?._id} className="lg:w-[48%]">
+            <div key={recipe?._id} className="">
               <PostCard recipe={recipe} />
             </div>
           ))}

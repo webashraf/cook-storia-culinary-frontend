@@ -12,7 +12,7 @@ const LoginPage = async () => {
   console.log(user);
 
   return (
-    <div className="flex items-center justify-center h-screen px-5 lg-px-0 w-[1280px] mx-auto">
+    <div className="flex items-center justify-center h-screen px-5 lg-px-0 lg:w-[1280px] mx-auto">
       <div
         className="shadow-2xl shadow-[#95c731]/40 bg-cover bg-center rounded-2xl w-full"
         style={{
@@ -29,7 +29,7 @@ const LoginPage = async () => {
               Share Your Creations, Explore New Recipes, and Inspire Culinary
               Adventures!
             </p>
-            <ul className="text-left">
+            <ul className="text-left text-sm">
               <li className="flex items-center gap-2">
                 <FaCheckToSlot color="#90bf2f" />
                 World class recipe.
@@ -64,7 +64,7 @@ const LoginPage = async () => {
               </li>
             </ul>
           </div>
-          <div className="lg:w-1/2">
+          <div className="lg:w-1/2 w-full">
             <Login />
           </div>
         </div>

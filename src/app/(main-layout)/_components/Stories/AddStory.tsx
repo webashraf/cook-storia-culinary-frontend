@@ -44,26 +44,22 @@ const AddStory = ({ setRefacing }: any) => {
   };
 
   return (
-    <div className="md:flex w-full h-full">
-      <div className="w-full h-full flex items-center">
-        <div className="relative px-5 mx-5 h-full lg:min-w-[100px] lg:min-h-[100px] lg:max-h-[110px] lg:max-w-[110px] min-w-[80px] min-h-[80px] max-h-[80px] max-w-[80px] rounded-full border-2 border-slate-200 bg-default-50 flex justify-center items-center shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
-          <div className="absolute flex flex-col items-center">
-            <Image
-              alt="File Icon"
-              className="lg:mb-3"
-              height={50}
-              src="https://res.cloudinary.com/da5dhxzen/image/upload/v1731992298/image-_ctitmd.png"
-              width={50}
-            />
-            <span className="block text-gray-500 font-semibold" />
-          </div>
-          <input
-            className="h-full w-full bg-red-500 opacity-0 cursor-pointer relative z-10"
-            type="file"
-            onChange={handleFileChange}
-          />
-        </div>
+    <div className="parent-div size-10 flex items-center justify-center bg-white rounded-full transition-transform duration-300 hover:scale-110">
+      <div className="absolute flex flex-col items-center">
+        <Image
+          alt="File Icon"
+          className=""
+          height={20}
+          src="https://res.cloudinary.com/da5dhxzen/image/upload/v1731992298/image-_ctitmd.png"
+          width={20}
+        />
+        <span className="block text-gray-500 font-semibold" />
       </div>
+      <input
+        className="h-full w-full bg-red-500 opacity-0 cursor-pointer relative z-10"
+        type="file"
+        onChange={handleFileChange}
+      />
     </div>
   );
 };

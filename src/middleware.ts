@@ -17,15 +17,10 @@ export async function middleware(request: NextRequest) {
 
   const user = await getCurrentUser();
 
-  console.log("PathName", pathname);
   if (!user) {
     if (AuthRoutes.includes(pathname)) {
-      console.log("login route");
-
       return NextResponse.next();
     } else if (pathname == "/") {
-      console.log("home to login");
-
       return NextResponse.redirect(new URL("/login", request.url));
     }
   }

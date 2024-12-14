@@ -59,13 +59,12 @@ export function StoryCarousel() {
   ));
 
   return (
-    <div className="w-full overflow-hidden h-auto pb-5 flex flex-row">
-      {user && (
-        <div className="">
-          <AddStory setRefacing={setRefacing} />
-        </div>
-      )}
-      <div className={`${user ? "lg:w-[80%] w-full" : "w-full"}`}>
+    <div className="w-full overflow-hidden h-auto pb-5 flex flex-row relative">
+      <div className="absolute z-50 bottom-5 left-5">
+        <AddStory setRefacing={setRefacing} />
+      </div>
+
+      <div className="w-full">
         <Carousel items={cards} />
       </div>
     </div>

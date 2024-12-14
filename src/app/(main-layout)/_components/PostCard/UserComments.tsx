@@ -14,7 +14,6 @@ import nexiosInstance from "@/src/config/nexios.instance";
 import { getCurrentUser } from "@/src/services/AuthService";
 import { fetchComments } from "@/src/services/RecipeService";
 import { IOpinions } from "@/src/types";
-import "./userComments.css";
 
 export default function UserComments({
   postId,

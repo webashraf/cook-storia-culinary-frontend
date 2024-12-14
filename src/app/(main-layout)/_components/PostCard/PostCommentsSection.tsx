@@ -77,27 +77,6 @@ const PostCommentsSection = ({ postId, isPremium }: IProps) => {
     }
   };
 
-  const calculateAverageRating = () => {
-    if (
-      !commentsData ||
-      !commentsData?.data ||
-      commentsData?.data.length === 0
-    ) {
-      return 0;
-    }
-
-    const totalRatings = commentsData?.data.reduce(
-      (total: number, comment: any) => total + (comment?.rate || 0),
-      0
-    );
-
-    const ratingsCount = commentsData?.data.filter(
-      (comment: any) => comment?.rate
-    ).length;
-
-    return ratingsCount > 0 ? (totalRatings / ratingsCount).toFixed(1) : 0;
-  };
-
   if (!currentUser) {
     return (
       <div className="mt-5">
@@ -108,9 +87,6 @@ const PostCommentsSection = ({ postId, isPremium }: IProps) => {
 
   return (
     <div className="relative">
-      <p className="text-[12px] mt-1 pt-3">
-        Average Rating: {calculateAverageRating()} ⭐
-      </p>
       <VotingViewRecipe isPremium={isPremium} postId={postId} />
       <form
         className="flex w-full gap-2 pt-2"
