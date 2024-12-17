@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
+import StorySkeleton from "@/src/components/Shared/Loader/StorySkeleton";
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 import { IStoryReels } from "@/src/types";
@@ -48,19 +49,19 @@ export function StoryCarousel() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-96">
-        <div className="loader" />
+      <div className="">
+        <StorySkeleton />
       </div>
     );
   }
 
   const cards = storyData.map((card, index) => (
-    <Card key={card?._id} card={card} index={index} />
+    <Card key={card?._id + index} card={card} index={index} />
   ));
 
   return (
     <div className="w-full overflow-hidden h-auto pb-5 flex flex-row relative">
-      <div className="absolute z-50 bottom-5 left-5">
+      <div className="absolute z-20 bottom-5 left-5">
         <AddStory setRefacing={setRefacing} />
       </div>
 

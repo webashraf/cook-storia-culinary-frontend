@@ -9,7 +9,7 @@ import RecipeRatings from "./RecipeRatings";
 const PostCard = ({ recipe }: any) => {
   return (
     <>
-      <div className="min-h-[400px] lg:w-[750px] mx-auto w-full sm:w-full md:w-[600px]  mx-aut border border-default-300 p-5 rounded-md  shadow-xl shadow-primary-100 overflow-hidden transition ease-in-out duration-300 transform hover:shadow-2xl ">
+      <div className="min-h-[400px] lg:min-w-full mx-auto w-full sm:w-full md:w-[600px]  mx-aut border border-default-300 p-5 rounded-md  shadow-xl shadow-primary-100 overflow-hidden transition ease-in-out duration-300 transform hover:shadow-2xl ">
         <div className="flex gap- flex-col w-full">
           <div className="flex lg:items-center lg:flex-row flex-col gap-5 lg:mb-0 pb-3">
             <div className="space-y-3 bg-whit lg:w-1/2">

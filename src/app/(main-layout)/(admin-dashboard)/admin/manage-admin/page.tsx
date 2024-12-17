@@ -68,7 +68,7 @@ export default function AdminManageAdminAccounts() {
     if ((visibleColumns as any) === "all") return columns;
 
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.uid)
+      Array.from(visibleColumns).includes(column?.uid)
     );
   }, [visibleColumns]);
 
@@ -297,9 +297,9 @@ export default function AdminManageAdminAccounts() {
                 selectionMode="multiple"
                 onSelectionChange={setVisibleColumns as any}
               >
-                {columns?.map((column) => (
-                  <DropdownItem key={column.uid} className="capitalize">
-                    {capitalize(column.name)}
+                {columns?.map((column, i) => (
+                  <DropdownItem key={column?.uid + i} className="capitalize">
+                    {capitalize(column?.name)}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
@@ -393,17 +393,17 @@ export default function AdminManageAdminAccounts() {
       <TableHeader columns={headerColumns}>
         {(column) => (
           <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
+            key={column?.uid}
+            align={column?.uid === "actions" ? "center" : "start"}
             allowsSorting={column?.sortable}
           >
-            {column.name}
+            {column?.name}
           </TableColumn>
         )}
       </TableHeader>
       <TableBody emptyContent={"No users found"} items={sortedItems}>
         {(item) => (
-          <TableRow key={item._id}>
+          <TableRow key={item?._id}>
             {(columnKey) => (
               <TableCell>{renderCell(item, columnKey)}</TableCell>
             )}

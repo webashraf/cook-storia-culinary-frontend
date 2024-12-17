@@ -6,21 +6,42 @@ import { toast } from "sonner";
 
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
+import { IUser } from "@/src/types";
 
 import FollowersModal from "./Followers";
 
-const ProfileHeader = () => {
-  const { user } = useUser();
-  // const [loading, setLoading] = useState(true);
+type userId =
+  | {
+      id: string;
+    }
+  | any;
+const ProfileHeader = ({ userId }: userId) => {
+  const { user: currentUser } = useUser();
+  let user;
+
+  user = userId || currentUser;
+
   const [totalRecipes, setTotalRecipes] = useState<number>(0);
   const [myFollows, setMyFollows] = useState<number>(0);
   const [myFollowers, setMyFollower] = useState<number>(0);
   const [allFollows, setAllFollows] = useState<any>(null);
   const [allFollowers, setSetAllFollowers] = useState<any>(null);
+  const [singleUser, setSingleUser] = useState<IUser>();
+
+  console.log("Single User State : ", singleUser);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        // Fetch single user data
+        const { data: singleUser }: any = await nexiosInstance.get(
+          `/auth/user/${userId.id}`
+        );
+
+        console.log("SINGLE USER :", userId.id, singleUser);
+        if (singleUser?.success) {
+          setSingleUser(singleUser.data);
+        }
         // Fetching user recipes
         const { data: recipeData }: any = await nexiosInstance.get(
           `/recipe?user=${user?.id}`
@@ -102,20 +123,22 @@ const ProfileHeader = () => {
             isBordered
             className="w-20 h-20 text-large"
             radius="sm"
-            src={`${user?.photo}`}
+            src={`${user?.photo || singleUser?.profilePicture}`}
           />
 
           <div className="ml-6">
             <div className="flex  items-center gap-2">
               <h1 className="text-2xl font-bold dark:text-white">
-                {user?.name}
+                {user?.name || singleUser?.username}
                 {user?.isPremium ? (
                   <span className="ml-2 text-warning inline-block text-[12px] md:text-[14px] font-bold  px-1 shadow-md rounded-sm">
                     Pro
                   </span>
                 ) : (
                   <span className="text-sm text-default-400">
-                    {user?.role == "user" ? "Basic User" : user?.role}
+                    {(user?.role || singleUser?.role) == "user"
+                      ? "Basic User"
+                      : user?.role || singleUser?.role}
                   </span>
                 )}
               </h1>{" "}
@@ -125,13 +148,9 @@ const ProfileHeader = () => {
                 <strong className="font-bold text-black dark:text-white">
                   {totalRecipes}
                 </strong>{" "}
-                posts
+                Total Recipe
               </span>
               <span>
-                {/* <strong className="font-bold text-black dark:text-white">
-                  {myFollowers}
-                </strong>{" "}
-                followers */}
                 <FollowersModal allFollowers={allFollowers} />
               </span>
               <span>

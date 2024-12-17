@@ -2,7 +2,8 @@
 
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
-import { Card, CardFooter, CardHeader } from "@nextui-org/card";
+import { Card, CardHeader } from "@nextui-org/card";
+import { Link } from "@nextui-org/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -49,8 +50,9 @@ export default function UserCard({ user, logedInUser }: any) {
         followOptions
       );
 
-      setIsFollowedUser(true);
+      console.log("Follow", data);
       if (data?.success) {
+        setIsFollowedUser(true);
         setRefetching(!refetching);
         toast.success("Followed");
         setFollowOfUser((prev) => {
@@ -77,8 +79,8 @@ export default function UserCard({ user, logedInUser }: any) {
         followOptions
       );
 
-      setIsFollowedUser(false);
-      if (data.success) {
+      if (data?.success) {
+        setIsFollowedUser(false);
         setRefetching(!refetching);
         toast.success("Successfully unfollow");
         setFollowOfUser((prev) =>
@@ -101,10 +103,21 @@ export default function UserCard({ user, logedInUser }: any) {
             size="md"
             src={user?.profilePicture}
           />
-          <div className="flex flex-col gap-1 items-start justify-center">
-            <h4 className="text-small font-semibold leading-none text-default-600">
-              {user?.username}
-            </h4>
+          <div className="">
+            <div className="flex flex-col gap-1 items-start justify-center mb-1">
+              <Link
+                className="text-small font-semibold leading-none text-default-600"
+                href={`/user/${user._id}`}
+              >
+                {user?.username.slice(0, 10)}
+              </Link>
+            </div>
+            <div className="flex gap-1">
+              <p className="font-semibold text-default-400 text-xs">
+                {followOfUser.length}
+              </p>
+              <p className="text-default-400 text-xs">Followers</p>
+            </div>
           </div>
         </div>
         {isFollowed || isFollowedUser ? (
@@ -135,15 +148,6 @@ export default function UserCard({ user, logedInUser }: any) {
           </Button>
         )}
       </CardHeader>
-
-      <CardFooter className="gap-3">
-        <div className="flex gap-3">
-          <p className="font-semibold text-default-400 text-small">
-            {followOfUser.length}
-          </p>
-          <p className="text-default-400 text-small">Followers</p>
-        </div>
-      </CardFooter>
     </Card>
   );
 }

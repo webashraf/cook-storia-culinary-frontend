@@ -80,7 +80,7 @@ const RecipeFeed = () => {
   }, [querySearchFilter]);
 
   if (!recipeData) {
-    return <CardSkeleton />;
+    return <CardSkeleton count={4} />;
   }
 
   return (
@@ -140,8 +140,8 @@ const RecipeFeed = () => {
               }
               pageStart={0}
             >
-              {recipeData?.map((recipe: any) => (
-                <PostCard key={recipe._id} recipe={recipe} />
+              {recipeData?.map((recipe: any, i) => (
+                <PostCard key={recipe._id + i} recipe={recipe} />
               ))}
             </InfiniteScroll>
           </div>

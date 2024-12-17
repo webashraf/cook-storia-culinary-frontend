@@ -9,10 +9,16 @@ import { useUser } from "@/src/context/user.provider";
 
 import PostCardProfile from "../../../_components/PostCard/PostCardProfile";
 
-const ProfilePosts = () => {
+type userId =
+  | {
+      id: string;
+    }
+  | any;
+const ProfilePosts = ({ userId }: userId) => {
   const [recipes, setRecipes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const { user: currentUser } = useUser();
+  const { user } = useUser();
+  let currentUser = userId || user;
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -40,14 +46,14 @@ const ProfilePosts = () => {
   return (
     <div className="pt-5 w-full">
       {loading ? (
-        <CardSkeleton />
+        <CardSkeleton count={4} />
       ) : (
         <div>
           <h2 className="mb-3">My Post</h2>
           <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
             {recipes.length > 0 ? (
-              recipes?.map((post: any) => (
-                <PostCardProfile key={post?._id} recipe={post} />
+              recipes?.map((post: any, i) => (
+                <PostCardProfile key={post?._id + i} recipe={post} />
               ))
             ) : (
               <p>No recipes found.</p>

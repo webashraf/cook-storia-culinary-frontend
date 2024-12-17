@@ -39,12 +39,12 @@ export const Navbar = () => {
 
   return (
     <NextUINavbar
-      className="flex justify-between overflow-hidden"
+      className="flex relative z-50 justify-between overflow-hidden"
       maxWidth="2xl"
       position="sticky"
     >
       <NavbarContent
-        className="basis-1/5 sm:basis-full p-0  w-[50%]"
+        className="basis-1/5 sm:basis-full p-0 w-[50%]"
         justify="start"
       >
         <NavbarBrand as="li" className="gap-3 max-w-fit">
@@ -59,7 +59,6 @@ export const Navbar = () => {
         className="sm:hidde fle basis-1/5 sm:basis-full  w-[50%]"
         justify="end"
       >
-
         <NavbarItem className="flex gap-3 justify-end items-center h-full">
           <ThemeSwitch />
           <CSProfileDropDown />

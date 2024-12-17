@@ -170,8 +170,8 @@ const SideMenu = () => {
         {/* all User Navs */}
         {!currentUser && (
           <div className="mt-10 flex flex-col gap-2">
-            {allUserNavs.map((page) => (
-              <div key={page.href}>
+            {allUserNavs.map((page, i) => (
+              <div key={page.href + i}>
                 <Link className="text-default-600" href={page.href}>
                   <span
                     className={`flex items-center text-default-800 text-left p-2 rounded-md ${pathname === page.href ? " bg-primary text-default-100" : ""}`}
@@ -187,8 +187,8 @@ const SideMenu = () => {
         {/* User Navs */}
         {currentUser?.role === "user" && (
           <div className="mt-10 flex flex-col gap-2">
-            {userPages.map((page) => (
-              <div key={page.href}>
+            {userPages.map((page, i) => (
+              <div key={page.href + i}>
                 <Link className="text-default-600" href={page.href}>
                   <span
                     className={`flex items-center text-default-800 text-left p-2 rounded-md ${pathname === page.href ? " bg-primary text-default-100" : ""}`}
@@ -205,8 +205,8 @@ const SideMenu = () => {
         {/* Admin navs */}
         {currentUser?.role === "admin" && (
           <div className="mt-10 flex flex-col gap-2">
-            {adminPages.map((page) => (
-              <div key={page.href}>
+            {adminPages.map((page, i) => (
+              <div key={page.href + i}>
                 <Link className="text-default-600" href={page.href}>
                   <span
                     className={`flex items-center text-default-800 text-left p-2 rounded-md ${pathname === page.href ? " bg-primary text-default-100" : ""}`}
@@ -220,23 +220,6 @@ const SideMenu = () => {
           </div>
         )}
       </div>
-      {/* 
-      {currentUser && (
-        <ScrollShadow
-          hideScrollBar
-          className="w-[300px] h-[40vh] overflow-y-scroll"
-        >
-          <div className="flex flex-col gap-3   mt-10">
-            {allUser?.data?.map((user: any) => (
-              <div key={user?._id}>
-                {user?._id !== currentUser?.id && (
-                  <UserCard logedInUser={currentUser} user={user} />
-                )}
-              </div>
-            ))}
-          </div>
-        </ScrollShadow>
-      )} */}
     </ScrollShadow>
   );
 };

@@ -6,7 +6,7 @@ import nexiosInstance from "@/src/config/nexios.instance";
 
 export const getRecipes = async (limit: number, page: number) => {
   const res = await fetch(
-    `https://cook-storia-culinary-backend-project.vercel.app/api/v1/recipe?isDeleted=false&status=publish&limit=${limit}&page=${page}`,
+    `${process.env.NEXT_PUBLIC_BASE_API}/recipe?isDeleted=false&status=publish&limit=${limit}&page=${page}`,
     {
       next: {
         tags: ["recipes"],

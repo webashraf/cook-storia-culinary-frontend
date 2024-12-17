@@ -105,9 +105,9 @@ const RecipeDetailsPage = ({ params }: { params: { id: string } }) => {
           <div className="flex items-center gap-0">
             <h2>Give ratings: &nbsp;</h2>
             {Array.from({ length: 5 }, (_, index) => index + 1).map(
-              (rating) => (
+              (rating, i) => (
                 <Button
-                  key={rating}
+                  key={rating + i}
                   isIconOnly
                   className="rounded-none text-xl"
                   onClick={() => handleRating(rating)}

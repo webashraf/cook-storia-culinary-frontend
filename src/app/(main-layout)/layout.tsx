@@ -37,7 +37,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
     <div className="">
       <div
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased max-w-[1500px] mx-auto",
+          "min-h-screen bg-background font-sans antialiased max-w-[1420px] mx-auto",
           fontSans.variable
         )}
       >
@@ -58,7 +58,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
               >
                 {children}
               </ScrollShadow>
-              <div className="lg:w-[30%] lg:block hidden">
+              <div className="lg:w-[20%] lg:block hidden ml-10 ">
                 <SideMenuRight />
               </div>
             </div>

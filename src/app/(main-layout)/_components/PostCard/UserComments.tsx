@@ -106,9 +106,9 @@ export default function UserComments({
         <Accordion selectionMode="multiple" style={{ padding: 0 }}>
           {commentsData?.data
             ?.filter((comment: any) => comment.comments)
-            .map((comment: any) => (
+            .map((comment: any, i: number) => (
               <AccordionItem
-                key={comment?._id}
+                key={comment?._id + i}
                 aria-label={comment?.userId?._id}
                 startContent={
                   <Avatar

@@ -54,8 +54,8 @@ const PremiumInfo = () => {
         Premium Features
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {premiumInfo.map((info) => (
-          <div key={info.id} className="bg-white p-4 rounded-lg shadow">
+        {premiumInfo.map((info, i) => (
+          <div key={info.id + i} className="bg-white p-4 rounded-lg shadow">
             <h2 className="text-lg md:text-xl text-black font-semibold">
               {info.feature}
             </h2>

@@ -41,7 +41,7 @@ const RecipePosts = () => {
     <div className="flex flex-col justify-center">
       {isLoading ? (
         <div className="">
-          <CardSkeleton />
+          <CardSkeleton count={4} />
         </div>
       ) : (
         <div className="grid lg:grid-cols-1 items-center justify-center gap-5 px-5 lg:mx-5 mx-0">

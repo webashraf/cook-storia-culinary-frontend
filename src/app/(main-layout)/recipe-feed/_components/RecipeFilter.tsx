@@ -94,53 +94,55 @@ const RecipeFilter = ({
                     <div className="space-y-3 w-full">
                       <h4 className="capitalize">Filter by time</h4>
                       <div className="flex flex-col gap-5">
-                        {["cookingTime", "preparationTime"].map((item: any) => (
-                          <Controller
-                            key={item}
-                            control={filterControl}
-                            name={item}
-                            render={({ field }) => (
-                              <Slider
-                                {...field}
-                                className="max-w-md"
-                                defaultValue={0.2}
-                                formatOptions={{ style: "decimal" }}
-                                label={item}
-                                marks={[
-                                  {
-                                    value: 10,
-                                    label: "10m",
-                                  },
-                                  {
-                                    value: 20,
-                                    label: "20m",
-                                  },
-                                  {
-                                    value: 30,
-                                    label: "30m",
-                                  },
-                                  {
-                                    value: 40,
-                                    label: "40m",
-                                  },
-                                  {
-                                    value: 50,
-                                    label: "50m",
-                                  },
-                                  {
-                                    value: 60,
-                                    label: "60m",
-                                  },
-                                ]}
-                                maxValue={60}
-                                minValue={0}
-                                showTooltip={true}
-                                size="sm"
-                                step={5}
-                              />
-                            )}
-                          />
-                        ))}
+                        {["cookingTime", "preparationTime"].map(
+                          (item: any, i: number) => (
+                            <Controller
+                              key={item + i}
+                              control={filterControl}
+                              name={item}
+                              render={({ field }) => (
+                                <Slider
+                                  {...field}
+                                  className="max-w-md"
+                                  defaultValue={0.2}
+                                  formatOptions={{ style: "decimal" }}
+                                  label={item}
+                                  marks={[
+                                    {
+                                      value: 10,
+                                      label: "10m",
+                                    },
+                                    {
+                                      value: 20,
+                                      label: "20m",
+                                    },
+                                    {
+                                      value: 30,
+                                      label: "30m",
+                                    },
+                                    {
+                                      value: 40,
+                                      label: "40m",
+                                    },
+                                    {
+                                      value: 50,
+                                      label: "50m",
+                                    },
+                                    {
+                                      value: 60,
+                                      label: "60m",
+                                    },
+                                  ]}
+                                  maxValue={60}
+                                  minValue={0}
+                                  showTooltip={true}
+                                  size="sm"
+                                  step={5}
+                                />
+                              )}
+                            />
+                          )
+                        )}
                       </div>
                     </div>
 
@@ -158,8 +160,8 @@ const RecipeFilter = ({
                                 label="Filter by category"
                                 selectionMode="multiple"
                               >
-                                {recipeCategories.map((item) => (
-                                  <SelectItem key={item}>{item}</SelectItem>
+                                {recipeCategories.map((item, i) => (
+                                  <SelectItem key={item + i}>{item}</SelectItem>
                                 ))}
                               </Select>
                             )}
@@ -179,8 +181,8 @@ const RecipeFilter = ({
                                 selectionMode="multiple"
                                 onChange={field.onChange}
                               >
-                                {recipeCuisines.map((item) => (
-                                  <SelectItem key={item}>{item}</SelectItem>
+                                {recipeCuisines.map((item, i) => (
+                                  <SelectItem key={item + i}>{item}</SelectItem>
                                 ))}
                               </Select>
                             )}
@@ -199,8 +201,8 @@ const RecipeFilter = ({
                                 selectionMode="multiple"
                                 onChange={field.onChange}
                               >
-                                {recipeTags.map((item) => (
-                                  <SelectItem key={item}>{item}</SelectItem>
+                                {recipeTags.map((item, i) => (
+                                  <SelectItem key={item + i}>{item}</SelectItem>
                                 ))}
                               </Select>
                             )}

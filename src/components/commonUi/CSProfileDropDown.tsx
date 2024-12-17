@@ -37,7 +37,7 @@ export default function CSProfileDropDown() {
           <p className="font-bold">{currentUser?.email}</p>
         </>
       ),
-      action: null,
+      action: () => router.push("/user"),
       className: "h-14 gap-2",
     },
     {
@@ -74,6 +74,11 @@ export default function CSProfileDropDown() {
       key: "recipe_feed",
       content: "Recipe Feed",
       action: () => router.push("/recipe-feed"),
+    },
+    {
+      key: "get_membership",
+      content: "Get Membership",
+      action: () => router.push("/user/membership"),
     },
     {
       key: "logout",
@@ -155,8 +160,8 @@ export default function CSProfileDropDown() {
         )}
         {currentUser?.role === "user" && (
           <DropdownMenu aria-label="User Actions" variant="flat">
-            {userPages.map(({ key, content, action }: any) => (
-              <DropdownItem key={key} textValue={key} onClick={action}>
+            {userPages?.map(({ key, content, action }: any, i) => (
+              <DropdownItem key={key + i} textValue={key} onClick={action}>
                 {content}
               </DropdownItem>
             ))}
@@ -164,8 +169,8 @@ export default function CSProfileDropDown() {
         )}
         {currentUser?.role === "admin" && (
           <DropdownMenu aria-label="User Actions" variant="flat">
-            {adminPages.map(({ key, content, action }: any) => (
-              <DropdownItem key={key} textValue={key} onClick={action}>
+            {adminPages.map(({ key, content, action }: any, i) => (
+              <DropdownItem key={key + i} textValue={key} onClick={action}>
                 {content}
               </DropdownItem>
             ))}

@@ -209,8 +209,8 @@ const CreateRecipe = () => {
                   selectionMode="single"
                   onChange={field.onChange}
                 >
-                  {timeMinutes.map((time) => (
-                    <SelectItem key={time} value={time}>
+                  {timeMinutes.map((time, i) => (
+                    <SelectItem key={time + i} value={time}>
                       {time}
                     </SelectItem>
                   ))}
@@ -239,8 +239,8 @@ const CreateRecipe = () => {
                   // selectionMode="single"
                   onChange={field.onChange}
                 >
-                  {timeMinutes.map((time) => (
-                    <SelectItem key={time} value={time}>
+                  {timeMinutes.map((time, i) => (
+                    <SelectItem key={time + i} value={time}>
                       {time}
                     </SelectItem>
                   ))}
@@ -289,8 +289,8 @@ const CreateRecipe = () => {
                   selectionMode="multiple"
                   onChange={field.onChange}
                 >
-                  {ingredientsArr.map((item) => (
-                    <SelectItem key={item} value={item}>
+                  {ingredientsArr.map((item, i) => (
+                    <SelectItem key={item + i} value={item}>
                       {item}
                     </SelectItem>
                   ))}
@@ -402,8 +402,8 @@ const CreateRecipe = () => {
                 selectionMode="single"
                 onChange={field.onChange}
               >
-                {recipeCategories.map((category) => (
-                  <SelectItem key={category} value={category}>
+                {recipeCategories.map((category, i) => (
+                  <SelectItem key={category + i} value={category}>
                     {category}
                   </SelectItem>
                 ))}
@@ -430,8 +430,8 @@ const CreateRecipe = () => {
                 selectionMode="multiple"
                 onChange={field.onChange}
               >
-                {recipeTags.map((tag) => (
-                  <SelectItem key={tag} value={tag}>
+                {recipeTags.map((tag, i) => (
+                  <SelectItem key={tag + i} value={tag}>
                     {tag}
                   </SelectItem>
                 ))}
@@ -458,8 +458,8 @@ const CreateRecipe = () => {
                 selectionMode="multiple"
                 onChange={field.onChange}
               >
-                {dietaryRestrictions.map((restriction) => (
-                  <SelectItem key={restriction} value={restriction}>
+                {dietaryRestrictions.map((restriction, i) => (
+                  <SelectItem key={restriction + i} value={restriction}>
                     {restriction}
                   </SelectItem>
                 ))}
@@ -485,8 +485,8 @@ const CreateRecipe = () => {
                 selectionMode="single"
                 onChange={field.onChange}
               >
-                {recipeCuisines.map((restriction) => (
-                  <SelectItem key={restriction} value={restriction}>
+                {recipeCuisines.map((restriction, i) => (
+                  <SelectItem key={restriction + i} value={restriction}>
                     {restriction}
                   </SelectItem>
                 ))}

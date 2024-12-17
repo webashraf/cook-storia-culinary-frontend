@@ -3,12 +3,13 @@ import ProfileInfo from "./_components/ProfileInfo";
 import ProfilePosts from "./_components/ProfilePost";
 
 const ProfilePage = () => {
+
   return (
     <div className="min-h-screen ">
       <div className=" mx-auto lg:ml-auto">
-        <ProfileHeader />
+        <ProfileHeader userId={""} />
         <ProfileInfo />
-        <ProfilePosts />
+        <ProfilePosts userId={""} />
       </div>
     </div>
   );

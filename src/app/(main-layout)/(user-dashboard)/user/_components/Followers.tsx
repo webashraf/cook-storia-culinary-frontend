@@ -45,8 +45,8 @@ export default function FollowersModal({ allFollowers }: any) {
                   className="wpb-5 max-h-[50vh] overflow-y-scroll"
                 >
                   <div className="flex flex-col gap-3 ">
-                    {allFollowers?.data?.followers?.map((user: any) => (
-                      <div key={user?._id}>
+                    {allFollowers?.data?.followers?.map((user: any, i: number) => (
+                      <div key={user?._id + i}>
                         {user?._id !== currentUser?.id && (
                           <UserCard logedInUser={currentUser} user={user} />
                         )}

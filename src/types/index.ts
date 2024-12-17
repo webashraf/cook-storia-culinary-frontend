@@ -24,6 +24,24 @@ export interface ILogInUser {
   role: "user" | "admin";
 }
 
+export interface IUser {
+  _id: string;
+  email: string;
+  isDeleted: boolean;
+  isPremium: boolean;
+  needsPasswordChange: boolean;
+  paymentStatus?: {
+    amount: number;
+    success: boolean;
+    transaction: string;
+  };
+  profilePicture: string;
+  role: string;
+  status: string;
+  username: string;
+  __v?: number;
+}
+
 export interface IRecipeFormData {
   title: string;
   ingredients: string[];
