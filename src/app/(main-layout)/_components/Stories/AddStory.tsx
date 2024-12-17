@@ -20,7 +20,7 @@ const AddStory = ({ setRefacing }: any) => {
         try {
           setIsUploading(true);
           const response = await fetch(
-            `https://cook-storia-culinary-backend-project.vercel.app/api/v1/story/create`,
+            `${process.env.NEXT_PUBLIC_BASE_API}/story/create`,
             {
               method: "POST",
               body: formData,

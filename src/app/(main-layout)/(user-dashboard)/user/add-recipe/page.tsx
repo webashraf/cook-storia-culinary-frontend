@@ -106,7 +106,7 @@ const CreateRecipe = () => {
     setupUpdateLoading(true);
     try {
       const response = await fetch(
-        `https://cook-storia-culinary-backend-project.vercel.app/api/v1/recipe/create-recipe`,
+        `${process.env.NEXT_PUBLIC_BASE_API}/recipe/create-recipe`,
         {
           method: "POST",
           body: formData,

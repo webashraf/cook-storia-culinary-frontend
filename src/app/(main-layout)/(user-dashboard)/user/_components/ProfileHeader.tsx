@@ -26,7 +26,7 @@ const ProfileHeader = ({ userId }: userId) => {
   const [myFollowers, setMyFollower] = useState<number>(0);
   const [allFollows, setAllFollows] = useState<any>(null);
   const [allFollowers, setSetAllFollowers] = useState<any>(null);
-  const [singleUser, setSingleUser] = useState<IUser>();
+  const [singleUser, setSingleUser] = useState<IUser | any>({});
 
   console.log("Single User State : ", singleUser);
 
@@ -75,12 +75,11 @@ const ProfileHeader = ({ userId }: userId) => {
                   (item: any) => item._id === user?.id
                 );
 
-                // setAllFollows(currentUserFollows);
                 totalFollows += currentUserFollows.length;
               }
             });
 
-            let totalFollowsArray: any[] = []; // Initialize an empty array to store all follows
+            let totalFollowsArray: any[] = [];
 
             followersDataForFollow?.data?.map((followersObject: any) => {
               if (Array.isArray(followersObject.followers)) {

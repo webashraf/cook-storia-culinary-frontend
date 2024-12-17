@@ -10,6 +10,7 @@ import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 import { fetchComments } from "@/src/services/RecipeService";
 import { IOpinions } from "@/src/types";
+import PostShare from "./PostShare";
 
 interface IProps {
   postId: string;
@@ -115,16 +116,6 @@ const VotingViewRecipe = ({ postId, isPremium }: IProps) => {
                 ? "bg-[#7ba724]"
                 : ""
             }`}
-            // color={
-            //   isDisabledUpVote ||
-            //   commentsData?.data?.find(
-            //     (comment: any) =>
-            //       comment?.userId?._id === currentUser?.id &&
-            //       comment?.upVote === 1
-            //   )
-            //     ? "primary"
-            //     : "default"
-            // }
             disabled={
               loading ||
               isDisabledUpVote ||
@@ -253,6 +244,7 @@ const VotingViewRecipe = ({ postId, isPremium }: IProps) => {
             )}
           </div>
         )}
+        <PostShare id={postId} />
       </div>
     </div>
   );

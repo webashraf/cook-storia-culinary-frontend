@@ -53,7 +53,7 @@ export const reGenerateNewAccessToken = async () => {
     }
 
     const res = await fetch(
-      `https://cook-storia-culinary-backend-project.vercel.app/api/v1/auth/refresh-token`,
+      `${process.env.NEXT_PUBLIC_BASE_API}/auth/refresh-token`,
       {
         method: "POST",
         headers: {

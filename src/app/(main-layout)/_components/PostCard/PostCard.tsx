@@ -1,9 +1,12 @@
+"use client";
+
 import { Chip } from "@nextui-org/chip";
 import { Image } from "@nextui-org/image";
 import { User } from "@nextui-org/user";
 import moment from "moment";
 
 import PostCommentsSection from "./PostCommentsSection";
+import PostShare from "./PostShare";
 import RecipeRatings from "./RecipeRatings";
 
 const PostCard = ({ recipe }: any) => {
