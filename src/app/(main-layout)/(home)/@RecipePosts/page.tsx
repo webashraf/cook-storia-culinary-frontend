@@ -69,7 +69,7 @@ const RecipePosts = () => {
       )}
 
       {/* "See More" Button */}
-      {recipes.length > 0 && (
+      {hasMore && !isLoading && recipes.length > 0 && (
         <Button className="mx-auto mt-5 px-4 py-2" onClick={handleSeeMore}>
           See More
         </Button>
