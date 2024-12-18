@@ -10,13 +10,13 @@ import { GrHome, GrUpdate } from "react-icons/gr";
 import { IoInformationCircle } from "react-icons/io5";
 import { LuBookOpen } from "react-icons/lu";
 import { MdOutlineDashboard, MdWorkspacePremium } from "react-icons/md";
+import { FaUser } from "react-icons/fa6";
 
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
-import { FaUser } from "react-icons/fa6";
 
 const allUserNavs = [
-  // { name: "Home", href: "/", icon: < className="h-5 w-5" /> },
+  { name: "Home", href: "/", icon: <GrHome className="h-5 w-5" /> },
   {
     name: "Recipe Feed",
     href: "/recipe-feed",
@@ -140,14 +140,19 @@ const SideMenu = () => {
               color={currentUser?.isPremium ? "warning" : "primary"}
               src={currentUser?.photo}
             />
-            <div className="relative">
-              <Link href="/user">
-                <h4 className="uppercase">{currentUser?.name}</h4>
-              </Link>
+            <div className="relative flex gap-1">
+             <p>
+                <Link href="/user">
+                  <h4 className="uppercase text-default-800">
+                    {currentUser?.name}
+                  </h4>
+                </Link>
+                <p>{currentUser.role}</p>
+             </p>
               {currentUser.isPremium ? (
-                <span className="text-warning inline-block text-[12px] md:text-[14px] font-bold border border-warning rounded-full px-2 py-0.5 shadow-md">
-                  Pro User
-                </span>
+                <p className="text-warning inline-block text-[12px] md:text-[12px] font-bold  ">
+                  Pro
+                </p>
               ) : (
                 <p className="text-sm text-default-400">
                   {currentUser?.role == "user"

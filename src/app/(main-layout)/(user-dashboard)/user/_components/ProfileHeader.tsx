@@ -17,9 +17,7 @@ type userId =
   | any;
 const ProfileHeader = ({ userId }: userId) => {
   const { user: currentUser } = useUser();
-  let user;
-
-  user = userId || currentUser;
+  let user = userId || currentUser;
 
   const [totalRecipes, setTotalRecipes] = useState<number>(0);
   const [myFollows, setMyFollows] = useState<number>(0);
@@ -56,8 +54,9 @@ const ProfileHeader = ({ userId }: userId) => {
           `/social/follow/${user?.id}`
         );
 
-        const { data: followersDataForFollow }: any =
-          await nexiosInstance.get(`/social/follow`);
+        const { data: followersDataForFollow }: any = await nexiosInstance.get(
+          `/social/follow`
+        );
 
         if (followersData?.success) {
           setSetAllFollowers(followersData);

@@ -13,9 +13,11 @@ export default function UserCard({ user, logedInUser }: any) {
   const [followOfUser, setFollowOfUser] = useState<any[]>([]);
   const [isFollowedUser, setIsFollowedUser] = useState(false);
   const [refetching, setRefetching] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchFollowers = async () => {
+      setIsLoading(true);
       try {
         const { data }: any = await nexiosInstance.get(
           `/social/follow/${user?._id}`,
@@ -26,6 +28,7 @@ export default function UserCard({ user, logedInUser }: any) {
 
         if (data.success) {
           setFollowOfUser(data?.data?.followers || []);
+          setIsLoading(false);
         }
       } catch (error) {
         throw new Error("Failed to retrive followers");

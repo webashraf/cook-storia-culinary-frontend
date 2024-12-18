@@ -50,7 +50,7 @@ const ProfilePosts = ({ userId }: userId) => {
       ) : (
         <div>
           <h2 className="mb-3">My Post</h2>
-          <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
+          <div className="grid lg:grid-cols-1 grid-cols-1 gap-4">
             {recipes.length > 0 ? (
               recipes?.map((post: any, i) => (
                 <PostCardProfile key={post?._id + i} recipe={post} />

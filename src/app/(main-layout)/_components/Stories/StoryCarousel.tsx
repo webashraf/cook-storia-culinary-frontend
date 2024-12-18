@@ -23,14 +23,12 @@ export function StoryCarousel() {
       try {
         const { data }: any = await nexiosInstance.get("/story");
 
-        if (data.success === true) {
+        if (data?.success) {
           setStoriesData(data.data);
           setLoading(false);
         }
       } catch (error: any) {
         toast.error(error.message || "Failed to get stories");
-      } finally {
-        setLoading(false);
       }
     };
 

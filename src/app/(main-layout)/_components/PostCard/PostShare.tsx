@@ -29,37 +29,37 @@ const PostShare = ({ id }: { id: string }) => {
   return (
     <div className="relative inline-block text-left">
       {/* Dropdown Button */}
-      <Button onClick={toggleDropdown} className="">
+      <Button className="" onClick={toggleDropdown}>
         <IoIosShareAlt size={22} />
       </Button>
 
       {/* Dropdown Menu */}
       {isOpen && (
         <div
+          aria-labelledby="menu-button"
+          aria-orientation="vertical"
           className="absolute right-0 bottom-full z-10 mb-2 w-48 origin-bottom-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="menu-button"
         >
           <div className="py-1" role="none">
             {/* Facebook Share */}
             <a
-              href={facebookShareUrl}
-              target="_blank"
-              rel="noopener noreferrer"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              href={facebookShareUrl}
+              rel="noopener noreferrer"
               role="menuitem"
+              target="_blank"
             >
               Share on Facebook
             </a>
 
             {/* Twitter Share */}
             <a
-              href={twitterShareUrl}
-              target="_blank"
-              rel="noopener noreferrer"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              href={twitterShareUrl}
+              rel="noopener noreferrer"
               role="menuitem"
+              target="_blank"
             >
               Share on Twitter
             </a>

@@ -24,7 +24,7 @@ const RecipePosts = () => {
 
       if (recipeData?.success) {
         setRecipes((prevRecipes) => [...prevRecipes, ...recipeData.data]);
-
+        setIsLoading(false);
         // Check if more data exists
         if (recipeData.data.length < limit) {
           setHasMore(false);
@@ -35,8 +35,6 @@ const RecipePosts = () => {
     } catch (error) {
       console.error("Error fetching recipes", error);
       setHasMore(false);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -47,6 +45,12 @@ const RecipePosts = () => {
   const handleSeeMore = () => {
     setPage((prevPage) => prevPage + 1);
   };
+
+  if (!recipes) {
+    <div className="text-center mt-3">
+      <CardSkeleton count={4} />
+    </div>;
+  }
 
   return (
     <div className="flex flex-col justify-center">
@@ -65,12 +69,11 @@ const RecipePosts = () => {
       )}
 
       {/* "See More" Button */}
-      {hasMore && !isLoading && (
+      {recipes.length > 0 && (
         <Button className="mx-auto mt-5 px-4 py-2" onClick={handleSeeMore}>
           See More
         </Button>
       )}
-
       {/* Loading Indicator */}
       {isLoading && page > 1 && (
         <div className="text-center mt-3">

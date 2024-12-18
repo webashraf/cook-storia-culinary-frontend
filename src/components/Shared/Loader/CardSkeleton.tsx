@@ -7,11 +7,11 @@ type CardSkeletonProps = {
 
 const CardItemSkeleton = () => (
   <Card
-    className="min-h-[400px] lg:min-w-[95%] mx-auto sm:w-full md:w-[600px] space-y-5 p-4"
+    className="min-h-[400px] lg:min-w-[95%] mx-auto w-[90%] md:w-[600px] space-y-5 p-4"
     radius="lg"
   >
     <div className="max-w-[300px] w-full flex items-center gap-3">
-      <Skeleton className="flex rounded-full w-12 h-12" />
+      <Skeleton className="flex rounded-full min-w-12 min-h-12 max-w-12 max-h-12" />
       <div className="w-full flex flex-col gap-2">
         <Skeleton className="h-3 w-3/5 rounded-lg" />
         <Skeleton className="h-3 w-4/5 rounded-lg" />

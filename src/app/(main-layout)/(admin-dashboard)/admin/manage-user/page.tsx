@@ -209,16 +209,28 @@ export default function AdminManageUserAccounts() {
                   </Button>
                 </DropdownTrigger>
                 <DropdownMenu>
-                  <DropdownItem onClick={() => handleBlock(user?._id)}>
+                  <DropdownItem
+                    key={user?._id}
+                    onClick={() => handleBlock(user?._id)}
+                  >
                     Block
                   </DropdownItem>
-                  <DropdownItem onClick={() => handleUnblock(user?._id)}>
+                  <DropdownItem
+                    key={user?._id}
+                    onClick={() => handleUnblock(user?._id)}
+                  >
                     Unblock
                   </DropdownItem>
-                  <DropdownItem onClick={() => handleDelete(user?._id)}>
+                  <DropdownItem
+                    key={user?._id}
+                    onClick={() => handleDelete(user?._id)}
+                  >
                     Delete
                   </DropdownItem>
-                  <DropdownItem onClick={() => handleRetrieve(user?._id)}>
+                  <DropdownItem
+                    key={user?._id}
+                    onClick={() => handleRetrieve(user?._id)}
+                  >
                     Retrieve user
                   </DropdownItem>
                 </DropdownMenu>

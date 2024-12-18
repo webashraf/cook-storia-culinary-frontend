@@ -8,6 +8,8 @@ import UserCard from "@/src/app/(main-layout)/_components/UserCard/UserCard";
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 
+import UserSkeleton from "../Loader/UserSkeleton";
+
 const SideMenuRight = () => {
   const [allUser, setAllUser] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +30,7 @@ const SideMenuRight = () => {
   }, []);
 
   return (
-    <div className="lg:min-w-[200px] w-full hidden lg:block ml-auto h-[90vh] bg-default-300/50 space-y-2 px-5 pt-5 mt-5 rounded-lg">
+    <div className="lg:min-w-[full] w-full hidden lg:block ml-auto h-[90vh] bg-default-300/50 space-y-2 px-5 pt-5 mt-5 rounded-lg">
       {!currentUser?.isPremium && (
         <div>
           <h4 className="pb-2">Be a premium member</h4>
@@ -52,17 +54,21 @@ const SideMenuRight = () => {
       <div className="pt-5">
         <h3>Follow Chef</h3>
         <ScrollShadow hideScrollBar className=" h-[50vh] overflow-y-scroll">
-          <div className="flex flex-col gap-3   ">
-            {allUser?.data?.map((user: any, i: number) => (
-              <div key={user?._id + i}>
-                {user?._id !== currentUser?.id &&
-                  user?.status == "active" &&
-                  user.isDeleted == false && (
-                    <UserCard logedInUser={currentUser} user={user} />
-                  )}
-              </div>
-            ))}
-          </div>
+          {!allUser ? (
+            <UserSkeleton />
+          ) : (
+            <div className="flex flex-col gap-3   ">
+              {allUser?.data?.map((user: any, i: number) => (
+                <div key={user?._id + i}>
+                  {user?._id !== currentUser?.id &&
+                    user?.status == "active" &&
+                    user.isDeleted == false && (
+                      <UserCard logedInUser={currentUser} user={user} />
+                    )}
+                </div>
+              ))}
+            </div>
+          )}
         </ScrollShadow>
       </div>
     </div>

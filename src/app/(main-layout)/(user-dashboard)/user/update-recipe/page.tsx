@@ -235,21 +235,34 @@ export default function UpdateRecipePage() {
                   </Button>
                 </DropdownTrigger>
                 <DropdownMenu>
-                  <DropdownItem onClick={() => handlePublish(recipe?._id)}>
+                  <DropdownItem
+                    key={recipe?._id}
+                    onClick={() => handlePublish(recipe?._id)}
+                  >
                     Publish
                   </DropdownItem>
-                  <DropdownItem onClick={() => handleUnpublish(recipe?._id)}>
+                  <DropdownItem
+                    key={recipe?._id}
+                    onClick={() => handleUnpublish(recipe?._id)}
+                  >
                     Unpublish
                   </DropdownItem>
                   <DropdownItem
+                    key={recipe?._id}
                     onClick={() => handleRecipePremium(recipe?._id)}
                   >
                     Make it Premium
                   </DropdownItem>
-                  <DropdownItem onClick={() => handleRecipeFree(recipe?._id)}>
+                  <DropdownItem
+                    key={recipe?._id}
+                    onClick={() => handleRecipeFree(recipe?._id)}
+                  >
                     Make it Free
                   </DropdownItem>
-                  <DropdownItem onClick={() => handleDelete(recipe?._id)}>
+                  <DropdownItem
+                    key={recipe?._id}
+                    onClick={() => handleDelete(recipe?._id)}
+                  >
                     Delete
                   </DropdownItem>
                 </DropdownMenu>

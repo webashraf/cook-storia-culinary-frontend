@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable @next/next/no-async-client-component */
 "use client";
 
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
-import { useRouter } from "next/navigation";
 
 import { useUser } from "@/src/context/user.provider";
 import { logoutUser } from "@/src/services/AuthService";
@@ -10,7 +11,6 @@ import { logoutUser } from "@/src/services/AuthService";
 const PaymentSuccess = async ({ searchParams }: any) => {
   const { transactionId, amount } = searchParams;
   const { user: currentUser } = useUser();
-  const router = useRouter();
 
   if (!currentUser?.isPremium) {
     logoutUser();

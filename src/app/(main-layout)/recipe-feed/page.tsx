@@ -2,10 +2,8 @@
 
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
-import { Spinner } from "@nextui-org/spinner";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import InfiniteScroll from "react-infinite-scroller";
 
 import { SearchIcon } from "@/src/components/icons";
 import CommonHero from "@/src/components/Shared/CommonHero/CommonHero";
@@ -129,21 +127,9 @@ const RecipeFeed = () => {
 
         <div className="flex lg:flex-row flex-col-reverse gap-5 mt-5">
           <div>
-            <InfiniteScroll
-              className="flex flex-wrap gap-5 justify-center"
-              hasMore={hasMore && !loading}
-              loadMore={fetchRecipes}
-              loader={
-                <div className="flex justify-center items-center">
-                  <Spinner color="primary" label="Loading..." />
-                </div>
-              }
-              pageStart={0}
-            >
-              {recipeData?.map((recipe: any, i) => (
-                <PostCard key={recipe._id + i} recipe={recipe} />
-              ))}
-            </InfiniteScroll>
+            {recipeData?.map((recipe: any, i) => (
+              <PostCard key={recipe._id + i} recipe={recipe} />
+            ))}
           </div>
         </div>
       </div>
