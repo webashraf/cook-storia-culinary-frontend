@@ -1,6 +1,6 @@
 export interface ISociety {
+  _id: string;
   coverImage: string;
-  _id?: string;
   societyName: string;
   privacy: string;
   description: string;

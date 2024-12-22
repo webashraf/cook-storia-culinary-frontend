@@ -6,12 +6,12 @@ import { Link } from "@nextui-org/link";
 import { useEffect, useState } from "react";
 
 import { useUser } from "@/src/context/user.provider";
-import { getSociety } from "@/src/services/SocietyServices";
+import { connectSociety, getSociety } from "@/src/services/SocietyServices";
 import { ISociety } from "@/src/types/society";
 
 const AllSocieties = () => {
   const [societies, setSocieties] = useState<ISociety[]>([]);
-  const { user } = useUser();
+  const { user }: any = useUser();
 
   useEffect(() => {
     const fetchSocieties = async () => {
@@ -26,6 +26,12 @@ const AllSocieties = () => {
 
     fetchSocieties();
   }, []);
+
+  const connect = async (societyId: string) => {
+    const result = await connectSociety({ userId: user?.id, societyId });
+
+    console.log(result);
+  };
 
   return (
     <div className=" text-white rounded-lg py-6">
@@ -70,6 +76,7 @@ const AllSocieties = () => {
               className="hover:bg-[#88b72b]"
               radius="sm"
               size="sm"
+              onClick={() => connect(society._id)}
             >
               Connect
             </Button>
