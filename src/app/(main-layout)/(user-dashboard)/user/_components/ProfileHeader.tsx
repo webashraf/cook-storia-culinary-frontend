@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
-import { IUser } from "@/src/types";
+import { IUser } from "@/src/types/user";
 
 import FollowersModal from "./Followers";
 

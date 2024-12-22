@@ -4,7 +4,7 @@ import Container from "../../UI/Container";
 
 const Footer = () => {
   return (
-    <footer className=" glassy  ">
+    <footer className=" glassy  mt-5">
       <div className="max-w-[1500px] mx-auto lg:py-12 py-5 border-t-4 border-primary-400 text-default-900">
         <Container>
           <div className="container mx-auto px-6">

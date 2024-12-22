@@ -46,13 +46,13 @@ export default function MainLayout({ children }: { children: ReactNode }) {
             <Navbar />
 
             <div className="flex overflow-hidden lg:mx-5">
-              <div className="lg:w-[30%] lg:block hidden">
-                {" "}
+              <div className="lg:w-[25%] lg:block hidden">
+        
                 <SideMenu />
               </div>
               <ScrollShadow
                 hideScrollBar
-                className="lg:ml-auto  lg:w-[80%] w-full h-screen lg:pl-5 pb-10"
+                className="lg:ml-auto  lg:w-[55%] w-full h-screen lg:pl-5 pb-10"
                 isEnabled={false}
                 offset={0}
               >

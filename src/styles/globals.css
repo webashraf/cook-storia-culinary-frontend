@@ -15,3 +15,10 @@ body::-webkit-scrollbar {
 body {
   overflow: scroll;
 }
+
+.primary-text {
+  color: #88b72b;
+}
+.primary-bg {
+  background-color: #88b72b;
+}

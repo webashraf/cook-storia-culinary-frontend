@@ -13,14 +13,7 @@ import { toast } from "sonner";
 
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
-
-export interface IUserFormInfo {
-  username: string;
-  email: string;
-  id: string;
-  password: string;
-  profilePicture: string;
-}
+import { IUserFormInfo } from "@/src/types/user";
 
 const SignUp = () => {
   const [isVisible, setIsVisible] = useState(false);

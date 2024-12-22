@@ -11,7 +11,7 @@ import {
 } from "react";
 
 import { getCurrentUser } from "../services/AuthService";
-import { ILogInUser } from "../types";
+import { ILogInUser } from "../types/user";
 
 const UserContext = createContext<IUserProvider | undefined>(undefined);
 

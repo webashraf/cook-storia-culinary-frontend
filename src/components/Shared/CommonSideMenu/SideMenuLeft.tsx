@@ -5,13 +5,14 @@ import { Link } from "@nextui-org/link";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaPhone, FaRegAddressBook, FaUserAlt } from "react-icons/fa";
-import { GrHome, GrUpdate } from "react-icons/gr";
+import { FaPhone, FaUserAlt } from "react-icons/fa";
+import { FaUser } from "react-icons/fa6";
+import { GrHome } from "react-icons/gr";
 import { IoInformationCircle } from "react-icons/io5";
 import { LuBookOpen } from "react-icons/lu";
 import { MdOutlineDashboard, MdWorkspacePremium } from "react-icons/md";
-import { FaUser } from "react-icons/fa6";
 
+import AllSocieties from "@/src/app/(main-layout)/(society)/society/_components/AllSocieties";
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 
@@ -42,30 +43,11 @@ const userPages = [
     href: "/user/membership",
     icon: <MdWorkspacePremium className="h-5 w-5" />,
   },
-  {
-    name: "Add Recipe",
-    href: "/user/add-recipe",
-    icon: <FaRegAddressBook className="h-5 w-5" />,
-  },
-  {
-    name: "Update Recipe",
-    href: "/user/update-recipe",
-    icon: <GrUpdate className="h-5 w-5" />,
-  },
+
   {
     name: "Recipe Feed",
     href: "/recipe-feed",
     icon: <LuBookOpen className="h-5 w-5" />,
-  },
-  {
-    name: "About Us",
-    href: "/about-us",
-    icon: <IoInformationCircle className="h-5 w-5" />,
-  },
-  {
-    name: "Contact Us",
-    href: "/contact-us",
-    icon: <FaPhone className="h-5 w-5" />,
   },
 ];
 
@@ -130,8 +112,10 @@ const SideMenu = () => {
   }, []);
 
   return (
-    <ScrollShadow className="w-[100%] lg:block h-[90vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10">
-      {/* {error && <div className="text-red-600">{error}</div>} */}
+    <ScrollShadow
+      hideScrollBar
+      className="w-[100%] lg:block h-[90vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10"
+    >
       <div>
         {currentUser ? (
           <div className="flex gap-5">
@@ -141,14 +125,14 @@ const SideMenu = () => {
               src={currentUser?.photo}
             />
             <div className="relative flex gap-1">
-             <p>
+              <p>
                 <Link href="/user">
                   <h4 className="uppercase text-default-800">
                     {currentUser?.name}
                   </h4>
                 </Link>
                 <p>{currentUser.role}</p>
-             </p>
+              </p>
               {currentUser.isPremium ? (
                 <p className="text-warning inline-block text-[12px] md:text-[12px] font-bold  ">
                   Pro
@@ -168,7 +152,7 @@ const SideMenu = () => {
         {/* Nav links */}
         {/* all User Navs */}
         {!currentUser && (
-          <div className="mt-10 flex flex-col gap-2">
+          <div className="mt-5 flex flex-col gap-2">
             {allUserNavs.map((page, i) => (
               <div key={page.href + i}>
                 <Link className="text-default-600" href={page.href}>
@@ -206,6 +190,7 @@ const SideMenu = () => {
                 </Link>
               </div>
             ))}
+            <AllSocieties />
           </div>
         )}
 
@@ -230,6 +215,21 @@ const SideMenu = () => {
             ))}
           </div>
         )}
+      </div>
+      <div className="flex items-center justify-center gap-2 tracking-wider uppercase text-[10px] mt-auto">
+        <Link
+          className="text-sm text-[#88b72b]/80 underline hover:text-[#88b72b] font-light "
+          href="/about-us"
+        >
+          About us
+        </Link>
+        |
+        <Link
+          className="text-sm text-[#88b72b]/80 underline hover:text-[#88b72b] font-light "
+          href="/contact-us"
+        >
+          Contact us
+        </Link>
       </div>
     </ScrollShadow>
   );
