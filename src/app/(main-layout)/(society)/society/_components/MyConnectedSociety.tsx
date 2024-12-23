@@ -37,12 +37,9 @@ const MyConnectedSociety = () => {
 
   return (
     <div>
-      <h3 className="text-xl font-bold mb-4">My Connects</h3>
+      <h3 className="text-xl font-bold mb-4">My Societies</h3>
       {myConnectedSocieties.length > 0 ? (
         <ul>
-          {/* {myConnectedSocieties.map((society: any) => (
-            <li key={society._id}>{society?.societyId?.societyName}</li>
-          ))} */}
           <div className="space-y-2">
             {myConnectedSocieties.map((society: any) => (
               <Link
