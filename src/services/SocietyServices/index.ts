@@ -14,8 +14,18 @@ export const createSociety = async (payload: ISociety) => {
   }
 };
 
-export const getSociety = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/society`);
+export const getSociety = async (userId: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_API}/society/society-for-connect/${userId}`
+  );
+
+  return res.json();
+};
+
+export const getMyConnectedSocietyFromAPI = async (userId: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_API}/society-member/${userId}`
+  );
 
   return res.json();
 };
@@ -29,10 +39,6 @@ export const connectSociety = async (payload: {
       "/society-member/connect",
       payload
     );
-
-    if (data?.success) {
-      toast.success("Society connected!");
-    } else toast.error("Society not connected!");
 
     return data;
   } catch (error: any) {

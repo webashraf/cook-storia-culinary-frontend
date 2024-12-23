@@ -1,9 +1,8 @@
-"use client";
-
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 import { useUser } from "@/src/context/user.provider";
 import { connectSociety, getSociety } from "@/src/services/SocietyServices";
@@ -13,29 +12,42 @@ const AllSocieties = () => {
   const [societies, setSocieties] = useState<ISociety[]>([]);
   const { user }: any = useUser();
 
+  const fetchSocieties = async () => {
+    try {
+      const { data } = await getSociety(user?.id);
+
+      setSocieties(data || []);
+    } catch (error) {
+      console.error("Error fetching societies:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchSocieties = async () => {
-      try {
-        const { data } = await getSociety();
-
-        setSocieties(data || []);
-      } catch (error) {
-        console.error("Error fetching societies:", error);
-      }
-    };
-
     fetchSocieties();
-  }, []);
+  }, [user?.id]); // Trigger fetch on user id change
 
   const connect = async (societyId: string) => {
-    const result = await connectSociety({ userId: user?.id, societyId });
+    try {
+      console.log({ userId: user?.id, societyId });
+      const result = await connectSociety({ userId: user?.id, societyId });
 
-    console.log(result);
+      if (result?.success) {
+        // Refetch societies after successful connection
+        fetchSocieties();
+        toast.success("Society connected!");
+      } else {
+        toast.error("Society not connected!");
+      }
+      console.log(result);
+    } catch (error) {
+      toast.error("Error connecting to society!");
+      console.error(error);
+    }
   };
 
   return (
     <div className=" text-white rounded-lg py-6">
-      <div className="flex item-center gap-5  mb-4">
+      <div className="flex item-center gap-5 mb-4">
         <h3 className="text-xl font-bold">Society</h3>
         <Link href="/society">
           <Button className="" size="sm">

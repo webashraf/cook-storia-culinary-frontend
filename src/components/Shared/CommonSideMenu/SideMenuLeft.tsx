@@ -13,6 +13,7 @@ import { LuBookOpen } from "react-icons/lu";
 import { MdOutlineDashboard, MdWorkspacePremium } from "react-icons/md";
 
 import AllSocieties from "@/src/app/(main-layout)/(society)/society/_components/AllSocieties";
+import MyConnectedSociety from "@/src/app/(main-layout)/(society)/society/_components/MyConnectedSociety";
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 
@@ -175,7 +176,7 @@ const SideMenu = () => {
         {currentUser?.role === "user" && (
           <div className="mt-10 flex flex-col gap-2">
             {userPages.map((page, i) => (
-              <div key={page.href + i}>
+              <div key={page.href + i} className="mb-3">
                 <Link className="text-default-600" href={page.href}>
                   <span
                     className={`flex items-center text-default-800 text-left p-2 rounded-md ${
@@ -190,7 +191,10 @@ const SideMenu = () => {
                 </Link>
               </div>
             ))}
-            <AllSocieties />
+            <div className="mb-5">
+              <MyConnectedSociety />
+              <AllSocieties />
+            </div>
           </div>
         )}
 
