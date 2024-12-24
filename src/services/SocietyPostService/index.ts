@@ -1,5 +1,7 @@
 "use server";
 
+import nexiosInstance from "@/src/config/nexios.instance";
+
 export const getSocietyPost = async (societyId: string) => {
   try {
     const res = await fetch(
@@ -7,6 +9,34 @@ export const getSocietyPost = async (societyId: string) => {
     );
 
     return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createSocietyComment = async (payload: any) => {
+  try {
+    const res = await nexiosInstance.post(
+      `/society-post-comment/create`,
+      payload
+    );
+
+    return res.data;
+  } catch (error: any) {
+    console.error("Error creating society comment:", error.message || error);
+    throw new Error(
+      error.res?.data?.message || "Failed to create society comment"
+    );
+  }
+};
+
+export const getSocietyPostComment = async (postId: string) => {
+  try {
+    const { data } = await nexiosInstance.get(
+      `/society-post-comment/post-comments/${postId}`
+    );
+
+    return { data };
   } catch (error) {
     console.log(error);
   }
