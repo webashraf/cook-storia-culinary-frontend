@@ -18,7 +18,6 @@ const MyConnectedSociety = () => {
         try {
           const societies = await getMyConnectedSocietyFromAPI(user?.id);
 
-          console.log(societies);
           setMyConnectedSocieties(societies.data);
         } catch (error) {
           console.error("Error fetching connected societies:", error);

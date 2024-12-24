@@ -1,10 +1,58 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
+import nexiosInstance from "@/src/config/nexios.instance";
+import { useUser } from "@/src/context/user.provider";
+import { ILogInUser } from "@/src/types/user";
+
 import CreateSocietyPost from "../_components/_singleSociety/CreateSocietyPost";
 import SocietyHeader from "../_components/_singleSociety/SocietyHeader";
-import SocietyPostList from "../_components/_singleSociety/SocietyPosts";
+import SocietyPost from "../_components/_singleSociety/SocietyPosts";
 
-export default function GroupPage({ params }) {
+export default function GroupPage({ params }: any) {
+  const [society, setSociety] = useState<any>(null);
+  const [members, setMembers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { user }: ILogInUser | any = useUser();
+
+  // Find the current member
+  const currentMember = members.find(
+    (member) => member?.userId?._id === user?.id
+  );
+
+  useEffect(() => {
+    const fetchSociety = async () => {
+      try {
+        const { data: society }: any = await nexiosInstance.get(
+          `/society/single/${params.id}`
+        );
+        const { data: societyMember }: any = await nexiosInstance.get(
+          `/society-member/single/${params?.id}`
+        );
+
+        setSociety(society?.data);
+        setMembers(societyMember?.data || []);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching society:", err);
+        setError("Failed to fetch society information");
+        setLoading(false);
+      }
+    };
+
+    fetchSociety();
+  }, [params.id]);
+
+  if (loading) {
+    return <div className="text-white text-center mt-10">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-red-500 text-center mt-10">{error}</div>;
+  }
+
   return (
     <div className="min-h-screen dark:bg-neutral-900 text-white">
       {/* Header Section */}
@@ -16,9 +64,13 @@ export default function GroupPage({ params }) {
         <div className="flex justify-between">
           <div className="w-full">
             <h1 className="text-2xl font-bold hover:underline capitalize">
-              Society Name
+              {society?.societyName || "Society Name"}
             </h1>
-            <p className="text-gray-400">Society privacy · 1 member</p>
+            <p className="text-gray-400">
+              {society?.privacyType || "Society privacy"} ·{" "}
+              {members?.length || 0} member
+              {members?.length === 1 ? "" : "s"}
+            </p>
           </div>
         </div>
 
@@ -45,10 +97,13 @@ export default function GroupPage({ params }) {
           {/* Left Section */}
           <div className="flex-1">
             {/* Create Post */}
-            <CreateSocietyPost  />
+            <CreateSocietyPost
+              currentSocietyMember={currentMember}
+              societyId={params?.id}
+            />
 
             {/* Display Posts */}
-            <SocietyPostList posts={[]} />
+            <SocietyPost societyId={params?.id} />
           </div>
         </div>
       </div>

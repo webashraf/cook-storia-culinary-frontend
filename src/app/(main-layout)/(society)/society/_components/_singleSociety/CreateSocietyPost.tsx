@@ -1,43 +1,92 @@
+/* eslint-disable no-undef */
 "use client";
 import { Image } from "@nextui-org/image";
 import { useState } from "react";
 import ReactQuill from "react-quill";
+
+import { toolbarOptions } from "@/src/constent/toolbarOptions.quil";
+
 import "react-quill/dist/quill.snow.css";
+import { toast } from "sonner";
 
-export default function CreateSocietyPost() {
+export default function CreateSocietyPost({
+  societyId,
+  currentSocietyMember,
+}: {
+  societyId: string;
+  currentSocietyMember: any;
+}) {
   const [postContent, setPostContent] = useState("");
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<File | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleContentChange = (value) => {
+  const handleContentChange = (value: string) => {
     setPostContent(value);
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
 
     if (file) {
-      setImage(URL.createObjectURL(file));
+      setImage(file);
+      setPreviewImage(URL.createObjectURL(file));
     }
   };
 
-  const handleSubmit = () => {
-    console.log("Quill Data:", postContent);
-    if (image) {
-      console.log("Uploaded Image URL:", image);
+  const handleSubmit = async () => {
+    if (!postContent && !image) {
+      alert("Please provide content or upload an image.");
+
+      return;
     }
-    if (postContent || image) {
+
+    setIsLoading(true);
+    const formData = new FormData();
+
+    const postData = {
+      societyId,
+      userId: currentSocietyMember?._id,
+      content: postContent,
+    };
+
+    formData.append("data", JSON.stringify(postData));
+
+    if (image) {
+      formData.append("image", image);
+    }
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API}/society-post/create`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to submit post.");
+      }
+
+      const responseData = await response.json();
+
+      console.log(responseData);
+      toast.success("Post submitted successfully!");
+
+      // Reset inputs
       setPostContent("");
       setImage(null);
+      setPreviewImage(null);
+    } catch (error) {
+      console.error("Submission failed:", error);
+      alert("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
-
   const modules = {
-    toolbar: [
-      ["bold", "italic", "underline", "strike"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["link"],
-      [{ align: [] }],
-    ],
+    toolbar: toolbarOptions,
   };
 
   const formats = [
@@ -45,14 +94,16 @@ export default function CreateSocietyPost() {
     "italic",
     "underline",
     "strike",
+    "header",
+    "blockquote",
     "list",
     "bullet",
+    "indent",
     "link",
-    "align",
   ];
 
   return (
-    <div className="p-4 dark:bg-neutral-950 rounded-lg">
+    <div className="p-4 dark:bg-neutral-950 rounded-lg shadow-lg">
       <p className="text-white text-lg font-semibold">Create a Post</p>
       <ReactQuill
         className="mt-4 rounded-lg overflow-hidden"
@@ -67,7 +118,6 @@ export default function CreateSocietyPost() {
           <div className="absolute flex flex-col items-center">
             <Image
               alt="File Icon"
-              className=""
               height={30}
               src="https://res.cloudinary.com/dyalzfwd4/image/upload/v1734975521/photo_wvubrf.png"
               width={30}
@@ -75,25 +125,31 @@ export default function CreateSocietyPost() {
             <span className="block text-gray-500 font-semibold" />
           </div>
           <input
+            accept="image/*"
             className="h-full w-full bg-red-500 opacity-0 cursor-pointer relative z-10"
             type="file"
             onChange={handleImageChange}
           />
         </div>
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-md transition-colors duration-300 hover:bg-blue-600"
+          className={`px-4 py-2 text-white rounded-md transition-colors duration-300 ${
+            isLoading
+              ? "bg-blue-400 cursor-not-allowed"
+              : "bg-blue-500 hover:bg-blue-600"
+          }`}
+          disabled={isLoading}
           onClick={handleSubmit}
         >
-          Post
+          {isLoading ? "Posting..." : "Post"}
         </button>
       </div>
-      {image && (
+      {previewImage && (
         <div className="mt-4">
           <p className="text-gray-400">Image Preview:</p>
-          <img
+          <Image
             alt="Uploaded preview"
             className="mt-2 max-h-64 rounded-lg"
-            src={image}
+            src={previewImage}
           />
         </div>
       )}
