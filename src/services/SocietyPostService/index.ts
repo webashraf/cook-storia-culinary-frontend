@@ -30,10 +30,14 @@ export const createSocietyComment = async (payload: any) => {
   }
 };
 
-export const getSocietyPostComment = async (postId: string) => {
+export const getSocietyPostComment = async (
+  postId: string,
+  pagination: string
+) => {
+  console.log("Pagination", pagination);
   try {
     const { data } = await nexiosInstance.get(
-      `/society-post-comment/post-comments/${postId}`
+      `/society-post-comment/post-comments?postId=${postId}${pagination}`
     );
 
     return { data };
