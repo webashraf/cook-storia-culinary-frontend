@@ -128,8 +128,8 @@ const SideMenu = () => {
             <div className="relative flex gap-1">
               <p>
                 <Link href="/user">
-                  <h4 className="uppercase text-default-800">
-                    {currentUser?.name}
+                  <h4 className="uppercase text-default-800 text-sm">
+                    {currentUser?.name.slice(0, 10)}..
                   </h4>
                 </Link>
                 <p>{currentUser.role}</p>

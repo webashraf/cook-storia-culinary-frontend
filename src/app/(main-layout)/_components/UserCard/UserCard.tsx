@@ -53,7 +53,6 @@ export default function UserCard({ user, logedInUser }: any) {
         followOptions
       );
 
-      console.log("Follow", data);
       if (data?.success) {
         setIsFollowedUser(true);
         setRefetching(!refetching);

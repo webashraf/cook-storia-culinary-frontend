@@ -2,8 +2,6 @@
 import { Image } from "@nextui-org/image";
 
 export default function SocietyHeader({ coverImage }: { coverImage: string }) {
-  console.log(coverImage);
-
   return (
     <div className="relative w-full h-64 bg-gray-700 overflow-hidden">
       <div className="absolute inset-0 flex items-center justify-center">

@@ -45,20 +45,19 @@ export default function MainLayout({ children }: { children: ReactNode }) {
           <div className="relative flex flex-col ">
             <Navbar />
 
-            <div className="flex overflow-hidden lg:mx-5">
+            <div className="flex items-center justify-center lg:gap-10 overflow-hidden lg:mx-5">
               <div className="lg:w-[25%] lg:block hidden">
-        
                 <SideMenu />
               </div>
               <ScrollShadow
                 hideScrollBar
-                className="lg:ml-auto  lg:w-[55%] w-full h-screen lg:pl-5 pb-10"
+                className="lg:ml-auto  lg:w-[55%] w-full h-screen pb-10"
                 isEnabled={false}
                 offset={0}
               >
                 {children}
               </ScrollShadow>
-              <div className="lg:w-[20%] lg:block hidden ml-10 ">
+              <div className="lg:w-[20%] lg:block hidden ">
                 <SideMenuRight />
               </div>
             </div>

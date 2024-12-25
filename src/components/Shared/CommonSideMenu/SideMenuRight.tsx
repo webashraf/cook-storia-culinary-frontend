@@ -8,7 +8,6 @@ import UserCard from "@/src/app/(main-layout)/_components/UserCard/UserCard";
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 
-import { CreateSociety } from "../../society/CreateSociety";
 import UserSkeleton from "../Loader/UserSkeleton";
 
 const SideMenuRight = () => {
@@ -72,7 +71,7 @@ const SideMenuRight = () => {
           )}
         </ScrollShadow>
       </div>
-      <CreateSociety />
+      {/* <CreateSociety /> */}
     </div>
   );
 };

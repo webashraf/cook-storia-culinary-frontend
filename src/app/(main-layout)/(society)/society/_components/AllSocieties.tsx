@@ -28,7 +28,6 @@ const AllSocieties = () => {
 
   const connect = async (societyId: string) => {
     try {
-      console.log({ userId: user?.id, societyId });
       const result = await connectSociety({ userId: user?.id, societyId });
 
       if (result?.success) {
@@ -38,7 +37,6 @@ const AllSocieties = () => {
       } else {
         toast.error("Society not connected!");
       }
-      console.log(result);
     } catch (error) {
       toast.error("Error connecting to society!");
       console.error(error);

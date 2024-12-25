@@ -26,8 +26,6 @@ const ProfileHeader = ({ userId }: userId) => {
   const [allFollowers, setSetAllFollowers] = useState<any>(null);
   const [singleUser, setSingleUser] = useState<IUser | any>({});
 
-  console.log("Single User State : ", singleUser);
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -36,7 +34,6 @@ const ProfileHeader = ({ userId }: userId) => {
           `/auth/user/${userId.id}`
         );
 
-        console.log("SINGLE USER :", userId.id, singleUser);
         if (singleUser?.success) {
           setSingleUser(singleUser.data);
         }

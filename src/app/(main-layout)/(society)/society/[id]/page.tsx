@@ -54,7 +54,7 @@ export default function GroupPage({ params }: any) {
   }
 
   return (
-    <div className="min-h-screen dark:bg-neutral-900 text-white">
+    <div className="min-h-screen dark:bg-neutral-900 pb-5 text-white ">
       {/* Header Section */}
       <SocietyHeader coverImage={society?.coverImage} />
 

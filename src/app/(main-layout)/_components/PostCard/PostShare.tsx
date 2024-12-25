@@ -4,8 +4,6 @@ import { useState } from "react";
 import { IoIosShareAlt } from "react-icons/io";
 
 const PostShare = ({ id }: { id: string }) => {
-  console.log("Post Id", id);
-
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {

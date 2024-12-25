@@ -26,7 +26,6 @@ const SocietyComment = ({ post }: { post: any }) => {
 
   const [currentUser, setCurrentUser] = useState<any>({});
 
-  console.log("USER: ", user, post.societyId);
   useEffect(() => {
     getCurrentSocietyUser();
     if (post?._id) {
@@ -49,14 +48,9 @@ const SocietyComment = ({ post }: { post: any }) => {
     }
   };
 
-  console.log("Current user: ", currentUser);
-
   const getComments = async () => {
     try {
-      const result: any = await getSocietyPostComment(
-        post?._id,
-        "&limit=3&page=1"
-      );
+      const result: any = await getSocietyPostComment(post?._id, "");
 
       setAllComments(result?.data?.data?.comments || []);
     } catch (error) {
@@ -343,7 +337,6 @@ const SocietyComment = ({ post }: { post: any }) => {
         <Button isIconOnly size="sm" onPress={handleCommentSubmit}>
           <BsSendFill color="#88b72b" size={18} />
         </Button>
-        {post._id}
       </div>
     </div>
   );

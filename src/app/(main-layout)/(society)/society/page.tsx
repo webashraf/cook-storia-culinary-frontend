@@ -24,7 +24,6 @@ const SocietyPage = () => {
     if (file) {
       setCoverPhoto(file);
 
-      // Create a preview for the user
       const reader = new FileReader();
 
       reader.onload = () => {
@@ -37,23 +36,18 @@ const SocietyPage = () => {
   const onSubmit = async (data: ISociety) => {
     const form = new FormData();
 
-    // Add the data object with additional fields
     const dataForCreateSociety = { ...data, admin: user?.id };
 
-    console.log(dataForCreateSociety);
-    form.append("data", JSON.stringify(dataForCreateSociety)); // Serialize the object as a JSON string
+    form.append("data", JSON.stringify(dataForCreateSociety));
 
-    // Add the cover photo if it exists
     if (coverPhoto) form.append("image", coverPhoto);
-
-    console.log(form);
 
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API}/society/create`,
         {
           method: "POST",
-          body: form, // Use the FormData as the body
+          body: form,
         }
       );
 
