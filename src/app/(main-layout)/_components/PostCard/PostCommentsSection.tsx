@@ -109,7 +109,7 @@ const PostCommentsSection = ({ postId, isPremium }: IProps) => {
         </Button>
       </form>
 
-      <div className=" bg-black w-full z-20">
+      <div className=" dark:bg-black w-full z-20">
         <UserComments
           commentsData={commentsData}
           postId={postId}

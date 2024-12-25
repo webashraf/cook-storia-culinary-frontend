@@ -147,9 +147,9 @@ const SocietyComment = ({ post }: { post: any }) => {
   };
 
   return (
-    <div className="w-[95%] mx-auto">
+    <div className="dark:bg-neutral-900 px-5 pb-5 rounded-lg">
       {/* Display Total Comments */}
-      <h3 className="text-neutral-400">
+      <h3 className="text-neutral-400 pt-2">
         {allComments.length} {allComments.length === 1 ? "Comment" : "Comments"}
       </h3>
       {/* Comments List */}
@@ -174,10 +174,12 @@ const SocietyComment = ({ post }: { post: any }) => {
                   width={35}
                 />
                 <div>
-                  <h4 className="capitalize text-white text-sm">
+                  <h4 className="capitalize dark:text-white text-black text-sm">
                     {comment?.userId?.userId?.username}
                   </h4>
-                  <p className="text-[12px]">{comment?.comment}</p>
+                  <p className="text-[12px] dark:text-white text-black">
+                    {comment?.comment}
+                  </p>
 
                   <button
                     className="text-sm text-blue-600 hover:underline"
@@ -235,10 +237,10 @@ const SocietyComment = ({ post }: { post: any }) => {
                       width={30}
                     />
                     <div>
-                      <h4 className="capitalize text-neutral-300 text-sm">
+                      <h4 className="capitalize  text-sm dark:text-white text-black">
                         {reply?.userId?.userId?.username}
                       </h4>
-                      <p className="text-[12px]">
+                      <p className="text-[12px] dark:text-white text-black">
                         {reply?.comment || "No reply"}
                       </p>
                       <p className="text-[12px] text-neutral-400" />
@@ -298,10 +300,10 @@ const SocietyComment = ({ post }: { post: any }) => {
                           width={30}
                         />
                         <div>
-                          <h4 className="capitalize text-neutral-300">
+                          <h4 className="capitalize  dark:text-white text-black">
                             {nestedReply?.userId?.userId?.username}
                           </h4>
-                          <p className="text-[12px]">
+                          <p className="text-[12px] dark:text-white text-black">
                             {nestedReply?.comment || "No nested reply"}
                           </p>
                         </div>
