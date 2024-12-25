@@ -1,6 +1,7 @@
 "use server";
 
 import nexiosInstance from "@/src/config/nexios.instance";
+import { IUpvoteDownvote } from "@/src/types/society";
 
 export const getSocietyPost = async (societyId: string) => {
   try {
@@ -45,3 +46,33 @@ export const getSocietyPostComment = async (
     console.log(error);
   }
 };
+
+export const createOrUpdateUpvoteDownvote = async (
+  payload: IUpvoteDownvote
+) => {
+  try {
+    const { data } = await nexiosInstance.post(
+      "/upvote-downvote/update",
+      payload
+    );
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getSocietyPostVotes = async (postId: string) => {
+  console.log("PostId", postId);
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/upvote-downvote/${postId}`
+    );
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+

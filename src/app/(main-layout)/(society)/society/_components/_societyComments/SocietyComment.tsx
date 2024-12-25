@@ -5,10 +5,13 @@ import { Input } from "@nextui-org/input";
 import { useEffect, useState } from "react";
 import { BsSendFill } from "react-icons/bs";
 
+import { useUser } from "@/src/context/user.provider";
 import {
   createSocietyComment,
   getSocietyPostComment,
 } from "@/src/services/SocietyPostService";
+import { getCurrentSocietyUserByUserIdAndSocietyID } from "@/src/services/SocietyServices";
+import { ILogInUser } from "@/src/types/user";
 
 const SocietyComment = ({ post }: { post: any }) => {
   const [comment, setComment] = useState("");
@@ -19,12 +22,34 @@ const SocietyComment = ({ post }: { post: any }) => {
   const [allComments, setAllComments] = useState<any[]>([]);
   const [replies, setReplies] = useState<Record<string, any[]>>({});
   const [nestedReplies, setNestedReplies] = useState<Record<string, any[]>>({});
+  const { user }: ILogInUser | any = useUser();
 
+  const [currentUser, setCurrentUser] = useState<any>({});
+
+  console.log("USER: ", user, post.societyId);
   useEffect(() => {
+    getCurrentSocietyUser();
     if (post?._id) {
       getComments();
     }
-  }, [post?._id]);
+  }, [post?._id, user, post]);
+
+  const getCurrentSocietyUser = async () => {
+    try {
+      const result = await getCurrentSocietyUserByUserIdAndSocietyID(
+        post?.societyId,
+        user?.id
+      );
+
+      if (result?.success) {
+        setCurrentUser(result?.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log("Current user: ", currentUser);
 
   const getComments = async () => {
     try {
@@ -33,7 +58,6 @@ const SocietyComment = ({ post }: { post: any }) => {
         "&limit=3&page=1"
       );
 
-      console.log(result.data.data);
       setAllComments(result?.data?.data?.comments || []);
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -41,14 +65,9 @@ const SocietyComment = ({ post }: { post: any }) => {
   };
 
   const getReplies = async (parentCommentId: string) => {
-    console.log("ParentCommentId: ", parentCommentId);
     try {
-      const result: any = await getSocietyPostComment(
-        parentCommentId,
-        "&limit=2&page=1"
-      );
+      const result: any = await getSocietyPostComment(parentCommentId, "");
 
-      console.log("Replies", result.data.data);
       setReplies((prev) => ({
         ...prev,
         [parentCommentId]: result?.data?.data?.comments || [],
@@ -62,11 +81,9 @@ const SocietyComment = ({ post }: { post: any }) => {
   };
 
   const getNestedReplies = async (parentReplyId: string) => {
-    console.log("ParentReplyId: ", parentReplyId);
     try {
       const result: any = await getSocietyPostComment(parentReplyId, "");
 
-      console.log("Nested Replies", result.data.data);
       setNestedReplies((prev) => ({
         ...prev,
         [parentReplyId]: result?.data?.data?.comments || [],
@@ -85,7 +102,7 @@ const SocietyComment = ({ post }: { post: any }) => {
     const payload = {
       comment,
       postId: post?._id,
-      userId: post?.userId?._id,
+      userId: currentUser?._id,
     };
 
     try {
@@ -103,7 +120,7 @@ const SocietyComment = ({ post }: { post: any }) => {
     const payload = {
       comment: reply,
       postId: parentCommentId,
-      userId: post?.userId?._id,
+      userId: currentUser?._id,
     };
 
     try {
@@ -122,7 +139,7 @@ const SocietyComment = ({ post }: { post: any }) => {
     const payload = {
       comment: nestedReply,
       postId: parentReplyId,
-      userId: post?.userId?._id,
+      userId: currentUser?._id,
     };
 
     try {
@@ -220,10 +237,7 @@ const SocietyComment = ({ post }: { post: any }) => {
                       }'s profile`}
                       className="size-9 border-2 border-neutral-600"
                       height={30}
-                      src={
-                        reply?.userId?.userId?.profilePicture ||
-                        "https://via.placeholder.com/30"
-                      }
+                      src={reply?.userId?.userId?.profilePicture}
                       width={30}
                     />
                     <div>
@@ -286,10 +300,7 @@ const SocietyComment = ({ post }: { post: any }) => {
                           }'s profile`}
                           className="size-9 border-2 border-neutral-600"
                           height={30}
-                          src={
-                            nestedReply?.userId?.userId?.profilePicture ||
-                            "https://via.placeholder.com/30"
-                          }
+                          src={nestedReply?.userId?.userId?.profilePicture}
                           width={30}
                         />
                         <div>
@@ -319,7 +330,7 @@ const SocietyComment = ({ post }: { post: any }) => {
           alt="User avatar"
           className="size-[100px] border-2 border-neutral-500"
           height={35}
-          src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671122.jpg"
+          src={currentUser?.userId?.profilePicture}
           width={35}
         />
         <Input
@@ -332,6 +343,7 @@ const SocietyComment = ({ post }: { post: any }) => {
         <Button isIconOnly size="sm" onPress={handleCommentSubmit}>
           <BsSendFill color="#88b72b" size={18} />
         </Button>
+        {post._id}
       </div>
     </div>
   );

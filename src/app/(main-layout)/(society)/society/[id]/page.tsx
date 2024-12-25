@@ -56,7 +56,7 @@ export default function GroupPage({ params }: any) {
   return (
     <div className="min-h-screen dark:bg-neutral-900 text-white">
       {/* Header Section */}
-      <SocietyHeader />
+      <SocietyHeader coverImage={society?.coverImage} />
 
       {/* Main Content */}
       <div className="container mx-auto mt-8 px-4">
@@ -67,9 +67,10 @@ export default function GroupPage({ params }: any) {
               {society?.societyName || "Society Name"}
             </h1>
             <p className="text-gray-400">
-              {society?.privacyType || "Society privacy"} ·{" "}
-              {members?.length || 0} member
+              {society?.privacyType || "Society privacy"} {members?.length || 0}{" "}
+              member
               {members?.length === 1 ? "" : "s"}
+              {params.id}
             </p>
           </div>
         </div>

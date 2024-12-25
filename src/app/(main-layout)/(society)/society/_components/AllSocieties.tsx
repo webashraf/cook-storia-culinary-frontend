@@ -78,7 +78,7 @@ const AllSocieties = () => {
                   {society.societyName}
                 </h4>
                 <p className="text-sm text-gray-400 capitalize">
-                  {society.privacy}
+                  {society.privacyType}
                 </p>
               </div>
             </div>

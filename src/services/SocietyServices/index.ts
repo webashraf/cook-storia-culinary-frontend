@@ -8,6 +8,8 @@ export const createSociety = async (payload: ISociety) => {
   try {
     const { data } = await nexiosInstance.post("/society/create", payload);
 
+    console.log(data);
+
     return data;
   } catch (error: any) {
     throw new Error(error.message);
@@ -43,5 +45,20 @@ export const connectSociety = async (payload: {
     return data;
   } catch (error: any) {
     toast.error(error?.message);
+  }
+};
+
+export const getCurrentSocietyUserByUserIdAndSocietyID = async (
+  societyId: string,
+  userId: string
+) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/society-member/current-society-member?societyId=${societyId}&userId=${userId}`
+    );
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
   }
 };
