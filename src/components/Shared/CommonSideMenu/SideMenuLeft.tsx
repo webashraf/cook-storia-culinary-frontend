@@ -12,7 +12,6 @@ import { IoInformationCircle } from "react-icons/io5";
 import { LuBookOpen } from "react-icons/lu";
 import { MdOutlineDashboard, MdWorkspacePremium } from "react-icons/md";
 
-import AllSocieties from "@/src/app/(main-layout)/(society)/society/_components/AllSocieties";
 import MyConnectedSociety from "@/src/app/(main-layout)/(society)/society/_components/MyConnectedSociety";
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
@@ -113,129 +112,130 @@ const SideMenu = () => {
   }, []);
 
   return (
-    <ScrollShadow
-      hideScrollBar
-      className="w-[100%] lg:block h-[90vh] bg-default-300/50 rounded-lg p-5 flex flex-col justify-between pt-10"
-    >
-      <div>
-        {currentUser ? (
-          <div className="flex gap-5">
-            <Avatar
-              isBordered
-              color={currentUser?.isPremium ? "warning" : "primary"}
-              src={currentUser?.photo}
-            />
-            <div className="relative flex gap-1">
-              <p>
-                <Link href="/user">
-                  <h4 className="uppercase text-default-800 text-sm">
-                    {currentUser?.name.slice(0, 10)}..
-                  </h4>
-                </Link>
-                <p>{currentUser.role}</p>
-              </p>
-              {currentUser.isPremium ? (
-                <p className="text-warning inline-block text-[12px] md:text-[12px] font-bold  ">
-                  Pro
+    <div className="w-[100%] lg:block h-[100vh] dark:bg-neutral-950 rounded-lg">
+      <ScrollShadow
+        hideScrollBar
+        className="w-[100%] lg:block h-[90vh] dark:bg-neutral-950 rounded-lg p-5 flex flex-col justify-between pt-10"
+      >
+        <div>
+          {currentUser ? (
+            <div className="flex gap-5">
+              <Avatar
+                isBordered
+                color={currentUser?.isPremium ? "warning" : "primary"}
+                src={currentUser?.photo}
+              />
+              <div className="relative flex gap-1">
+                <p>
+                  <Link href="/user">
+                    <h4 className="uppercase text-default-800 text-sm">
+                      {currentUser?.name.slice(0, 10)}..
+                    </h4>
+                  </Link>
+                  <p>{currentUser.role}</p>
                 </p>
-              ) : (
-                <p className="text-sm text-default-400">
-                  {currentUser?.role == "user"
-                    ? "Basic User"
-                    : currentUser?.role}
-                </p>
-              )}
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-        {/* Nav links */}
-        {/* all User Navs */}
-        {!currentUser && (
-          <div className="mt-5 flex flex-col gap-2">
-            {allUserNavs.map((page, i) => (
-              <div key={page.href + i}>
-                <Link className="text-default-600" href={page.href}>
-                  <span
-                    className={`flex items-center text-default-800 text-left p-2 rounded-md ${
-                      pathname === page.href
-                        ? " bg-primary text-default-100"
-                        : ""
-                    }`}
-                  >
-                    {page.icon}
-                  </span>
-                  <span className="ml-2">{page.name}</span>
-                </Link>
+                {currentUser.isPremium ? (
+                  <p className="text-warning inline-block text-[12px] md:text-[12px] font-bold  ">
+                    Pro
+                  </p>
+                ) : (
+                  <p className="text-sm text-default-400">
+                    {currentUser?.role == "user"
+                      ? "Basic User"
+                      : currentUser?.role}
+                  </p>
+                )}
               </div>
-            ))}
-          </div>
-        )}
-        {/* User Navs */}
-        {currentUser?.role === "user" && (
-          <div className="mt-10 flex flex-col gap-2">
-            {userPages.map((page, i) => (
-              <div key={page.href + i} className="mb-3">
-                <Link className="text-default-600" href={page.href}>
-                  <span
-                    className={`flex items-center text-default-800 text-left p-2 rounded-md ${
-                      pathname === page.href
-                        ? " bg-primary text-default-100"
-                        : ""
-                    }`}
-                  >
-                    {page.icon}
-                  </span>
-                  <span className="ml-2">{page.name}</span>
-                </Link>
-              </div>
-            ))}
-            <div className="mb-5">
-              <MyConnectedSociety />
-              <AllSocieties />
             </div>
-          </div>
-        )}
+          ) : (
+            ""
+          )}
+          {/* Nav links */}
+          {/* all User Navs */}
+          {!currentUser && (
+            <div className="mt-5 flex flex-col gap-2">
+              {allUserNavs.map((page, i) => (
+                <div key={page.href + i}>
+                  <Link className="text-default-600" href={page.href}>
+                    <span
+                      className={`flex items-center text-default-800 text-left p-2 rounded-md ${
+                        pathname === page.href
+                          ? " bg-primary text-default-100"
+                          : ""
+                      }`}
+                    >
+                      {page.icon}
+                    </span>
+                    <span className="ml-2">{page.name}</span>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
+          {/* User Navs */}
+          {currentUser?.role === "user" && (
+            <div className="mt-10 flex flex-col gap-2">
+              {userPages.map((page, i) => (
+                <div key={page.href + i} className="mb-3">
+                  <Link className="text-default-600" href={page.href}>
+                    <span
+                      className={`flex items-center text-default-800 text-left p-2 rounded-md ${
+                        pathname === page.href
+                          ? " bg-primary text-default-100"
+                          : ""
+                      }`}
+                    >
+                      {page.icon}
+                    </span>
+                    <span className="ml-2">{page.name}</span>
+                  </Link>
+                </div>
+              ))}
+              <div className="mb-5">
+                <MyConnectedSociety />
+              </div>
+            </div>
+          )}
 
-        {/* Admin navs */}
-        {currentUser?.role === "admin" && (
-          <div className="mt-10 flex flex-col gap-2">
-            {adminPages.map((page, i) => (
-              <div key={page.href + i}>
-                <Link className="text-default-600" href={page.href}>
-                  <span
-                    className={`flex items-center text-default-800 text-left p-2 rounded-md ${
-                      pathname === page.href
-                        ? " bg-primary text-default-100"
-                        : ""
-                    }`}
-                  >
-                    {page.icon}
-                  </span>
-                  <span className="ml-2">{page.name}</span>
-                </Link>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-      <div className="flex items-center justify-center gap-2 tracking-wider uppercase text-[10px] mt-auto">
-        <Link
-          className="text-sm text-[#88b72b]/80 underline hover:text-[#88b72b] font-light "
-          href="/about-us"
-        >
-          About us
-        </Link>
-        |
-        <Link
-          className="text-sm text-[#88b72b]/80 underline hover:text-[#88b72b] font-light "
-          href="/contact-us"
-        >
-          Contact us
-        </Link>
-      </div>
-    </ScrollShadow>
+          {/* Admin navs */}
+          {currentUser?.role === "admin" && (
+            <div className="mt-10 flex flex-col gap-2">
+              {adminPages.map((page, i) => (
+                <div key={page.href + i}>
+                  <Link className="text-default-600" href={page.href}>
+                    <span
+                      className={`flex items-center text-default-800 text-left p-2 rounded-md ${
+                        pathname === page.href
+                          ? " bg-primary text-default-100"
+                          : ""
+                      }`}
+                    >
+                      {page.icon}
+                    </span>
+                    <span className="ml-2">{page.name}</span>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="flex items-center justify-center gap-2 tracking-wider uppercase text-[10px] mt-auto">
+          <Link
+            className="text-sm text-[#88b72b]/80 underline hover:text-[#88b72b] font-light "
+            href="/about-us"
+          >
+            About us
+          </Link>
+          |
+          <Link
+            className="text-sm text-[#88b72b]/80 underline hover:text-[#88b72b] font-light "
+            href="/contact-us"
+          >
+            Contact us
+          </Link>
+        </div>
+      </ScrollShadow>
+    </div>
   );
 };
 

@@ -31,7 +31,7 @@ export default function UserCard({ user, logedInUser }: any) {
           setIsLoading(false);
         }
       } catch (error) {
-        throw new Error("Failed to retrive followers");
+        console.log(error);
       }
     };
 
@@ -99,12 +99,15 @@ export default function UserCard({ user, logedInUser }: any) {
     <Card className="max-w-[340px]">
       <CardHeader className="justify-between">
         <div className="flex gap-5">
-          <Avatar
-            isBordered
-            radius="full"
-            size="md"
-            src={user?.profilePicture}
-          />
+          <Link href={`/user/${user._id}`}>
+            <Avatar
+              isBordered
+              className="cursor-pointer"
+              radius="full"
+              size="md"
+              src={user?.profilePicture}
+            />
+          </Link>
           <div className="">
             <div className="flex flex-col gap-1 items-start justify-center mb-1">
               <Link

@@ -15,6 +15,12 @@ const AddStory = ({ setRefacing }: any) => {
         const file = e.target.files[0];
         const formData = new FormData();
 
+        if (file.size / (1024 * 1024) > 8) {
+          toast.error("File size exceeds 8MB. Please upload a smaller file.");
+
+          return;
+        }
+
         formData.append("image", file);
         formData.append("data", JSON.stringify({ user: user?.id }));
         try {

@@ -22,6 +22,15 @@ const SocietyPage = () => {
     const file = e.target.files?.[0];
 
     if (file) {
+      // Check if file size exceeds the limit
+      const fileSizeMB = file.size / (1024 * 1024);
+
+      if (fileSizeMB > 8) {
+        toast.error("File size exceeds 8MB. Please upload a smaller file.");
+
+        return;
+      }
+
       setCoverPhoto(file);
 
       const reader = new FileReader();
@@ -53,7 +62,6 @@ const SocietyPage = () => {
 
       const result = await response.json();
 
-      console.log(result);
       if (response.ok && result?.success) {
         toast.success("Society created successfully!");
         setIsInput(false);

@@ -5,6 +5,7 @@ import { Button } from "@nextui-org/button";
 import { useEffect, useState } from "react";
 
 import CardSkeleton from "@/src/components/Shared/Loader/CardSkeleton";
+import { useUser } from "@/src/context/user.provider";
 import { getRecipes } from "@/src/services/RecipeService";
 
 import PostCard from "../../_components/PostCard/PostCard";
@@ -14,11 +15,12 @@ const RecipePosts = () => {
   const [recipes, setRecipes] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-
+  const { user } = useUser();
   const limit = 4;
 
   const fetchRecipes = async () => {
     setIsLoading(true);
+
     try {
       const recipeData = await getRecipes(limit, page);
 

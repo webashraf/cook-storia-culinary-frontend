@@ -16,7 +16,7 @@ export const loginUser = async (userInfo: {
       userInfo
     );
 
-    if (data.success) {
+    if (data?.success) {
       cookies().set("accessToken", data?.data?.accessToken);
       cookies().set("refreshToken", data?.data?.refreshToken);
     }

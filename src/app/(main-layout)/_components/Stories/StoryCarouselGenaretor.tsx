@@ -109,37 +109,37 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                   once: true,
                 },
               }}
-              className="last:pr-[5%] md:last:pr-[33%] rounded-3xl"
+              className="last:pr-[5%] md:last:pr-[33%] rounded-3xl relative"
               initial={{
                 opacity: 0,
                 y: 20,
               }}
             >
-              <div>
-                <User
-                  avatarProps={{
-                    src: item?.props?.card?.user?.profilePicture,
-                  }}
-                  description={
-                    <span className="text-[#acacac]">
-                      {moment(item?.props?.card?.createdAt).format(
-                        "MMM YYYY h:mm a"
+              <div className="flex items-center gap-2 absolute top-1 left-1 z-20 pointer-events-none">
+                <Image
+                  alt={`${item?.props.card.user?.username} profile picture`}
+                  className="rounded-full size-8 object-cover"
+                  height={50}
+                  src={item?.props?.card?.user?.profilePicture}
+                  width={50}
+                />
+                {/* <div>
+                  <h4 className="flex gap-1 text-[14px]">
+                    {item?.props.card.user?.username.slice(0, 6)}...
+                    <span>
+                      {item?.props.card.user?.isPremium ? (
+                        <p className="text-warning-500">(Pro)</p>
+                      ) : (
+                        ""
                       )}
                     </span>
-                  }
-                  name={
-                    <h4 className="flex gap-1">
-                      {item?.props.card.user?.username.slice(0, 8)}...
-                      <span>
-                        {item?.props.card.user?.isPremium ? (
-                          <p className="text-warning-500">(Pro)</p>
-                        ) : (
-                          ""
-                        )}
-                      </span>
-                    </h4>
-                  }
-                />
+                  </h4>
+                  <span className="text-[#acacac] text-[12px]">
+                    {moment(item?.props?.card?.createdAt).format(
+                      "MMM YYYY h:mm a"
+                    )}
+                  </span>
+                </div> */}
               </div>
               {item}
             </motion.div>
@@ -269,7 +269,7 @@ export const Card = ({
         )}
       </AnimatePresence>
       <motion.button
-        className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-64 w-44 md:h-[15rem] md:w- overflow-hidden flex flex-col items-start justify-start relative z-10"
+        className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-64 w-36 md:h-[12rem] md:w- overflow-hidden flex flex-col items-start justify-start relative z-10"
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}
       >

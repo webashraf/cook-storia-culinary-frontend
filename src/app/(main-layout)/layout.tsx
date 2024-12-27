@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable import/order */
 import Footer from "@/src/components/Shared/Footer/Footer";
 import { Navbar } from "@/src/components/Shared/navbar";
 import { fontSans } from "@/src/config/fonts";
@@ -51,13 +53,13 @@ export default function MainLayout({ children }: { children: ReactNode }) {
               </div>
               <ScrollShadow
                 hideScrollBar
-                className="lg:ml-auto  lg:w-[55%] w-full h-screen pb-10"
+                className="lg:ml-auto  lg:w-[50%] w-full h-screen pb-10"
                 isEnabled={false}
                 offset={0}
               >
                 {children}
               </ScrollShadow>
-              <div className="lg:w-[20%] lg:block hidden ">
+              <div className="lg:w-[25%] lg:block hidden ">
                 <SideMenuRight />
               </div>
             </div>

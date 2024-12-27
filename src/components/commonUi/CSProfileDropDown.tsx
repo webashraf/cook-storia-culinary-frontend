@@ -19,6 +19,7 @@ export default function CSProfileDropDown() {
   const router = useRouter();
   const { user: currentUser, setIsUserLoading } = useUser();
 
+  console.log("Loged in user from nav bar...", currentUser);
   const handleLogout = () => {
     logoutUser();
     setIsUserLoading(true);
@@ -145,7 +146,7 @@ export default function CSProfileDropDown() {
     <div className="flex items-center gap-4 h-[100vh] z-50">
       <Dropdown backdrop="blur" placement="bottom-start" size="lg">
         {currentUser ? (
-          <DropdownTrigger className="size-14">
+          <DropdownTrigger className="size-14 cursor-pointer">
             <Avatar
               isBordered
               radius="sm"

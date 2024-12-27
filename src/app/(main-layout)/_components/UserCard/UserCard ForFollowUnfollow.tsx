@@ -27,7 +27,7 @@ export default function UserCard({ user, logedInUser }: any) {
           setFollowOfUser(data?.data?.followers || []);
         }
       } catch (error) {
-        throw new Error("Failed to retrive followers");
+        console.log(error);
       }
     };
 

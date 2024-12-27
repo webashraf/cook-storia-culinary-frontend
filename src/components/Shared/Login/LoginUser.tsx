@@ -14,8 +14,6 @@ import { toast } from "sonner";
 
 import { loginUser } from "@/src/services/AuthService";
 
-import { useUser } from "../../../../context/user.provider";
-
 type TLoginFormInputs = {
   email: string;
   password: string;
@@ -34,7 +32,6 @@ const Login = () => {
   } = useForm<TLoginFormInputs>();
 
   const router = useRouter();
-  const { user, setIsUserLoading } = useUser();
 
   const loginUserHandler: SubmitHandler<TLoginFormInputs> = async (
     formData
@@ -43,10 +40,11 @@ const Login = () => {
       const res = await loginUser(formData);
 
       if (res.success) {
-        setIsUserLoading(true);
+        // setIsUserLoading(true);
         setLoading(true);
         router.push("/");
         toast.success("Login successful!!");
+        // window.location.reload();
         reset();
       } else {
         toast.error(`Login failed: ${res?.message}`);
@@ -70,6 +68,7 @@ const Login = () => {
         </h2>
         <div>
           <Input
+            aria-label="userEmail"
             label="Email"
             type="email"
             {...register("email", {
@@ -92,6 +91,7 @@ const Login = () => {
 
         <div>
           <Input
+            aria-label="userPassword"
             label="Password"
             placeholder="Enter your password"
             {...register("password", {

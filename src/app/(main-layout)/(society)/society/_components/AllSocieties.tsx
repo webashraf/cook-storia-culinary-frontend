@@ -24,7 +24,7 @@ const AllSocieties = () => {
 
   useEffect(() => {
     fetchSocieties();
-  }, [user?.id]); // Trigger fetch on user id change
+  }, [user?.id, user]); // Trigger fetch on user id change
 
   const connect = async (societyId: string) => {
     try {

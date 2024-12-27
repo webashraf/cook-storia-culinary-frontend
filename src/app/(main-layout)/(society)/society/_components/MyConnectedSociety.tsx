@@ -28,7 +28,7 @@ const MyConnectedSociety = () => {
     };
 
     fetchConnectedSocieties();
-  }, [user?.id]);
+  }, [user?.id, user]);
 
   if (loading) {
     return <div>Loading...</div>;

@@ -4,6 +4,7 @@ import { Link } from "@nextui-org/link";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import { useEffect, useState } from "react";
 
+import AllSocieties from "@/src/app/(main-layout)/(society)/society/_components/AllSocieties";
 import UserCard from "@/src/app/(main-layout)/_components/UserCard/UserCard";
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
@@ -30,30 +31,35 @@ const SideMenuRight = () => {
   }, []);
 
   return (
-    <div className="lg:min-w-[full] w-full hidden lg:block ml-auto h-[90vh] bg-default-300/50 space-y-2 px-5 pt-5 mt-5 rounded-lg">
-      {!currentUser?.isPremium && (
-        <div>
-          <h4 className="pb-2">Be a premium member</h4>
-          <Link href="/user/membership/payment">
-            <div className="bg-sky-700 rounded-2xl inline-block shadow-sm shadow-sky-500">
-              <div className="group overflow-hidden relative after:duration-500 before:duration-500 duration-500 hover:after:duration-500 hover:after:translate-x-24 hover:before:translate-y-12 hover:before:-translate-x-32 hover:duration-500 after:absolute after:w-20 after:h-16 after:bg-sky-700 after:rounded-full after:blur-xl after:bottom-32 after:right-16 before:absolute before:bg-sky-400 before:rounded-full before:blur-xl before:top-20 before:right-16 before:w-12 before:h-12 hover:rotate-12 flex justify-center items-center h-36 w-56 origin-bottom-right bg-neutral-900 rounded-2xl outline outline-slate-400 -outline-offset-8">
-                <div className="z-[5] flex flex-col items-center gap-2">
-                  <span className="text-slate-400 text-lg uppercase font-bold">
-                    Get A👊
-                  </span>
-                  <span className="text-slate-400 text-3xl font-bold">
-                    Premium
-                  </span>
-                  <p className="text-gray-50 capitalize">MEMBERSHIP</p>
-                </div>
-              </div>
-            </div>
-          </Link>
-        </div>
-      )}
+    <div className="lg:min-w-[full] w-full hidden lg:block ml-auto h-[100vh] dark:bg-neutral-950 space-y-2 px- pt- mt-5 rounded-lg">
       <div className="pt-5">
-        <h3>Follow Chef</h3>
-        <ScrollShadow hideScrollBar className=" h-[50vh] overflow-y-scroll">
+        <ScrollShadow
+          hideScrollBar
+          className=" h-[90vh] overflow-y-scroll px-5"
+        >
+          {!currentUser?.isPremium && (
+            <div>
+              <h4 className="pb-2">Be a premium member</h4>
+              <Link href="/user/membership/payment">
+                <div className="bg-sky-700 rounded-2xl inline-block shadow-sm shadow-sky-500">
+                  <div className="group overflow-hidden relative after:duration-500 before:duration-500 duration-500 hover:after:duration-500 hover:after:translate-x-24 hover:before:translate-y-12 hover:before:-translate-x-32 hover:duration-500 after:absolute after:w-20 after:h-16 after:bg-sky-700 after:rounded-full after:blur-xl after:bottom-32 after:right-16 before:absolute before:bg-sky-400 before:rounded-full before:blur-xl before:top-20 before:right-16 before:w-12 before:h-12 hover:rotate-12 flex justify-center items-center h-36 w-56 origin-bottom-right bg-neutral-900 rounded-2xl outline outline-slate-400 -outline-offset-8">
+                    <div className="z-[5] flex flex-col items-center gap-2">
+                      <span className="text-slate-400 text-lg uppercase font-bold">
+                        Get A👊
+                      </span>
+                      <span className="text-slate-400 text-3xl font-bold">
+                        Premium
+                      </span>
+                      <p className="text-gray-50 capitalize">MEMBERSHIP</p>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          )}
+          <AllSocieties />
+
+          <h3>Follow Chef</h3>
           {!allUser ? (
             <UserSkeleton />
           ) : (
