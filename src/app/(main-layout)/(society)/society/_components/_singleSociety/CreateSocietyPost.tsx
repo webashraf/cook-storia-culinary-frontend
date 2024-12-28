@@ -26,8 +26,13 @@ export default function CreateSocietyPost({
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const file: any = e.target.files?.[0];
 
+    if (file?.size / (1024 * 1024) > 8) {
+      toast.error("Image size exceeds 8MB. Please upload a smaller file.");
+
+      return;
+    }
     if (file) {
       setImage(file);
       setPreviewImage(URL.createObjectURL(file));

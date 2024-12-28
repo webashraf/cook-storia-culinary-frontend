@@ -1,6 +1,5 @@
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -44,15 +43,7 @@ const AllSocieties = () => {
   };
 
   return (
-    <div className=" text-white rounded-lg py-6">
-      <div className="flex item-center gap-5 mb-4">
-        <h3 className="text-xl font-bold">Society</h3>
-        <Link href="/society">
-          <Button className="" size="sm">
-            Create A Society
-          </Button>
-        </Link>
-      </div>
+    <div className=" text-white rounded-lg">
       <div className="space-y-2">
         {societies.map((society: ISociety) => (
           <div

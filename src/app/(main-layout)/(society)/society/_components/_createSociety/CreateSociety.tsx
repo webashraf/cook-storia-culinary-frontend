@@ -9,14 +9,14 @@ import { toast } from "sonner";
 
 import { useUser } from "@/src/context/user.provider";
 import { ISociety } from "@/src/types/society";
-import { IUser } from "@/src/types/user";
+import { ILogInUser } from "@/src/types/user";
 
-const SocietyPage = () => {
+const CreateSociety = () => {
   const [isInput, setIsInput] = useState(false);
   const [coverPhoto, setCoverPhoto] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const { handleSubmit, control, reset } = useForm<ISociety>();
-  const { user }: { user: IUser | any } = useUser();
+  const { user }: { user: ILogInUser | any } = useUser();
 
   const handleCoverPhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -207,4 +207,4 @@ const SocietyPage = () => {
   );
 };
 
-export default SocietyPage;
+export default CreateSociety;

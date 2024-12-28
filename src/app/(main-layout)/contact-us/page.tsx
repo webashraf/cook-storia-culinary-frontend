@@ -2,6 +2,7 @@
 
 import { Button } from "@nextui-org/button";
 import { Input, Textarea } from "@nextui-org/input";
+import { Link } from "@nextui-org/link";
 import { FormEvent, useState } from "react";
 
 const ContactUs = () => {
@@ -24,7 +25,7 @@ const ContactUs = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[90vh] p-6 text-white w-full ">
-      <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="max-w-7xl w-full grid grid-cols-1 gap-8">
         {/* Contact Information Section */}
         <div className="bg-gradient-to-br from-black to-gray-900 shadow-2xl rounded-lg p-8 md:p-10 border border-gray-700">
           <h2 className="text-2xl lg:text-3xl font-semibold text-white mb-4">
@@ -66,32 +67,39 @@ const ContactUs = () => {
               Follow Us:
             </h3>
 
-
             <div className="flex gap-3 h-full flex-wrap">
-              <button
+              <Link
                 className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                href="https://www.facebook.com/"
+                target="_blank"
                 type="button"
               >
                 Facebook
-              </button>
-              <button
+              </Link>
+              <Link
                 className="text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                href="https://www.youtube.com"
+                target="_blank"
                 type="button"
               >
                 YouTube
-              </button>
-              <button
+              </Link>
+              <Link
                 className="text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-400/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                href="https://www.x.com"
+                target="_blank"
                 type="button"
               >
                 Twitter
-              </button>
-              <button
+              </Link>
+              <Link
                 className="text-white bg-gradient-to-r from-pink-500 via-pink-600 to-pink-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                href="https://www.instagram.com"
+                target="_blank"
                 type="button"
               >
                 Instagram
-              </button>
+              </Link>
             </div>
           </div>
         </div>

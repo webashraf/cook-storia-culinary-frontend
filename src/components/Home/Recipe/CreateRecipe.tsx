@@ -22,7 +22,7 @@ import { toolbarOptions } from "@/src/constent/toolbarOptions.quil";
 import { useUser } from "@/src/context/user.provider";
 import { IRecipeFormData } from "@/src/types";
 import "react-quill/dist/quill.snow.css";
-import "./style/AddRecipe.css";
+// import "./style/AddRecipe.css";
 
 const CreateRecipe = () => {
   const [text, setText] = useState<string>("");
@@ -72,7 +72,13 @@ const CreateRecipe = () => {
       setQuillError(null);
     }
 
-    const image = data.image[0];
+    const image: any = data.image[0];
+
+    if (image.size / (1024 * 1024) > 8) {
+      toast.error("Image size exceeds 8MB. Please upload a smaller file.");
+
+      return;
+    }
 
     // Ensure image is provided
     if (!image) {
@@ -150,12 +156,12 @@ const CreateRecipe = () => {
   ];
 
   return (
-    <div className="w-full h-[90vh] overflow-y-scroll my-auto">
+    <div className="w-full h-[80vh] overflow-y-scroll my-auto">
       <form
-        className="border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg lg:p-12 p-5 space-y-8"
+        className=" shadow-2xl shadow-sky-600/40 rounded-lg lg:pb-12 p-5 space-y-8"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2 className="text-3xl font-bold text-center text-default-800">
+        <h2 className="text-3xl font-bold text-center text-default-800 capitalize">
           Add your recipe
         </h2>
 

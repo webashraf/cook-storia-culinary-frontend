@@ -4,6 +4,7 @@ import { Link } from "@nextui-org/link";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import { useEffect, useState } from "react";
 
+import CreateSocietyModal from "@/src/app/(main-layout)/(society)/society/_components/_createSociety/CreateSocietyModal";
 import AllSocieties from "@/src/app/(main-layout)/(society)/society/_components/AllSocieties";
 import UserCard from "@/src/app/(main-layout)/_components/UserCard/UserCard";
 import nexiosInstance from "@/src/config/nexios.instance";
@@ -31,7 +32,11 @@ const SideMenuRight = () => {
   }, []);
 
   return (
-    <div className="lg:min-w-[full] w-full hidden lg:block ml-auto h-[100vh] dark:bg-neutral-950 space-y-2 px- pt- mt-5 rounded-lg">
+    <div className="lg:min-w-[full] w-full hidden lg:block ml-auto h-[100vh] dark:bg-neutral-950 space-y-2 px- pb-5 mt-5 rounded-lg">
+      <div className="flex item-center justify-start gap-5 p-5">
+        <h3 className="text-xl font-bold mb-4">Society</h3>
+        <CreateSocietyModal />
+      </div>
       <div className="pt-5">
         <ScrollShadow
           hideScrollBar
@@ -57,9 +62,12 @@ const SideMenuRight = () => {
               </Link>
             </div>
           )}
-          <AllSocieties />
+          <div className="mb-5">
+            <h3 className="text-xl font-bold mb-4">All Society</h3>
 
-          <h3>Follow Chef</h3>
+            <AllSocieties />
+          </div>
+          <h3 className="text-xl font-bold mb-4">Follow Chef</h3>
           {!allUser ? (
             <UserSkeleton />
           ) : (

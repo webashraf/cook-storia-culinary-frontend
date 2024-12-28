@@ -61,7 +61,7 @@ const RecipePosts = () => {
           <CardSkeleton count={4} />
         </div>
       ) : (
-        <div className="grid lg:grid-cols-1 items-center justify-center gap-5 px-5 lg:mx-5 mx-0">
+        <div className="grid lg:grid-cols-1 items-center justify-center gap-5 px-5 lg:mx-0 mx-0">
           {recipes?.map((recipe: any) => (
             <div key={recipe?._id}>
               <PostCard recipe={recipe} />

@@ -16,7 +16,7 @@ const AddStory = ({ setRefacing }: any) => {
         const formData = new FormData();
 
         if (file.size / (1024 * 1024) > 8) {
-          toast.error("File size exceeds 8MB. Please upload a smaller file.");
+          toast.error("Image size exceeds 8MB. Please upload a smaller file.");
 
           return;
         }

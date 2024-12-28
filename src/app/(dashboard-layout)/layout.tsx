@@ -1,40 +1,14 @@
-/* eslint-disable no-undef */
-/* eslint-disable import/order */
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
+import { clsx } from "clsx";
+import { ReactNode } from "react";
+
+import SideMenu from "@/src/components/Shared/CommonSideMenu/SideMenuLeft";
+import SideMenuRight from "@/src/components/Shared/CommonSideMenu/SideMenuRight";
 import Footer from "@/src/components/Shared/Footer/Footer";
 import { Navbar } from "@/src/components/Shared/navbar";
 import { fontSans } from "@/src/config/fonts";
-import { siteConfig } from "@/src/config/site";
 
-import "@/src/styles/globals.css";
-import { ScrollShadow } from "@nextui-org/scroll-shadow";
-import clsx from "clsx";
-import { Metadata, Viewport } from "next";
-
-import SideMenu from "@/src/components/Shared/CommonSideMenu/SideMenuLeft";
-
-import { ReactNode } from "react";
-
-import SideMenuRight from "@/src/components/Shared/CommonSideMenu/SideMenuRight";
-
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
-
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-};
-
-export default function MainLayout({ children }: { children: ReactNode }) {
+const layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <div
@@ -69,4 +43,6 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       <Footer />
     </>
   );
-}
+};
+
+export default layout;
