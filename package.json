@@ -72,6 +72,7 @@
     "react-rating-stars-component": "^2.2.0",
     "react-share": "^5.1.1",
     "react-simple-star-rating": "^5.1.7",
+    "recharts": "^2.15.0",
     "socket.io-client": "^4.8.1",
     "sonner": "^1.5.0",
     "stories-react": "^1.1.2",

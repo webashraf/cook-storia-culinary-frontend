@@ -43,7 +43,7 @@ const SideMenuRight = () => {
           className=" h-[90vh] overflow-y-scroll px-5"
         >
           {!currentUser?.isPremium && (
-            <div>
+            <div className="mb-5">
               <h4 className="pb-2">Be a premium member</h4>
               <Link href="/user/membership/payment">
                 <div className="bg-sky-700 rounded-2xl inline-block shadow-sm shadow-sky-500">

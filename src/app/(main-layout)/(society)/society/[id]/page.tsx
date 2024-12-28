@@ -70,7 +70,6 @@ export default function GroupPage({ params }: any) {
               {society?.privacyType || "Society privacy"} {members?.length || 0}{" "}
               member
               {members?.length === 1 ? "" : "s"}
-              {params.id}
             </p>
           </div>
         </div>
