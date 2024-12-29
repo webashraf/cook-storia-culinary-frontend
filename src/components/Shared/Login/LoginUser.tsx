@@ -1,4 +1,7 @@
+/* eslint-disable no-undef */
 "use client";
+
+import { setTimeout } from "timers";
 
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
@@ -12,6 +15,7 @@ import { LuChefHat } from "react-icons/lu";
 import { MdPassword } from "react-icons/md";
 import { toast } from "sonner";
 
+import { useUser } from "@/src/context/user.provider";
 import { loginUser } from "@/src/services/AuthService";
 
 type TLoginFormInputs = {
@@ -23,6 +27,10 @@ const Login = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
+  const router = useRouter();
+  const { user } = useUser();
+
+  setTimeout(() => user && router.push("/"), 1000);
 
   const {
     handleSubmit,
@@ -31,8 +39,6 @@ const Login = () => {
     formState: { errors },
   } = useForm<TLoginFormInputs>();
 
-  const router = useRouter();
-
   const loginUserHandler: SubmitHandler<TLoginFormInputs> = async (
     formData
   ) => {
@@ -40,11 +46,10 @@ const Login = () => {
       const res = await loginUser(formData);
 
       if (res.success) {
-        // setIsUserLoading(true);
         setLoading(true);
         router.push("/");
         toast.success("Login successful!!");
-        // window.location.reload();
+        window.location.reload();
         reset();
       } else {
         toast.error(`Login failed: ${res?.message}`);
@@ -55,7 +60,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center lg:p-10 p-5 rounded-2xl bg-black/60 w-full">
+    <div className="flex items-center justify-center lg:p-10 p-5 rounded-2xl dark:bg-black/60 w-full border border-gray-200 shadow-2xl shadow-sky-600/40">
       <form
         className="space-y-5 w-full"
         onSubmit={handleSubmit(loginUserHandler)}

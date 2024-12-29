@@ -185,7 +185,14 @@ const SideMenu = () => {
                           : ""
                       }`}
                     >
-                      {page.icon}
+                      <span
+                        className={` ${
+                          pathname === page.href ? " text-white" : ""
+                        }`}
+                      >
+                        {" "}
+                        {page.icon}
+                      </span>
                     </span>
                     <span className="ml-2">{page.name}</span>
                   </Link>
@@ -219,7 +226,7 @@ const SideMenu = () => {
             </div>
           )}
         </div>
-        <div className="flex items-center justify-center gap-2 tracking-wider uppercase text-[10px] mt-auto">
+        <div className="flex items-center justify-start gap-2 tracking-wider uppercase text-[10px] mt-auto">
           <Link
             className="text-sm text-[#88b72b]/80 underline hover:text-[#88b72b] font-light "
             href="/about-us"

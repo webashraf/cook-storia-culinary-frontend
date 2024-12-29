@@ -3,10 +3,11 @@
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IoEyeOff, IoEyeSharp, IoMail } from "react-icons/io5";
-import { LuUserPlus } from "react-icons/lu";
+import { LuChefHat, LuUserPlus } from "react-icons/lu";
 import { MdPassword } from "react-icons/md";
 import { toast } from "sonner";
 
@@ -14,7 +15,7 @@ import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 import { IUserFormInfo } from "@/src/types/user";
 
-const CreateAdmin = () => {
+const SignUp = () => {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -29,21 +30,23 @@ const CreateAdmin = () => {
       email: "aliashraf@gmail.com",
       password: "123456",
       profilePicture:
-        "https://img.freepik.com/free-vector/illustration-user-avatar-icon_53876-5907.jpg?t=st=1727979695~exp=1727983295~hmac=175f5b9229e80fb758ee5f0ec8cc665bf84af6260a74ab6a86f67dec799ad8ef&w=740",
+        "https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671122.jpg?t=st=1728475368~exp=1728478968~hmac=62789df160b00c4cb25a1e8c632f3fbcb154a5a5b2fdf8fff53037af9967688b&w=740",
     },
   });
+  const router = useRouter();
   const { setIsUserLoading } = useUser();
 
   const onSubmit: SubmitHandler<IUserFormInfo> = async (formData) => {
     try {
       const { data }: any = await nexiosInstance.post("/user/create-user", {
         ...formData,
-        role: "admin",
+        role: "user",
       });
 
       if (data.success) {
         setIsUserLoading(true);
         toast.success("Registration successful!");
+        router.push("/login");
       } else {
         toast.error("Failed to register");
       }
@@ -53,13 +56,16 @@ const CreateAdmin = () => {
   };
 
   return (
-    <div className="min-h-[90vh] flex items-center justify-center ">
+    <div className="flex items-center justify-center ">
       <form
-        className="border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg lg:p-12 p-5 w-[500px] space-y-8"
+        className="border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg p-12 w-full space-y-8"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2 className="text-3xl font-bold text-center text-default-800">
-          Create An Admin
+        <h2 className="">
+          <span className="flex justify-center items-center gap-1 text-xl">
+            <LuChefHat size={22} />
+            CookstoriaCulinary
+          </span>
         </h2>
 
         <Input
@@ -159,4 +165,4 @@ const CreateAdmin = () => {
   );
 };
 
-export default CreateAdmin;
+export default SignUp;

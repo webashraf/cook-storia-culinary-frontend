@@ -9,7 +9,9 @@ const CommonHero = ({ title = "", subtitle = "" }: any) => {
     >
       <div className="bg-black/30 backdrop-blur-sm h-full w-full flex justify-center items-center">
         {" "}
-        <h2 className="text-5xl text-center uppercase font-mono">{title}</h2>
+        <h2 className="text-5xl text-center uppercase font-mono text-white">
+          {title}
+        </h2>
         <p>{subtitle}</p>
       </div>
     </div>

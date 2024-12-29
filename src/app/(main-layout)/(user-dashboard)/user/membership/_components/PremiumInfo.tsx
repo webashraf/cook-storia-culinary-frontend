@@ -38,7 +38,7 @@ const PremiumInfo = () => {
   }
 
   return (
-    <div className="min-h-screen lg:p-6 px-3 overflow-y-scroll mt-10">
+    <div className="min-h-screen lg:p-6 px-3  mt-10">
       {/* User Information */}
       <div className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-bold">
@@ -69,7 +69,7 @@ const PremiumInfo = () => {
       </h1>
       <table className="lg:min-w-full w-[50% overflow-y-scroll bg-white border border-gray-200 rounded-lg shadow">
         <thead>
-          <tr className="bg-black">
+          <tr className="dark:bg-neutral-950">
             <th className="py-2 px-4 border-b border-gray-200 text-left text-lg">
               Transaction ID
             </th>

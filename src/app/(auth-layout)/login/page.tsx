@@ -78,7 +78,7 @@ const LoginPage = () => {
             "url('https://images.pexels.com/photos/5785545/pexels-photo-5785545.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
         }}
       >
-        <div className="flex items-center lg:flex-row flex-col lg:justify-around justify-center lg:gap-0 gap-10 bg-black/80 rounded-xl backdrop-blur-md lg:p-12 p-5">
+        <div className="flex items-center lg:flex-row flex-col lg:justify-around justify-center lg:gap-0 gap-10 dark:bg-black/80 rounded-xl backdrop-blur-md lg:p-12 p-5">
           {/* Left Section */}
           <div className="lg:w-1/2 text-left text-white">
             <h2 className="lg:text-6xl text-4xl font-semibold mb-4">

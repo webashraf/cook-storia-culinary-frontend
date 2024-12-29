@@ -9,17 +9,13 @@ import {
 import NextLink from "next/link";
 import { LuChefHat } from "react-icons/lu";
 
-import { useUser } from "@/src/context/user.provider";
-
 import CSProfileDropDown from "../commonUi/CSProfileDropDown";
 import { ThemeSwitch } from "../theme-switch";
 
 export const Navbar = () => {
-
-
   return (
     <NextUINavbar
-      className="flex relative z-50 justify-between overflow-hidden"
+      className="flex relative z-10 justify-between overflow-hidden"
       maxWidth="2xl"
       position="sticky"
     >

@@ -12,7 +12,7 @@ const layout = ({ children }: { children: ReactNode }) => {
     <>
       <div
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased max-w-[1420px] mx-auto",
+          "min-h-screen font-sans antialiased max-w-[1420px] mx-auto",
           fontSans.variable
         )}
       >

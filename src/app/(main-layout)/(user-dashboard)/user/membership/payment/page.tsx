@@ -2,8 +2,10 @@
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { useUser } from "@/src/context/user.provider";
 import convertToCurrency from "@/src/lib/convertToCurrency";
 
 import CheckoutForm from "./_components/checkoutForm";
@@ -19,6 +21,12 @@ const stripePromise = loadStripe(
 export default function App() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const amount: number = convertToCurrency(200);
+  const { user } = useUser();
+  const router = useRouter();
+
+  if (!user) {
+    router.push("/login");
+  }
 
   useEffect(() => {
     fetch("/api/create-payment-intent", {

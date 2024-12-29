@@ -56,21 +56,21 @@ export default function CSProfileDropDown() {
       content: "Add Recipe",
       action: () => router.push("/user/add-recipe"),
     },
-    {
-      key: "profile_settings",
-      content: "Profile Settings",
-      action: () => router.push("/user/update-user-info"),
-    },
-    {
-      key: "change_password",
-      content: "Change Password",
-      action: () => router.push("/user/change-password"),
-    },
-    {
-      key: "my_recipes",
-      content: "My Recipes",
-      action: () => router.push("/user"),
-    },
+    // {
+    //   key: "profile_settings",
+    //   content: "Profile Settings",
+    //   action: () => router.push("/user/update-user-info"),
+    // },
+    // {
+    //   key: "change_password",
+    //   content: "Change Password",
+    //   action: () => router.push("/user/change-password"),
+    // },
+    // {
+    //   key: "my_recipes",
+    //   content: "My Recipes",
+    //   action: () => router.push("/user"),
+    // },
     {
       key: "recipe_feed",
       content: "Recipe Feed",
@@ -78,8 +78,18 @@ export default function CSProfileDropDown() {
     },
     {
       key: "get_membership",
-      content: "Get Membership",
+      content: "Membership",
       action: () => router.push("/user/membership"),
+    },
+    {
+      key: "about_us",
+      content: "About Us",
+      action: () => router.push("/about-us"),
+    },
+    {
+      key: "contact_us",
+      content: "Contact Us",
+      action: () => router.push("/contact-us"),
     },
     {
       key: "logout",
@@ -97,27 +107,27 @@ export default function CSProfileDropDown() {
     {
       key: "admin_dashboard",
       content: "Admin Dashboard",
-      action: () => router.push("/admin"),
+      action: () => router.push("/dashboard"),
     },
     {
       key: "manage_user",
       content: "Manage User",
-      action: () => router.push("/admin/manage-user"),
+      action: () => router.push("/dashboard/manage-user"),
     },
     {
       key: "manage_recipes",
       content: "Manage Recipes",
-      action: () => router.push("/admin/manage-recipe"),
+      action: () => router.push("/dashboard/manage-recipe"),
     },
     {
       key: "create_admin",
       content: "Create Admin",
-      action: () => router.push("/admin/create-admin"),
+      action: () => router.push("/dashboard/create-admin"),
     },
     {
       key: "manage_admin",
       content: "Manage Admin",
-      action: () => router.push("/admin/manage-admin"),
+      action: () => router.push("/dashboard/manage-admin"),
     },
     {
       key: "recipe_feed",

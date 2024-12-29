@@ -15,6 +15,8 @@ import SideMenu from "@/src/components/Shared/CommonSideMenu/SideMenuLeft";
 import { ReactNode } from "react";
 
 import SideMenuRight from "@/src/components/Shared/CommonSideMenu/SideMenuRight";
+import { getCurrentUser } from "@/src/services/AuthService";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: {
@@ -34,12 +36,27 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function MainLayout({ children }: { children: ReactNode }) {
+export default async function MainLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const user = await getCurrentUser();
+
+  if (user?.role == "admin") {
+    console.log(user?.role);
+    redirect("/dashboard");
+  }
+  if (!user) {
+    redirect("/login");
+    console.log("Main Layout User:", user);
+  }
+
   return (
     <>
       <div
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased max-w-[1420px] mx-auto",
+          "min-h-screen  font-sans antialiased max-w-[1420px] mx-auto",
           fontSans.variable
         )}
       >
