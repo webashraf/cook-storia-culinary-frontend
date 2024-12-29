@@ -1,6 +1,6 @@
 "use client";
 import { Avatar } from "@nextui-org/avatar";
-import { Link } from "@nextui-org/link";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { useUser } from "@/src/context/user.provider";

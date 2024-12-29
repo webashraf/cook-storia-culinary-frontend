@@ -1,8 +1,8 @@
 "use client";
 
 import { Avatar } from "@nextui-org/avatar";
-import { Link } from "@nextui-org/link";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaUserAlt } from "react-icons/fa";
@@ -141,12 +141,13 @@ const AdminSideMenu = () => {
             <div className="mt-10 flex flex-col gap-2">
               {adminPages.map((page, i) => (
                 <div key={page.href + i}>
-                  <Link className="text-default-600" href={page.href}>
+                  <Link
+                    className="text-default-600 flex items-center"
+                    href={page.href}
+                  >
                     <span
-                      className={`flex items-center text-default-800 text-left p-2 rounded-md ${
-                        pathname === page.href
-                          ? " bg-primary text-default-100"
-                          : ""
+                      className={`text-left p-2 rounded-md ${
+                        pathname === page.href ? " bg-primary text-white " : ""
                       }`}
                     >
                       {page.icon}

@@ -2,7 +2,7 @@
 "use client";
 
 import { Image } from "@nextui-org/image";
-import { Link } from "@nextui-org/link";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { getSocietyPost } from "@/src/services/SocietyPostService";

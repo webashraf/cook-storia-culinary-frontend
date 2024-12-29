@@ -8,7 +8,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
-import { Link } from "@nextui-org/link";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -19,7 +19,6 @@ export default function CSProfileDropDown() {
   const router = useRouter();
   const { user: currentUser, setIsUserLoading } = useUser();
 
-  console.log("Loged in user from nav bar...", currentUser);
   const handleLogout = () => {
     logoutUser();
     setIsUserLoading(true);

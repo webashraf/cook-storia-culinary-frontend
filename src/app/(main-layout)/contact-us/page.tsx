@@ -2,7 +2,7 @@
 
 import { Button } from "@nextui-org/button";
 import { Input, Textarea } from "@nextui-org/input";
-import { Link } from "@nextui-org/link";
+import Link from "next/link";
 import { FormEvent, useState } from "react";
 
 const ContactUs = () => {

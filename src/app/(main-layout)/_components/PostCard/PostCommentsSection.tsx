@@ -2,7 +2,7 @@
 
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
-import { Link } from "@nextui-org/link";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoPaperPlaneOutline } from "react-icons/io5";

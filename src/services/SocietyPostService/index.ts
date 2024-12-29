@@ -35,7 +35,6 @@ export const getSocietyPostComment = async (
   postId: string,
   pagination: string
 ) => {
-  console.log("Pagination", pagination);
   try {
     const { data } = await nexiosInstance.get(
       `/society-post-comment/post-comments?postId=${postId}${pagination}`
@@ -63,7 +62,6 @@ export const createOrUpdateUpvoteDownvote = async (
 };
 
 export const getSocietyPostVotes = async (postId: string) => {
-  console.log("PostId", postId);
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/upvote-downvote/${postId}`
@@ -74,5 +72,3 @@ export const getSocietyPostVotes = async (postId: string) => {
     console.log(error);
   }
 };
-
-

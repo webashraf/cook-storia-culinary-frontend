@@ -1,7 +1,6 @@
 // src/components/userInfo.js
 
-import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
+import Link from "next/link";
 const ProfileInfo = () => {
   return (
     <div className=" p-4 pl-0 pb-0 border-b border-gray-300 dark:border-gray-700">
@@ -11,19 +10,27 @@ const ProfileInfo = () => {
 
       <div className="w-full flex flex-wrap">
         <Link href="/user/update-user-info">
-          <Button radius="none">Edit Profile</Button>
+          <span className="px-2 py-1 dark:bg-neutral-600 border-r-1 border-neutral-500">
+            Edit Profile
+          </span>
         </Link>
         <Link href="/user/membership">
-          <Button radius="none">Membership</Button>
+          <span className="px-2 py-1 dark:bg-neutral-600 border-r-1 border-neutral-500">
+            Membership
+          </span>
         </Link>
         <Link href="/user/add-recipe">
-          <Button radius="none">Add Recipe</Button>
+          <span className="px-2 py-1 dark:bg-neutral-600 border-r-1 border-neutral-500">
+            Add Recipe
+          </span>
         </Link>
         <Link href="/user/update-recipe">
-          <Button radius="none">Update Recipe</Button>
+          <span className="px-2 py-1 dark:bg-neutral-600 border-r-1 border-neutral-500">
+            Update Recipe
+          </span>
         </Link>
         <Link href="/user/change-password">
-          <Button radius="none">Change Password</Button>
+          <span className="px-2 py-1 dark:bg-neutral-600">Change Password</span>
         </Link>
       </div>
     </div>

@@ -44,12 +44,10 @@ export default async function MainLayout({
   const user = await getCurrentUser();
 
   if (user?.role == "admin") {
-    console.log(user?.role);
     redirect("/dashboard");
   }
   if (!user) {
     redirect("/login");
-    console.log("Main Layout User:", user);
   }
 
   return (

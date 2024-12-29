@@ -1,8 +1,8 @@
 "use client";
 
 import { Avatar } from "@nextui-org/avatar";
-import { Link } from "@nextui-org/link";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaPhone, FaUserAlt } from "react-icons/fa";
@@ -177,22 +177,16 @@ const SideMenu = () => {
             <div className="mt-10 flex flex-col gap-2">
               {userPages.map((page, i) => (
                 <div key={page.href + i} className="mb-3">
-                  <Link className="text-default-600" href={page.href}>
+                  <Link
+                    className="flex items-center text-default-800 text-left"
+                    href={page.href}
+                  >
                     <span
-                      className={`flex items-center text-default-800 text-left p-2 rounded-md ${
-                        pathname === page.href
-                          ? " bg-primary text-default-100"
-                          : ""
+                      className={`p-2 rounded-md ${
+                        pathname === page.href ? "bg-primary text-white " : ""
                       }`}
                     >
-                      <span
-                        className={` ${
-                          pathname === page.href ? " text-white" : ""
-                        }`}
-                      >
-                        {" "}
-                        {page.icon}
-                      </span>
+                      {page.icon}
                     </span>
                     <span className="ml-2">{page.name}</span>
                   </Link>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@nextui-org/link";
+import Link from "next/link";
 
 const PlanAds = () => {
   return (

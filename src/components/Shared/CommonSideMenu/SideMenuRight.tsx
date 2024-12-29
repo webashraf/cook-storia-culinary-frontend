@@ -1,7 +1,7 @@
 "use client";
 
-import { Link } from "@nextui-org/link";
 import { ScrollShadow } from "@nextui-org/scroll-shadow";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import CreateSocietyModal from "@/src/app/(main-layout)/(society)/society/_components/_createSociety/CreateSocietyModal";

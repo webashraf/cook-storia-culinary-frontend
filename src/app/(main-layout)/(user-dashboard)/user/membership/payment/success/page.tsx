@@ -3,7 +3,7 @@
 "use client";
 
 import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
+import Link from "next/link";
 
 import { useUser } from "@/src/context/user.provider";
 import { logoutUser } from "@/src/services/AuthService";

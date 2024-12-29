@@ -3,7 +3,7 @@
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { Card, CardHeader } from "@nextui-org/card";
-import { Link } from "@nextui-org/link";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
