@@ -34,7 +34,7 @@ const SideMenuRight = () => {
   return (
     <div className="lg:min-w-[full] w-full hidden lg:block ml-auto h-[100vh] dark:bg-neutral-950 space-y-2 px- pb-5 mt-5 rounded-lg">
       <div className="flex item-center justify-start gap-5 p-5">
-        <h3 className="text-xl font-bold mb-4">Society</h3>
+        <h3 className="text-xl font-bold inline-block">Society</h3>
         <CreateSocietyModal />
       </div>
       <div className="pt-5">

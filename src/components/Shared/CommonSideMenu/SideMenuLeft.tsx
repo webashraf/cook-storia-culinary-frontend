@@ -120,11 +120,13 @@ const SideMenu = () => {
         <div>
           {currentUser ? (
             <div className="flex gap-5">
-              <Avatar
-                isBordered
-                color={currentUser?.isPremium ? "warning" : "primary"}
-                src={currentUser?.photo}
-              />
+              <Link className="hover:cursor-pointer" href="/user">
+                <Avatar
+                  isBordered
+                  color={currentUser?.isPremium ? "warning" : "primary"}
+                  src={currentUser?.photo}
+                />
+              </Link>
               <div className="relative flex gap-1">
                 <p>
                   <Link href="/user">

@@ -36,7 +36,7 @@ const AdminDashboard = () => {
   console.log(userInfo);
 
   return (
-    <div className="flex max-h-screen dark:bg-neutral-70 mt-10 lg:px-0 px-5">
+    <div className="flex max-h-screen dark:bg-neutral-70 mt-10">
       {/* Main Content */}
       <main className="flex-1 ">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -47,7 +47,8 @@ const AdminDashboard = () => {
             </h1>
             <p className="text-default-900 text-lg mb-6">
               You are logged in as
-              <strong className="text-default-900"> {currentUser?.role}</strong>.
+              <strong className="text-default-900"> {currentUser?.role}</strong>
+              .
             </p>
             <div className="dark:bg-neutral-800 p-4 rounded-lg shadow-inner">
               <h2 className="text-xl font-semibold text-default-900 mb-4">
@@ -62,7 +63,7 @@ const AdminDashboard = () => {
 
           {/* User Details Card */}
           <div className="dark:bg-neutral-900 p-6 rounded-lg shadow-md">
-            <PaiChartUserOverview  />
+            <PaiChartUserOverview />
             {/* Add more user details as needed */}
           </div>
 

@@ -37,7 +37,8 @@ export const getSocietyPostComment = async (
 ) => {
   try {
     const { data } = await nexiosInstance.get(
-      `/society-post-comment/post-comments?postId=${postId}${pagination}`
+      `/society-post-comment/post-comments?postId=${postId}${pagination}`,
+      { next: { tags: ["societyPosts"] } }
     );
 
     return { data };

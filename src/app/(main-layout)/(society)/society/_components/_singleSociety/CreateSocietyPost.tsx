@@ -77,7 +77,7 @@ export default function CreateSocietyPost({
       const responseData = await response.json();
 
       toast.success("Post submitted successfully!");
-
+      window.location.reload();
       // Reset inputs
       setPostContent("");
       setImage(null);

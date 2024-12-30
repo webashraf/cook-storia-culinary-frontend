@@ -68,7 +68,7 @@ export default async function MainLayout({
               </div>
               <ScrollShadow
                 hideScrollBar
-                className="lg:ml-auto  lg:w-[50%] w-full h-screen pb-10"
+                className="lg:ml-auto  lg:w-[50%] w-full h-screen pb-10 mx-auto overflow-x-hidde"
                 isEnabled={false}
                 offset={0}
               >

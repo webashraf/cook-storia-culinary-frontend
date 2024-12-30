@@ -21,7 +21,7 @@ const CreateSocietyModal = () => {
         </ModalTrigger>
 
         <ModalBody>
-          <ModalContent className="p-4 bg-neutral-950 rounded-lg shadow-lg">
+          <ModalContent className="p-4 dark:bg-neutral-950 rounded-lg shadow-lg">
             <CreateSociety />
           </ModalContent>
         </ModalBody>

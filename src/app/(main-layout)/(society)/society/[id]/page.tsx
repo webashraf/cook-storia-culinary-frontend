@@ -1,5 +1,6 @@
 "use client";
 
+import { Card, CardBody, Tab, Tabs } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 
 import nexiosInstance from "@/src/config/nexios.instance";
@@ -8,6 +9,7 @@ import { ILogInUser } from "@/src/types/user";
 
 import CreateSocietyPost from "../_components/_singleSociety/CreateSocietyPost";
 import SocietyHeader from "../_components/_singleSociety/SocietyHeader";
+import SocietyMembers from "../_components/_singleSociety/SocietyMembers";
 import SocietyPost from "../_components/_singleSociety/SocietyPosts";
 
 export default function GroupPage({ params }: any) {
@@ -21,8 +23,29 @@ export default function GroupPage({ params }: any) {
   const currentMember = members.find(
     (member) => member?.userId?._id === user?.id
   );
+  let tabs = [
+    {
+      id: "posts",
+      label: "Post",
+      content: <SocietyPost societyId={params?.id} />,
+    },
+    {
+      id: "about",
+      label: "About",
+      content: <p>{society?.description}</p>,
+    },
+    {
+      id: "members",
+      label: "Members",
+      content: (
+        <div>
+          <SocietyMembers members={members} />
+        </div>
+      ),
+    },
+  ];
 
-  console.log("society", society);
+  console.log(society);
 
   useEffect(() => {
     const fetchSociety = async () => {
@@ -76,24 +99,6 @@ export default function GroupPage({ params }: any) {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="mt-6 border-b border-gray-600">
-          <ul className="flex space-x-4 text-gray-400">
-            <li className="pb-2 border-b-2 border-transparent hover:text-white hover:border-white">
-              About
-            </li>
-            <li className="pb-2 border-b-2 border-transparent hover:text-white hover:border-white">
-              Posts
-            </li>
-            <li className="pb-2 border-b-2 border-transparent hover:text-white hover:border-white">
-              Members
-            </li>
-            <li className="pb-2 border-b-2 border-transparent hover:text-white hover:border-white">
-              Events
-            </li>
-          </ul>
-        </div>
-
         {/* Main Section */}
         <div className="mt-6 flex flex-col md:flex-row gap-4">
           {/* Left Section */}
@@ -103,9 +108,18 @@ export default function GroupPage({ params }: any) {
               currentSocietyMember={currentMember}
               societyId={params?.id}
             />
-
-            {/* Display Posts */}
-            <SocietyPost societyId={params?.id} />
+            {/* Tabs */}
+            <div className="flex w-full flex-col mt-5">
+              <Tabs aria-label="Dynamic tabs" items={tabs}>
+                {(item) => (
+                  <Tab key={item.id} title={item.label}>
+                    <Card>
+                      <CardBody>{item.content}</CardBody>
+                    </Card>
+                  </Tab>
+                )}
+              </Tabs>
+            </div>
           </div>
         </div>
       </div>

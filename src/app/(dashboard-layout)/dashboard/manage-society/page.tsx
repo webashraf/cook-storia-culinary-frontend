@@ -75,7 +75,6 @@ export default function ManageSociety() {
     );
   }, [visibleColumns]);
 
-  // console.log("All Societies", society);
 
   useEffect(() => {
     const fetchSociety = async () => {

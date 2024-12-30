@@ -55,13 +55,13 @@ const RecipePosts = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center ">
       {isLoading && page === 1 ? (
         <div>
           <CardSkeleton count={4} />
         </div>
       ) : (
-        <div className="grid lg:grid-cols-1 items-center justify-center gap-5 px-5 lg:mx-0 mx-0">
+        <div className="grid lg:grid-cols-1 items-center justify-center gap-5 px-5 lg:mx-0 mx-0 w-full overflow-x-hidden">
           {recipes?.map((recipe: any) => (
             <div key={recipe?._id}>
               <PostCard recipe={recipe} />

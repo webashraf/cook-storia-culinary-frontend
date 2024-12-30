@@ -45,8 +45,6 @@ export default function SocietyUpdateModal({
       try {
         const result = await getSingleSociety(societyId);
 
-        console.log("Fetched Society Data:", result);
-
         if (result?.success) {
           const { societyName, coverImage, description } = result.data;
 
@@ -68,13 +66,11 @@ export default function SocietyUpdateModal({
   }, [societyId, isOpen, reset]);
 
   const submitHandler = async (data: any) => {
-    console.log("Form Submitted:", data);
     const result = await nexiosInstance.put(
       `/society/update/${societyId}`,
       data
     );
 
-    console.log("Result", result);
     setLoading(true);
   };
 

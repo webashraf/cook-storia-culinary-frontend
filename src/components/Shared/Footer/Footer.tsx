@@ -1,5 +1,8 @@
 // components/Footer.js
 
+import Image from "next/image";
+import Link from "next/link";
+
 import Container from "../../UI/Container";
 
 const Footer = () => {
@@ -7,11 +10,22 @@ const Footer = () => {
     <footer className=" glassy  mt-5">
       <div className="max-w-[1500px] mx-auto lg:py-12 py-5 border-t-4 border-primary-400 text-default-900">
         <Container>
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto lg:px-6">
             <div className="grid lg:grid-cols-4 ">
               {/* Company Info Section */}
               <div className="mb-6 footer-item">
-                <h3 className="text-lg font-semibold mb-2 ">Company Name</h3>
+                <Link
+                  className="flex justify-start items-center gap-1 mb-3"
+                  href="/"
+                >
+                  <Image
+                    alt="Site logo"
+                    className="min-w-[280px]"
+                    height={100}
+                    src="/logo.png"
+                    width={280}
+                  />
+                </Link>
                 <p className="text-default-500 mb-4">
                   Your trusted partner for innovative solutions in technology
                   and business.
@@ -95,7 +109,9 @@ const Footer = () => {
               {/* Contact Us Section */}
               <div className="mb-6 footer-item">
                 <h3 className="text-lg font-semibold mb-2">Contact Us</h3>
-                <p className="text-default-500">123 Business St, City, Country</p>
+                <p className="text-default-500">
+                  123 Business St, City, Country
+                </p>
                 <p className="text-default-500">
                   Email:{" "}
                   <a

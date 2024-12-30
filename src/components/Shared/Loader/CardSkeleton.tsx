@@ -7,7 +7,7 @@ type CardSkeletonProps = {
 
 const CardItemSkeleton = () => (
   <Card
-    className="min-h-[400px] lg:min-w-[95%] mx-auto w-[90%] md:w-[600px] space-y-5 p-4"
+    className="min-h-[400px] lg:min-w-[95%] w-[90%] md:w-[600px] space-y-5 p-4 mx-auto"
     radius="lg"
   >
     <div className="max-w-[300px] w-full flex items-center gap-3">
@@ -41,7 +41,7 @@ const CardItemSkeleton = () => (
 
 const CardSkeleton = ({ count = 4 }: CardSkeletonProps) => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-1 gap-5 lg:mx-5 ">
+    <div className="lg:mx-5 space-y-5 mx-auto">
       {Array.from({ length: count }, (_, i) => (
         <CardItemSkeleton key={i} />
       ))}

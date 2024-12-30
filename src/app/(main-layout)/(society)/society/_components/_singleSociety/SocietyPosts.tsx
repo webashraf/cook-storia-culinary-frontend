@@ -58,7 +58,7 @@ export default function SocietyPost({ societyId }: { societyId: string }) {
                 </Link>
                 <div>
                   <Link href={`/user/${post?.userId?.userId?._id}`}>
-                    <h4 className="capitalize hover:underline text-white">
+                    <h4 className="capitalize hover:underline dark:text-white">
                       {post?.userId?.userId?.username}
                     </h4>
                   </Link>

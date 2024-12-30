@@ -6,8 +6,8 @@ import {
   NavbarItem,
   Navbar as NextUINavbar,
 } from "@nextui-org/navbar";
+import Image from "next/image";
 import NextLink from "next/link";
-import { LuChefHat } from "react-icons/lu";
 
 import CSProfileDropDown from "../commonUi/CSProfileDropDown";
 import { ThemeSwitch } from "../theme-switch";
@@ -25,8 +25,14 @@ export const Navbar = () => {
       >
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <LuChefHat size={22} />
-            CookstoriaCulinary
+        
+            <Image
+              alt="Site logo"
+              className="lg:min-w-[280px] min-w-[230px]"
+              height={100}
+              src="/logo.png"
+              width={280}
+            />
           </NextLink>
         </NavbarBrand>
       </NavbarContent>

@@ -55,21 +55,6 @@ export default function CSProfileDropDown() {
       content: "Add Recipe",
       action: () => router.push("/user/add-recipe"),
     },
-    // {
-    //   key: "profile_settings",
-    //   content: "Profile Settings",
-    //   action: () => router.push("/user/update-user-info"),
-    // },
-    // {
-    //   key: "change_password",
-    //   content: "Change Password",
-    //   action: () => router.push("/user/change-password"),
-    // },
-    // {
-    //   key: "my_recipes",
-    //   content: "My Recipes",
-    //   action: () => router.push("/user"),
-    // },
     {
       key: "recipe_feed",
       content: "Recipe Feed",
@@ -92,26 +77,27 @@ export default function CSProfileDropDown() {
     },
     {
       key: "logout",
-      content: <p onClick={handleLogout}>Log Out</p>,
+      content: <p onClick={() => handleLogout()}>Log Out</p>,
       action: null,
       color: "danger",
     },
   ];
   const adminPages = [
-    // {
-    //   key: "home",
-    //   content: "Home",
-    //   action: () => router.push("/"),
-    // },
     {
-      key: "admin_dashboard",
-      content: "Admin Dashboard",
+      key: "overview",
+      content: "Overview",
       action: () => router.push("/dashboard"),
     },
+
     {
       key: "manage_user",
       content: "Manage User",
       action: () => router.push("/dashboard/manage-user"),
+    },
+    {
+      key: "manage_admin",
+      content: "Manage Admin",
+      action: () => router.push("/dashboard/manage-admin"),
     },
     {
       key: "manage_recipes",
@@ -129,28 +115,8 @@ export default function CSProfileDropDown() {
       action: () => router.push("/dashboard/create-admin"),
     },
     {
-      key: "manage_admin",
-      content: "Manage Admin",
-      action: () => router.push("/dashboard/manage-admin"),
-    },
-    // {
-    //   key: "recipe_feed",
-    //   content: "Recipe Feed",
-    //   action: () => router.push("/recipe-feed"),
-    // },
-    // {
-    //   key: "about_us",
-    //   content: "About Us",
-    //   action: () => router.push("/about-us"),
-    // },
-    // {
-    //   key: "contact_us",
-    //   content: "Contact Us",
-    //   action: () => router.push("/contact-us"),
-    // },
-    {
       key: "logout",
-      content: <p onClick={handleLogout}>Log Out</p>,
+      content: <p onClick={() => handleLogout()}>Log Out</p>,
       action: null,
       color: "danger",
     },

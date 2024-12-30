@@ -2,12 +2,13 @@
 
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IoEyeOff, IoEyeSharp, IoMail } from "react-icons/io5";
-import { LuChefHat, LuUserPlus } from "react-icons/lu";
+import { LuUserPlus } from "react-icons/lu";
 import { MdPassword } from "react-icons/md";
 import { toast } from "sonner";
 
@@ -56,18 +57,18 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex items-center justify-center ">
+    <div className="flex dark:bg-black/60 items-center justify-center ">
       <form
-        className="border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg p-12 w-full space-y-8"
+        className="border border-gray-200 shadow-2xl shadow-sky-600/40 rounded-lg lg:p-12 p-6 w-full space-y-5"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2 className="">
-          <span className="flex justify-center items-center gap-1 text-xl">
-            <LuChefHat size={22} />
-            CookstoriaCulinary
-          </span>
-        </h2>
-
+        <Image
+          alt="Site logo"
+          className="w-[230] lg:w-[270px] mx-auto"
+          height={100}
+          src="/logo.png"
+          width={280}
+        />
         <Input
           className="border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black"
           label="User Name"

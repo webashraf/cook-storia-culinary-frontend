@@ -16,14 +16,9 @@ const roleBasedRoutes = {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  console.log("Middleware triggered for path:", pathname);
-
   const user = await getCurrentUser();
 
-  console.log("User:", user);
-
   if (!user) {
-    console.log("No user found. Redirecting to /login...");
     if (AuthRoutes.includes(pathname)) {
       return NextResponse.next();
     }
@@ -35,25 +30,15 @@ export async function middleware(request: NextRequest) {
     const allowedRoutes = roleBasedRoutes[user.role as Role];
 
     if (allowedRoutes.some((route) => pathname.match(route))) {
-      console.log("User authorized for path:", pathname);
-
       return NextResponse.next();
     }
 
     if (user.role === "admin") {
-      console.log(
-        "Admin unauthorized for this path. Redirecting to /dashboard..."
-      );
-
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
 
-    console.log("Unauthorized access. Redirecting to /...");
-
     return NextResponse.redirect(new URL("/", request.url));
   }
-
-  console.log("Default case. Redirecting to /login...");
 
   return NextResponse.redirect(new URL("/login", request.url));
 }

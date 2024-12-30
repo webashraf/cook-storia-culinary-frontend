@@ -1,4 +1,5 @@
 "use server";
+import { revalidateTag } from "next/cache";
 import { toast } from "sonner";
 
 import nexiosInstance from "@/src/config/nexios.instance";
@@ -53,12 +54,38 @@ export const getAllSociety = async () => {
 
 export const getMyConnectedSocietyFromAPI = async (userId: string) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_API}/society-member/${userId}`
+    `${process.env.NEXT_PUBLIC_BASE_API}/society-member/${userId}`,
+    { next: { tags: ["mySocieties"] } }
   );
 
   return res.json();
 };
 
+export const createSocietyPost = async (
+  payload:
+    | {
+        userId: string;
+        societyId: string;
+      }
+    | any
+) => {
+  try {
+    const result = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/society-post/create`,
+      {
+        method: "POST",
+        body: payload,
+      }
+    );
+
+    console.log(result);
+    revalidateTag("societyPosts");
+
+    return result;
+  } catch (error: any) {
+    toast.error(error?.message);
+  }
+};
 export const connectSociety = async (payload: {
   userId: string;
   societyId: string;
@@ -68,6 +95,8 @@ export const connectSociety = async (payload: {
       "/society-member/connect",
       payload
     );
+
+    revalidateTag("mySocieties");
 
     return data;
   } catch (error: any) {

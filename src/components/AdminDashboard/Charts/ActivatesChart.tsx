@@ -13,48 +13,49 @@ import {
 
 const data = [
   {
-    name: "Page A",
+    name: "2024-01-01",
     appreciate: 5,
-    dislike: 2400,
-    comments: 2400,
+    dislike: 3,
+    comments: 7,
   },
   {
-    name: "Page B",
+    name: "2024-01-02",
     appreciate: 2,
-    dislike: 1398,
-    comments: 2210,
+    dislike: 1,
+    comments: 4,
   },
   {
-    name: "Page C",
+    name: "2024-01-03",
     appreciate: 3,
-    dislike: 9800,
-    comments: 2290,
+    dislike: 2,
+    comments: 6,
   },
   {
-    name: "Page D",
+    name: "2024-01-04",
     appreciate: 6,
-    dislike: 3908,
-    comments: 2000,
+    dislike: 0,
+    comments: 5,
   },
   {
-    name: "Page E",
+    name: "2024-01-05",
     appreciate: 0,
-    dislike: 4800,
-    comments: 2181,
+    dislike: 1,
+    comments: 3,
   },
   {
-    name: "Page F",
+    name: "2024-01-06",
     appreciate: 1,
-    dislike: 3800,
-    comments: 2500,
+    dislike: 2,
+    comments: 4,
   },
   {
-    name: "Page G",
+    name: "2024-01-07",
     appreciate: 0,
-    dislike: 4300,
-    comments: 2100,
+    dislike: 1,
+    comments: 2,
   },
 ];
+
 
 const ActivatesChart = () => {
   return (
