@@ -17,9 +17,9 @@ export function CreateRecipeModal() {
   const { user }: ILogInUser | any = useUser();
 
   return (
-    <div className="flex items-center justify-center w-full mb-5">
+    <div className="flex items-center justify-center w-full">
       <Modal>
-        <ModalTrigger className="w-full flex items-center">
+        <ModalTrigger className="w-full flex items-center ">
           <Image
             alt="User Avatar"
             className="w-12 h-12 rounded-full"

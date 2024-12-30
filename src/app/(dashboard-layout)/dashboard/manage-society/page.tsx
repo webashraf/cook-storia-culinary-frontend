@@ -27,6 +27,7 @@ import { SearchIcon } from "@/src/components/icons";
 import nexiosInstance from "@/src/config/nexios.instance";
 import { getAllSociety } from "@/src/services/SocietyServices";
 
+import SocietyUpdateModal from "./_component/SocietyUpdateModal";
 import { columns, statusOptions } from "./_constents/manage-society.constant";
 
 const statusColorMap = {
@@ -238,11 +239,8 @@ export default function ManageSociety() {
                   </Button>
                 </DropdownTrigger>
                 <DropdownMenu>
-                  <DropdownItem
-                    key={society?._id}
-                    onClick={() => handlePublic(society?._id)}
-                  >
-                    Update
+                  <DropdownItem key={society?._id}>
+                    {/* <SocietyUpdateModal /> */}
                   </DropdownItem>
                   <DropdownItem
                     key={society?._id}
@@ -283,6 +281,7 @@ export default function ManageSociety() {
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
+              <SocietyUpdateModal societyId={society?._id}  setLoading={ setLoading} />
             </div>
           );
         default:

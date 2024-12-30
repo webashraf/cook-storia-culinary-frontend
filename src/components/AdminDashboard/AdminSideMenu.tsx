@@ -6,13 +6,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaUserAlt } from "react-icons/fa";
-import { GrGroup, GrHome } from "react-icons/gr";
+import { GrGroup } from "react-icons/gr";
 import { LuBookOpen } from "react-icons/lu";
-import {
-  MdOutlineDashboard,
-  MdPayments,
-  MdWorkspacePremium,
-} from "react-icons/md";
+import { MdOutlineDashboard, MdWorkspacePremium } from "react-icons/md";
 
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
@@ -37,9 +33,9 @@ import { useUser } from "@/src/context/user.provider";
 // ];
 
 const adminPages = [
-  { name: "Home", href: "/", icon: <GrHome className="h-5 w-5" /> },
+  // { name: "Home", href: "/", icon: <GrHome className="h-5 w-5" /> },
   {
-    name: "Admin Dashboard",
+    name: "Overview",
     href: "/dashboard",
     icon: <MdOutlineDashboard className="h-5 w-5" />,
   },
@@ -69,11 +65,11 @@ const adminPages = [
     href: "/dashboard/manage-society",
     icon: <GrGroup className="h-5 w-5" />,
   },
-  {
-    name: "Payment Overview",
-    href: "/dashboard/payment-overview",
-    icon: <MdPayments className="h-5 w-5" />,
-  },
+  // {
+  //   name: "Payment Overview",
+  //   href: "/dashboard/payment-overview",
+  //   icon: <MdPayments className="h-5 w-5" />,
+  // },
 ];
 
 const AdminSideMenu = () => {
@@ -97,10 +93,10 @@ const AdminSideMenu = () => {
   }, []);
 
   return (
-    <div className="w-[100%] lg:block h-[100vh] dark:bg-neutral-950 rounded-lg">
+    <div className="w-[100%] lg:block min-h-[80vh] dark:bg-neutral-950 rounded-lg">
       <ScrollShadow
         hideScrollBar
-        className="w-[100%] lg:block h-[90vh] dark:bg-neutral-950 rounded-lg p-5 flex flex-col justify-between pt-10"
+        className="w-[100%] lg:block min-h-[80vh] dark:bg-neutral-950 rounded-lg p-5 flex flex-col justify-between pt-10"
       >
         <div>
           {currentUser ? (

@@ -98,11 +98,11 @@ export default function CSProfileDropDown() {
     },
   ];
   const adminPages = [
-    {
-      key: "home",
-      content: "Home",
-      action: () => router.push("/"),
-    },
+    // {
+    //   key: "home",
+    //   content: "Home",
+    //   action: () => router.push("/"),
+    // },
     {
       key: "admin_dashboard",
       content: "Admin Dashboard",
@@ -119,6 +119,11 @@ export default function CSProfileDropDown() {
       action: () => router.push("/dashboard/manage-recipe"),
     },
     {
+      key: "manage_society",
+      content: "Manage Society",
+      action: () => router.push("/dashboard/manage-society"),
+    },
+    {
       key: "create_admin",
       content: "Create Admin",
       action: () => router.push("/dashboard/create-admin"),
@@ -128,21 +133,21 @@ export default function CSProfileDropDown() {
       content: "Manage Admin",
       action: () => router.push("/dashboard/manage-admin"),
     },
-    {
-      key: "recipe_feed",
-      content: "Recipe Feed",
-      action: () => router.push("/recipe-feed"),
-    },
-    {
-      key: "about_us",
-      content: "About Us",
-      action: () => router.push("/about-us"),
-    },
-    {
-      key: "contact_us",
-      content: "Contact Us",
-      action: () => router.push("/contact-us"),
-    },
+    // {
+    //   key: "recipe_feed",
+    //   content: "Recipe Feed",
+    //   action: () => router.push("/recipe-feed"),
+    // },
+    // {
+    //   key: "about_us",
+    //   content: "About Us",
+    //   action: () => router.push("/about-us"),
+    // },
+    // {
+    //   key: "contact_us",
+    //   content: "Contact Us",
+    //   action: () => router.push("/contact-us"),
+    // },
     {
       key: "logout",
       content: <p onClick={handleLogout}>Log Out</p>,

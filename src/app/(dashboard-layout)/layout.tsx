@@ -3,7 +3,6 @@ import { clsx } from "clsx";
 import { ReactNode } from "react";
 
 import AdminSideMenu from "@/src/components/AdminDashboard/AdminSideMenu";
-import Footer from "@/src/components/Shared/Footer/Footer";
 import { Navbar } from "@/src/components/Shared/navbar";
 import { fontSans } from "@/src/config/fonts";
 
@@ -26,7 +25,7 @@ const layout = ({ children }: { children: ReactNode }) => {
               </div>
               <ScrollShadow
                 hideScrollBar
-                className="lg:ml-auto  lg:w-[75%] w-full h-screen pb-10"
+                className="lg:ml-auto  lg:w-[75%] w-full h-[90vh] pb-10 px-5 lg:px-0 "
                 isEnabled={false}
                 offset={0}
               >
@@ -36,7 +35,7 @@ const layout = ({ children }: { children: ReactNode }) => {
           </div>
         </>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

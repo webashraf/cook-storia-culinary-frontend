@@ -13,7 +13,8 @@ const FaCheckToSlot = React.lazy(() =>
 
 // Define TypeScript interfaces for API responses
 interface User {
-  PremiumUser: number;
+  premiumUser: any;
+  premiumUserLength: number;
   dataLength: number;
 }
 
@@ -105,7 +106,7 @@ const LoginPage = () => {
                 <Suspense fallback={<span>Loading icon...</span>}>
                   <FaCheckToSlot color="#90bf2f" />
                 </Suspense>
-                Total{" "}
+                Total
                 <span className="text-[#90bf2f] font-semibold">
                   {recipes.premiumRecipe}
                 </span>{" "}
@@ -117,7 +118,7 @@ const LoginPage = () => {
                 </Suspense>
                 Total{" "}
                 <span className="text-[#90bf2f] font-semibold">
-                  {user.PremiumUser}
+                  {user.premiumUserLength}
                 </span>{" "}
                 premium users.
               </li>

@@ -138,7 +138,7 @@ const ProfileHeader = ({ userId }: userId) => {
                 )}
               </h1>{" "}
             </div>
-            <div className="flex space-x-4 text-gray-500 dark:text-gray-400 mt-2">
+            <div className="flex gap-3 text-gray-500 dark:text-gray-400 flex-wrap">
               <span>
                 <strong className="font-bold text-black dark:text-white">
                   {totalRecipes}

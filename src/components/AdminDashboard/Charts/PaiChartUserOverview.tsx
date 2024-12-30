@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Cell,
   Legend,
@@ -7,27 +8,11 @@ import {
   Tooltip,
 } from "recharts";
 
-const data = [
-  { name: "Total User", value: 400 },
-  { name: "Premium User", value: 300 },
-  { name: "Total Society", value: 300 },
-  // { name: "Total Recipe", value: 200 },
-  // { name: "Total Recipe Post", value: 500 },
-  // { name: "Total Appreciate", value: 800 },
-  // { name: "Total Dislike", value: 300 },
-  // { name: "Total Comments", value: 700 },
-];
+import { useUser } from "@/src/context/user.provider";
+import { getAllUser } from "@/src/services/AuthService";
+import { getAllSociety } from "@/src/services/SocietyServices";
 
-const COLORS = [
-  "#0088FE",
-  "#00C49F",
-  "#FFBB28",
-  // "#FF8042",
-  // "#FF6384",
-  // "#36A2EB",
-  // "#FFCE56",
-  // "#4BC0C0",
-];
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
@@ -58,6 +43,36 @@ const renderCustomizedLabel = ({
 };
 
 const PaiChartUserOverview = () => {
+  const { user: currentUser } = useUser();
+  const [loading, setLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState<
+    { recipes: any; allUser: any } | any
+  >(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const { data }: any = await getAllSociety();
+        const user: any = await getAllUser();
+
+        setUserInfo({ society: data, user });
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError("Failed to load data. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+  const data = [
+    { name: "Total User", value: userInfo?.user?.dataLength },
+    { name: "Premium User", value: userInfo?.user?.premiumUserLength },
+    { name: "Total Society", value: userInfo?.society.length },
+  ];
+
   return (
     <div className=" mx-auto  p-6 rounded-lg">
       <h2 className="text-xl font-bold text-white text-center mb-4">

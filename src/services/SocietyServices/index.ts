@@ -26,6 +26,20 @@ export const getSociety = async (userId: string) => {
     throw new Error("Field to getSociety");
   }
 };
+
+export const getSingleSociety = async (societyId: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/society/single/${societyId}`
+    );
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+    throw new Error("Field to getSociety");
+  }
+};
+
 export const getAllSociety = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/society`);

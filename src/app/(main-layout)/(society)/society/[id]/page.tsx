@@ -22,6 +22,8 @@ export default function GroupPage({ params }: any) {
     (member) => member?.userId?._id === user?.id
   );
 
+  console.log("society", society);
+
   useEffect(() => {
     const fetchSociety = async () => {
       try {
