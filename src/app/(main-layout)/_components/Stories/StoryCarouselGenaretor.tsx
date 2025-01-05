@@ -19,6 +19,7 @@ import Stories from "stories-react";
 
 import { cn } from "@/src/lib/utils";
 
+import Link from "next/link";
 import { useOutsideClick } from "./AnimatedModal";
 
 interface CarouselProps {
@@ -123,23 +124,6 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                   src={item?.props?.card?.user?.profilePicture}
                   width={50}
                 />
-                {/* <div>
-                  <h4 className="flex gap-1 text-[14px]">
-                    {item?.props.card.user?.username.slice(0, 6)}...
-                    <span>
-                      {item?.props.card.user?.isPremium ? (
-                        <p className="text-warning-500">(Pro)</p>
-                      ) : (
-                        ""
-                      )}
-                    </span>
-                  </h4>
-                  <span className="text-[#acacac] text-[12px]">
-                    {moment(item?.props?.card?.createdAt).format(
-                      "MMM YYYY h:mm a"
-                    )}
-                  </span>
-                </div> */}
               </div>
               {item}
             </motion.div>
@@ -233,7 +217,7 @@ export const Card = ({
               >
                 <GiTireIronCross className="h-6 w-6 text-neutral-100 dark:text-neutral-900" />
               </button>
-              <div>
+              <Link href={`/user/${card?.user?._id}`}>
                 <User
                   avatarProps={{
                     src: card?.user?.profilePicture,
@@ -256,7 +240,7 @@ export const Card = ({
                     </h4>
                   }
                 />
-              </div>
+              </Link>
               <div className="py-5">
                 <Stories
                   height="600px"

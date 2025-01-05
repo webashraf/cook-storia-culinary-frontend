@@ -11,7 +11,7 @@ const MyConnectedSociety = () => {
   const { user }: IUser | any = useUser();
   const [myConnectedSocieties, setMyConnectedSocieties] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
+  console.log(myConnectedSocieties);
   useEffect(() => {
     const fetchConnectedSocieties = async () => {
       if (user?.id) {

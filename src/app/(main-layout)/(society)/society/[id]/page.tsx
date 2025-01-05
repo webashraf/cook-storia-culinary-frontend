@@ -1,12 +1,14 @@
 "use client";
 
-import { Card, CardBody, Tab, Tabs } from "@nextui-org/react";
-import { useEffect, useState } from "react";
-
 import nexiosInstance from "@/src/config/nexios.instance";
 import { useUser } from "@/src/context/user.provider";
 import { ILogInUser } from "@/src/types/user";
+import { Card, CardBody, Tab, Tabs } from "@nextui-org/react";
+import { useEffect, useState } from "react";
 
+import Image from "next/image";
+import Link from "next/link";
+import { FaCrown } from "react-icons/fa";
 import CreateSocietyPost from "../_components/_singleSociety/CreateSocietyPost";
 import SocietyHeader from "../_components/_singleSociety/SocietyHeader";
 import SocietyMembers from "../_components/_singleSociety/SocietyMembers";
@@ -18,7 +20,7 @@ export default function GroupPage({ params }: any) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { user }: ILogInUser | any = useUser();
-
+  console.log(society);
   // Find the current member
   const currentMember = members.find(
     (member) => member?.userId?._id === user?.id
@@ -86,8 +88,8 @@ export default function GroupPage({ params }: any) {
       {/* Main Content */}
       <div className="container mx-auto mt-8 px-4">
         {/* Society Info */}
-        <div className="flex justify-between">
-          <div className="w-full">
+        <div className="flex justify-between flex-col lg:flex-row gap-5 ">
+          <div className="w-full lg:w-[60%]">
             <h1 className="text-2xl font-bold hover:underline capitalize">
               {society?.societyName || "Society Name"}
             </h1>
@@ -97,6 +99,25 @@ export default function GroupPage({ params }: any) {
               {members?.length === 1 ? "" : "s"}
             </p>
           </div>
+          <Link
+            href={`/user/${society?.admin?._id}`}
+            className="flex items-start lg:justify-end gap-3 lg:w-[40%] w-full"
+          >
+            <Image
+              className="rounded-full border-2 border-dashed"
+              src={society?.admin?.profilePicture}
+              height={40}
+              width={40}
+              alt="admin-photo"
+            />
+            <div>
+              <div className="flex items-center gap-1">
+                <h4>{society?.admin?.username?.slice(0, 10)}..</h4>
+                <FaCrown size={18} className="text-yellow-500" />
+              </div>
+              <h6 className="text-[12px] text-neutral-400">Admin</h6>
+            </div>
+          </Link>
         </div>
 
         {/* Main Section */}

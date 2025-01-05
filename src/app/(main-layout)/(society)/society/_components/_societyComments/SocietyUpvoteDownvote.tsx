@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/button";
 import { useEffect, useState } from "react";
 import { AiOutlineDislike } from "react-icons/ai";
-import { FaCommentMedical, FaShare } from "react-icons/fa6";
+import { FaShare } from "react-icons/fa6";
 import { LuHeartHandshake } from "react-icons/lu";
 
 import { useUser } from "@/src/context/user.provider";
@@ -99,12 +99,7 @@ const SocietyUpvoteDownvote = ({ post }: any) => {
       </div>
 
       <div className="flex gap-2">
-        <span className="flex items-center gap-1">
-          <Button isIconOnly={true} size="sm">
-            <FaCommentMedical size={18} />
-          </Button>
-          Comments
-        </span>
+      
         <span className="flex items-center gap-1">
           <Button isIconOnly={true} size="sm">
             <FaShare size={18} />
